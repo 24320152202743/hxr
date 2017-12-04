@@ -1,0 +1,17 @@
+<!—CheckInfo.wxml-->
+<page>
+  <view class="topBoardView">  
+      <image src="背景.jpg" class="topIcon"></image>
+      <image src="头像.png" class="topHead"></image>
+      <span class="topClickHead">点击头像以修改</span>
+      <span class="topName">姓名：韦小宝</span>
+      <span class="topID">学号：24320156789</span>
+   </view>
+   <view class="mainView">
+      <span class="phone">18856785678</span>
+      <span class="ID">学号：24320156789</span>
+      <span class="name">姓名：韦小宝</span>
+      <span class="school">学校：厦门大学</span>
+      <button class="confirmButton">解绑</button>
+   </view>
+</page>

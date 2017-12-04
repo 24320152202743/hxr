@@ -1,0 +1,14 @@
+<page>
+  <view class="box5" style="position:relative;">
+    <!-- 背景图的view -->
+    <image class="img2" src="../images/背景图2.jpg"  />
+    <image class="img1" bindtap="CheckStudnetInfoUI" src="{{info.avatar}}"  />
+    <view class="FONT4 personName">姓名：{{info.name}}</view>
+    <view class="FONT4 number">学号：{{info.number}}</view>
+  </view>
+  
+  <view wx:for="{{course}}" class="box3" bindtap="CourseUI" data-course-obj="{{item}}">
+    <text class="FONT11"> {{item.name}}</text>
+    <text class="FONT51"> 老师：{{item.teacherName}}</text>
+  </view>
+</page>

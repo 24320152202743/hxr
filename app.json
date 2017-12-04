@@ -1,0 +1,20 @@
+{
+  "pages":[
+    "pages/index/CheckStudentInfoUI",
+    "pages/index/TeacherMainUI",
+    "pages/index/CourseUI",
+    "pages/index/StudentMainUI",
+    "pages/index/GroupChooseTopicUI",
+    
+    
+    
+    
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"black"
+  }
+}
