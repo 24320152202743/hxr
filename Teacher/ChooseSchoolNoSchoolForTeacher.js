@@ -24,7 +24,9 @@ Page({
         "id": 4,
         "name": "学校4"
       }
-    ]
+    ],
+    teacherID: '',
+    teacherName: ''
 
   },
 
@@ -34,7 +36,9 @@ Page({
   onLoad: function (options) {
     this.setData({
       city: options.name,
-      province: options.province
+      province: options.province,
+      teacherID: options.teacherID,
+      teacherName: options.teacherName
     })
 
   },
@@ -86,12 +90,14 @@ Page({
   onShareAppMessage: function () {
 
   },
-  ChooseSchoolNoSchoolForTeacher2: function () {
-    wx.navigateTo({
-      url: './ChooseSchoolNoSchoolForTeacher2',
-      success: function (res) { },
-      fail: function () { },
-      complete: function () { }
+  ChooseSchoolNoSchoolForTeacher: function (e) {
+    var name = e.currentTarget.dataset.schoolObj.name;
+    var province = this.data.province;
+    var city = this.data.city;
+    var teacherID = this.data.teacherID;
+    var teacherName = this.data.teacherName;
+    wx.redirectTo({ 
+      url: './TeacherBindingUI2?name= ' + name + '&province=' + province + '&city=' + city + '&teacherID=' + teacherID + '&teacherName=' + teacherName
     })
   }
 })

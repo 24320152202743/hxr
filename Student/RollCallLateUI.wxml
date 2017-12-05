@@ -1,0 +1,52 @@
+<page>
+  <!--设置左上角的blueBoardIcon-->
+  <view class="blueUsersView">
+    <image src="../images/blueboard.png" class='blueUsersIcon' />
+    <strong>讨论课信息</strong>
+  </view>
+
+  <!--细线，hr不好设置css，用一个高度很小的view来代替-->
+  <view class="hrView">
+  </view>
+
+  <!--课堂信息，由一个icon和一行文字组成-->
+ <view class="courseInfoView">
+    <image src="../images/teacher.png" class='courseInfoIcon' />
+    <strong>{{seminarDetail.teacherName}}</strong>
+  </view>
+  <view class="courseInfoView">
+    <image src="../images/mail.png" class='courseInfoIcon' />
+    <strong>{{seminarDetail.teacherEmail}}</strong>
+  </view>
+  <view class="courseInfoView">
+    <image src="../images/Calendar.png" class='courseInfoIcon' />
+    <strong>{{seminarDetail.startTime}}-{{seminarDetail.endTime}}</strong>
+  </view>
+  <view class="courseInfoView">
+    <image src="../images/site.png" class='courseInfoIcon' />
+    <strong>{{seminarDetail.site}}</strong>
+  </view>
+
+  <!--签到成功
+  <view class="successCall">
+        <image src="../../闹钟.png" class='courseInfoIcon'/>
+        <strong>签到成功</strong>
+   </view>   
+  -->
+
+  <!--迟到签到成功-->
+  <view class="lateCall">
+        <image src="../images/clock.png" class='courseInfoIcon'/>
+        <strong>迟到签到成功</strong>
+   </view>   
+  
+
+  <!--签到按钮
+  <view>
+    <button type="button" class="blueBigBtn">
+      签到
+    </button>
+  </view>
+-->
+
+</page>

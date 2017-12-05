@@ -3,12 +3,12 @@
 	<span class="title">{{coursename}}</span>
 		<span class="titleSmall"> {{seminarname}}</span>
 	</view>
-	<view class="ScoreBoxBlue">
-    <span class="ButtonTextRight" bingtap='GradePresentationUI'>打分</span></view>
-  <view class="CallBoxBlue">
-    <span class="ButtonTextLeft" bindtap='RoolCallUI'>签到</span>
+	<view class="ScoreBoxBlue" bindtap='GradePresentationUI'>
+    <span class="ButtonTextRight" >打分</span></view>
+  <view class="CallBoxBlue" bindtap='RollCallUI'>
+    <span class="ButtonTextLeft" >签到</span>
   </view>
-	<view class="GroupBoxBlue" style="float: ">
-	  <text class="ButtonTextLeft" bindtap='RandomGroupNoLeaderUI'>组队和选题</text>
+	<view class="GroupBoxBlue" style="float: " bindtap='FixedGroupNoLeaderUI'>
+	  <text class="ButtonTextLeft" >组队和选题</text>
   </view>
 </page>

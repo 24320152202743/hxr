@@ -6,9 +6,10 @@ Page({
    */
   data: {
     seminarName: "讨论课4",
-    topic: "模块划分",
+    topic: "",
     leaderName: "世界巅峰",
     leaderId: "24320152202745",
+    groupMethod:'固定分组',
     groupMembers: [
       {
         sname: "绝尘世",
@@ -34,6 +35,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      topic : options.topic
+    })
   
   },
 
@@ -84,5 +88,11 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+
+  Leave: function () {
+    wx.redirectTo({
+      url: './FixedGroupNoLeaderUI',
+    })
   }
 })

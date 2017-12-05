@@ -30,15 +30,15 @@ Page({
   Leave: function()
   {
     wx.redirectTo({
-      url: "../FixedGroupNoLeaderUI2/FixedGroupNoLeaderUI2",
+      url: "./FixedGroupNoLeaderUI",
       success: function(res) {},
       fail: function(res) {},
       complete: function(res) {},
     })
   },
   choose: function(){
-    wx.navigateTo({
-      url: "FixedGroupChooseTopicUI1",
+    wx.redirectTo({
+      url: "./GroupChooseTopicUI",
       success: function(res) {},
       fail: function(res) {},
       complete: function(res) {},

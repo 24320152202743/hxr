@@ -10,11 +10,11 @@
   <label class='ID'>教工号</label>
   <label class='name'>姓名</label>
   <label class='school'>学校</label>
-  <image src='../images/warning.png' class='tipIcon'/>
+  <image src='../images/warning.png' class='tipIcon'/> 
   <text class='tipFont'>提交后不能修改</text>
-  <input class='inputID' name='teacherID'></input>
-  <input class='inputSchool' name='school'></input>
-  <input class='inputName' name='name'></input>
+  <input class='inputID'  bindinput ="IDInput"></input>
+  <input class='inputSchool'  disabled="disabled" ></input>
+  <input class='inputName' bindinput ="NameInput"></input>
   <button class='confirmButton' bindtap='register'>绑定</button>
   <image src='../images/ninedot.png' class='selectSchoolIcon' bindtap='ChooseSchool'></image>
  </view>

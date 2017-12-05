@@ -22,7 +22,9 @@ Page({
         "id":4,
         "name":"福建"
       }
-    ]
+    ],
+    teacherID: '',
+    teacherName: ''
   
   },
   
@@ -30,6 +32,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
+    this.setData({
+      teacherID: options.teacherID,
+      teacherName: options.teacherName
+    })
+
   
   },
 
@@ -89,8 +97,10 @@ Page({
       console.log(e);
       console.log(e.currentTarget.dataset.provinceObj.name);
       var name = e.currentTarget.dataset.provinceObj.name;
-      wx.navigateTo({
-      url: './ChooseSchool4?name='+name
+      var teacherID = this.data.teacherID;
+      var teacherName = this.data.teacherName;
+      wx.redirectTo({
+        url: './ChooseSchool4?name=' + name + '&teacherID=' + teacherID + '&teacherName=' + teacherName
     })
   }
 })

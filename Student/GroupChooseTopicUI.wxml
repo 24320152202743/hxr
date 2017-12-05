@@ -1,0 +1,47 @@
+<page>
+  <!--设置左上角的usersIcon-->
+  <view class="blueUsersView">
+    <image src="../images/users.png" class='blueUsersIcon' />
+    <strong>请为您的队伍选题</strong>
+  </view>
+
+  <!--细线，hr不好设置css，用一个高度很小的view来代替-->
+  <view class="hrView">
+  </view>
+<block  wx:for="{{topic}}">
+
+    <view wx:if="{{item.groupLeft>0}}" class="blueTopicView">
+      <span class="topic" id="{{item.id}}" bindtap="chooseTopic" data-topic-obj="{{item}}">话题{{item.order}}</span>
+          <view class="hrVertical"> </view>
+            <span class="topicName">{{item.name}}</span>
+            <span wx:if="{{item.groupLeft>1}}">
+              <span class="leftNumWhite">剩余 ： {{item.groupLeft}}/{{item.groupLimit}}</span>
+            </span>
+            <span wx:if="{{item.groupLeft==1}}">
+              <span class="leftNumRed">剩余 ： {{item.groupLeft}}/{{item.groupLimit}}</span>
+            </span>
+      <image src='../images/ninedot.png' id="{{item.id}}" class="nineIcon" bindtap="detail" data-topic-obj="{{item}}"></image>
+    </view>
+
+    <view wx:if="{{item.groupLeft==0}}" class="greyTopicView" data-topic-obj="{{item}}">
+              <span class="topic" bindtap="chooseTopic">话题{{item.order}}</span>
+              <view class="hrVertical"> </view>
+              <span class="topicName">{{item.name}}</span>
+              <span class="leftNumWhite">剩余 ： {{item.groupLeft}}/{{item.groupLimit}}</span>
+      <image src='../images/九点.png' id="{{item.id}}" class="nineIcon" bindtap="detail" data-topic-obj="{{item}}"></image>
+    </view>
+
+    <view wx:if="{{item.flag==1}}">  <!--是否显示detail-->
+              <view class="topicDescribeView">
+              <span class="topicDescribeTitle">
+                {{item.name}}
+              </span>
+              <span class="topicDescribeText">
+                {{item.description}}
+              </span>
+              </view>
+     </view>
+
+  </block>
+
+</page>

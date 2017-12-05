@@ -35,7 +35,7 @@ Page({
   Seminar: function (e) {
     var id = e.currentTarget.dataset.seminarObj.id;
     wx.navigateTo({
-      url: '../index/Seminar?seminarId=' + id
+      url: './Seminar?seminarId=' + id
     })
   },
   /**

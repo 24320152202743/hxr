@@ -5,17 +5,43 @@ Page({
    * 页面的初始数据
    */
   data: {
+    teacherID:'',
+    teacherName:'',
   school:'厦门大学'
   },
-  Teacher_MainUI: function () {
+  ChooseSchool: function () {
+    var teacherID = this.data.teacherID;
+    var teacherName = this.data.teacherName;
     wx.navigateTo({
-      url: 'Teacher_MainUI',
+      url: './ChooseSchool2?teacherID=' + teacherID + '&teacherName=' + teacherName
+    })
+  },
+  Teacher_MainUI: function () {
+    wx.reLaunch({
+      url: './TeacherMainUI',
+    })
+  },
+  IDInput: function (e) {
+    this.setData({
+      teacherID: e.detail.value
+    }) 
+  },
+
+  NameInput: function (e) {
+    this.setData({
+      teacherName: e.detail.value
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options),
+    this.setData({
+      school: options.name,
+      teacherID: options.teacherID,
+      teacherName: options.teacherName
+    })
   
   },
 

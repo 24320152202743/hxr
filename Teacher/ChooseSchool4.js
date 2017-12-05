@@ -23,7 +23,9 @@ Page({
         "id": 4,
         "name": "城市4"
       }
-    ]
+    ],
+    teacherID: '',
+    teacherName: ''
 
   },
 
@@ -32,7 +34,9 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      province:options.name
+      province:options.name,
+      teacherID: options.teacherID,
+      teacherName: options.teacherName
     })
 
 
@@ -91,8 +95,10 @@ Page({
     console.log(e.currentTarget.dataset.cityObj.name);
     var name = e.currentTarget.dataset.cityObj.name;
     var province = this.data.province;
-    wx.navigateTo({
-      url: './ChooseSchoolNoSchoolForTeacher?name= ' + name +'&province=' + province
+    var teacherID = this.data.teacherID;
+    var teacherName = this.data.teacherName;
+    wx.redirectTo({
+      url: './ChooseSchoolNoSchoolForTeacher?name= ' + name + '&province=' + province + '&teacherID=' + teacherID + '&teacherName=' + teacherName
     })
   }
 })

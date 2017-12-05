@@ -14,7 +14,7 @@ Page({
     } catch (e) {
     }
     wx.navigateTo({
-      url: 'TeacherBindingUI'
+      url: '../Teacher/TeacherBindingUI'
     })
     console.log('teacher')
   },

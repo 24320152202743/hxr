@@ -1,15 +1,12 @@
 {
   "pages":[
-    "Student/CourseUI",
-    "Student/CourseInfoUI",
     "common/ChooseCharacter",
-    "Student/StudentBindingUI",
-    "Student/ChooseSchool",
-    "Student/ChooseSchool3",
-    "Student/ChooseSchool5",
-    "Student/StudentBindingUI2",
-    "Student/StudentMainUI",
-    "Student/CheckStudentInfo"
+    "Teacher/TeacherBindingUI",
+    "Teacher/ChooseSchool2",
+    "Teacher/ChooseSchool4",
+    "Teacher/ChooseSchoolNoSchoolForTeacher",
+    "Teacher/TeacherBindingUI2",
+    "Teacher/TeacherMainUI"
   ],
   "window":{
     "backgroundTextStyle":"light",

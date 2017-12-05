@@ -8,7 +8,7 @@ Page({
     StudentID:'',
     StudentName:''
 
-  },
+  }, 
   ChooseSchool: function (e) {
     var StudentID = this.data.StudentID;
     var StudentName=this.data.StudentName;

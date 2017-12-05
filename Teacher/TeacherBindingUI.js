@@ -6,17 +6,20 @@ Page({
    */
   data: {
     teacherID: '',
-    name:'',
+    teacherName:'',
     school:''
   },
   /*获取输入 */
-  getinput: function (e) {
+  IDInput: function (e) {
     this.setData({
-      teacherID: e.detail.value.teacherID,
-      name: e.detail.value.name,
-      school: e.detail.value.school
+      teacherID: e.detail.value
     })
+  },
 
+  NameInput: function (e) {
+    this.setData({
+      teacherName: e.detail.value
+    })
   },
   /*注册 */
   register: function () {
@@ -25,9 +28,11 @@ Page({
     })
 
   },
-  ChooseSchool1: function () {
+  ChooseSchool: function () {
+    var teacherID = this.data.teacherID;
+    var teacherName = this.data.teacherName;
     wx.navigateTo({
-      url: 'ChooseSchool1',
+      url: './ChooseSchool2?teacherID=' + teacherID + '&teacherName=' + teacherName
     })
   },
   /**

@@ -9,19 +9,19 @@ Page({
   seminarname:'讨论课4'
 
   },
-  RandomGroupNoLeaderUI: function () {
+  FixedGroupNoLeaderUI: function () {
     wx.navigateTo({
-      url: 'RandomGroupNoLeaderUI',
+      url: './FixedGroupNoLeaderUI',
     })
   },
   GradePresentationUI: function () {
     wx.navigateTo({
-      url: 'GradePresentationUI',
+      url: './GradePresentationUI',
     })
   },
-  RoolCallUI: function () {
+  RollCallUI: function () {
     wx.navigateTo({
-      url: 'RoolCallUI',
+      url: './RollCallUI',
     })
   },
   /**

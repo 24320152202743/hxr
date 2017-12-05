@@ -7,7 +7,7 @@
       <!--讨论课和固定分组要加一个seminarView容器来固定位置-->
       <view class = "seminarView">
       <text class="seminarText">{{seminarName}}</text>
-      <span class="seminarText">固定分组</span>
+      <span class="seminarText">{{groupMethod}}</span>
       </view>
     </view>
   </block>
