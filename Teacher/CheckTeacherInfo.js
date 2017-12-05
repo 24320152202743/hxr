@@ -17,8 +17,8 @@ Page({
       content: '确定要解绑吗？',
       success: function (res) {
         if (res.confirm) {
-          wx.navigateTo({
-            url: 'ChooseCharacter',
+          wx.redirectTo({
+            url: '../common/ChooseCharacter',
           })
           console.log('用户点击确定解绑')
         } else if (res.cancel) {

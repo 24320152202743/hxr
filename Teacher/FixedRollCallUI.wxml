@@ -1,0 +1,52 @@
+<page>
+  <!--设置左上角的蓝色板-->
+  <view class="blueBoardView">
+    <image src="../images/blueboard.png" class='blueBoardIcon' />
+  </view>
+
+
+  <!--班级1 的字样-->
+  <view class='classNameView'>
+    {{classInfo.name}}
+  </view>
+
+  <!--学生总数：40 的字样-->
+  <view class='studentSumView'>
+    学生总数: {{classInfo.numStudent}}
+  </view>
+
+  <!--细线，hr不好设置css，用一个高度很小的view来代替-->
+  <view class="hrView">
+  </view>
+
+ 
+
+  <!--已签到的学生+icon+签到名单，表示当签到开始后结束前的样子-->
+  <view class="studentNum2">
+    <image src="../images/users.png" class="usersIcon2" />
+    <span>已签到学生: {{presentNum}}/{{classInfo.numStudent}}</span>
+  </view>
+  <button type="button" class="blueSmallBtn" bindtap="RollCallListUI">
+    签到名单
+  </button>
+
+
+  <!--下面是button，分为BigBtn和SmallBnt,只有正在签到时 
+的 签到名单按钮 是SmallBnt。 当使用greyBigBtn的时候要加
+上提示语。-->
+  <view>
+    <button type="button" class="redBigBtn" bindtap="FixedEndRollCallUI">
+      结束签到
+    </button>
+  </view>
+
+  <view>
+    <button type="button" class="blueBigBtn" bindtap='FixedGroupInfoUI'>
+      查看分组
+    </button>
+  <!--
+    <text class="noGroup">
+      随机分组还未开始，不能查看分组
+    </text>-->
+  </view>
+</page>

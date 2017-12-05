@@ -17,7 +17,7 @@
     <view wx:for="{{school}}" class="box8" bindtap="ChooseSchoolNoSchoolForTeacher" data-school-obj="{{item}}">
     <button class="button2" >{{item.name}}</button>
     </view>
-    <view class="box8"><button class="button2" style="" bindtap="">无学校?选择创建</button></view>
+    <view class="box8"><button class="button2" bindtap="CreateSchool">无学校?选择创建</button></view>
   </scroll-view>
 	</view>
 </page>

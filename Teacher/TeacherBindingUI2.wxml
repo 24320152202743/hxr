@@ -16,7 +16,7 @@
   <input class='inputSchool' value='{{school}}'></input> 
   <input class='inputName' value='{{teacherName}}'></input>
   <button class='confirmButton' bindtap='Teacher_MainUI'>绑定</button>
-  <image src='../images/ninedot.png' class='selectSchoolIcon'></image>
+  <image src='../images/ninedot.png' class='selectSchoolIcon' bindtap='ChooseSchool'></image>
  </view>
 </page>
 

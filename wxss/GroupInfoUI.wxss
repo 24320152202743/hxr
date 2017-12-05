@@ -112,7 +112,7 @@ page {
 /*增加学生前面的加号*/
 
 .addIcon {
-  float: right;
+  float: left;
   width: 25%;
   height: 100%;
 }

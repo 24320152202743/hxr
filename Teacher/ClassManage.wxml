@@ -1,0 +1,30 @@
+<!--logs.wxml-->
+<page>
+  <!--设置蓝色上方-->
+  <view class='blueHeader'>
+    <span>{{Classmanage.name}}</span>
+    <span class="seminarText">{{Classmanage.seminar}}</span>
+  </view>
+  <!--讨论课的时间和分组方式-->
+ <view class="ourcontainer">
+  <view class="clockAndGroupView">
+    <image src="../images/clock.png"  mode='widthFix'  class='clockAndGroupIcon'/>
+    <text class='clockAndGroupText'>{{Classmanage.startTime}} - {{Classmanage.endTime}}</text> 
+  </view>
+
+  <view class="clockAndGroupView">
+    <image src="../images/clip.png"  mode='widthFix' class="clockAndGroupIcon" />
+    <text class='clockAndGroupText'>{{Classmanage.groupingMethod}}</text>
+  </view>
+  </view>
+
+  <!--讨论课的班级，要增加新班级就复制一个view，然后修改班级名称-->
+  <view class="classView" wx:for="{{Classmanage.classes}}" wx:key="name">
+    <image src="../images/ClassManage.png" class="classIcon" bindtap="RollStartCallUI" />
+    <p class="className" >{{item.name}}</p>
+    <view class="studentView">
+
+
+    </view>
+  </view>
+</page>

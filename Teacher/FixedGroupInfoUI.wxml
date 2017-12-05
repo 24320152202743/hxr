@@ -1,0 +1,39 @@
+<page>
+  <!--设置左上角的usersIcon-->
+  <view class="blueUsersView">
+    <image src="../images/users.png" class='blueUsersIcon' />
+    <strong>队伍信息</strong>
+  </view>
+
+
+  <!--细线，hr不好设置css，用一个高度很小的view来代替-->
+  <view class="hrView">
+  </view>
+
+
+  <!--学生名单上面那个蓝色的bar-->
+  <view wx:for="{{classGroup}}"wx:for-item="group">
+  <view  class='studentListBarView' id="{{group.id}}" bindtap='changeGroup'>
+    <span>{{group.name}}</span>
+    <span class="groupTopics">选题：
+      <span wx:for="{{group.topics}}" wx:for-item="topic">
+        {{topic.name}}
+      </span>
+    </span>
+  </view>
+    <view wx:if="{{groupInfo.id ==group.id && display }}" class="studentView">
+      <view class='studentBlock'>
+        <image src="../images/user.png" class='userIcon' />
+        <span class="studentName">{{groupInfo.leader.name}}</span>
+      </view>
+      <view wx:for="{{groupInfo.members}}" wx:for-item="member">
+        <view class='studentBlock'>
+        <image src="../images/user.png" class='userIcon' />
+        <span class="studentName">{{member.name}}</span>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+</page>

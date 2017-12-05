@@ -44,7 +44,7 @@ Page({
 
 
   CheckStudnetInfoUI: function () {
-    wx.reLaunch({
+    wx.navigateTo({
       url: '../Student/CheckStudentInfo?name=' + this.data.info.id
     })
   },
@@ -54,7 +54,7 @@ Page({
     console.log(e.currentTarget.dataset.courseObj.id);
     var id = e.currentTarget.dataset.courseObj.id;
       wx.navigateTo({
-        url: '../index/CourseUI?courseId=' + id + '&studentId=' + this.data.info.id
+        url: '../Student/CourseUI?courseId=' + id + '&studentId=' + this.data.info.id
       })
   },
   /**

@@ -38,7 +38,7 @@ Page({
 
   CheckTeacherInfoUI: function () {
     wx.navigateTo({
-      url: '../index/CheckTeacherInfoUI?name=' + this.data.info.name,
+      url: './CheckTeacherInfo?name=' + this.data.info.name,
       success: function (res) {
         // wx.showToast({
         //   title: '成功',
@@ -62,7 +62,7 @@ Page({
     console.log(this.data.date);
     var id = e.currentTarget.dataset.courseObj.id;
       wx.navigateTo({
-        url: '../index/ClassManage?classId='+id,
+        url: './ClassManage?classId='+id,
         success: function (res) {
           // wx.showToast({
           //   title: '成功',

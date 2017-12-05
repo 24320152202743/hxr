@@ -99,5 +99,14 @@ Page({
     wx.redirectTo({ 
       url: './TeacherBindingUI2?name= ' + name + '&province=' + province + '&city=' + city + '&teacherID=' + teacherID + '&teacherName=' + teacherName
     })
+  },
+  CreateSchool:function(e){
+    var province = this.data.province;
+    var city = this.data.city;
+    var teacherID = this.data.teacherID;
+    var teacherName = this.data.teacherName;
+    wx.redirectTo({
+      url: '../common/CreateSchoolUI?province=' + province + '&city=' + city + '&teacherID=' + teacherID + '&teacherName=' + teacherName
+    })
   }
 })

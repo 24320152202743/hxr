@@ -35,6 +35,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
+  ChooseSchool: function () {
+    var teacherID = this.data.teacherID;
+    var teacherName = this.data.teacherName;
+    wx.navigateTo({
+      url: './ChooseSchool2?teacherID=' + teacherID + '&teacherName=' + teacherName
+    })
+  },
   onLoad: function (options) {
     console.log(options),
     this.setData({
