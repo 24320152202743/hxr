@@ -1,0 +1,13 @@
+<!--pages/BindingAndIndex/ChooseCharacter.wxml-->
+<page>
+  <view class='topBoardView'>
+    <image src="../images/background.jpg" class='topIcon' />
+    <image src="../images/bulb.png" class='topLight'></image>
+    <text class='topTips'>请选择您的账号类型！</text>
+    <image src="../images/line.png" class='topLine' />
+  </view>
+  <view class='mainView'>
+    <button class='teacherButton' bindtap='bindViewTap'>老师</button>
+    <button class='studentButton' bindtap='bindViewTap2'>学生</button>
+  </view>
+</page>

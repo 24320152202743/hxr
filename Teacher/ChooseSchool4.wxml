@@ -1,0 +1,23 @@
+	
+<page>
+	<view class="box5" style="position:relative;"><!-- 背景图的view -->
+		<image class="img7" src="../images/bulb (2).png" />  
+		<image class="img8" src="../images/background.jpg" />  
+		　　<view class="FONT41">请选择您的学校</view> 
+	</view>
+
+  <view class="box6" style="background-color: =#66CCFF;">
+	<button class="button1" >{{province}}</button>
+	<button class="button1" >州市<view class="hrView"/></button>
+	<button class="button1" >学校</button>
+	</view>
+
+	<view class="box7" >
+  <scroll-view scroll-y="true" style="height:330px;">
+    <view wx:for="{{city}}" class="box8" bindtap="ChooseSchoolNoSchoolForTeacher" data-city-obj="{{item}}">
+    <button class="button2" >{{item.name}}</button>
+  </view>
+  </scroll-view>
+	</view>
+</page>
+	

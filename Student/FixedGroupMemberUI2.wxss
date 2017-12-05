@@ -1,0 +1,2 @@
+/* pages/grouplist/FixedGroupMemberUI2.wxss */
+@import "./FixedGroupLeaderUI.wxss";

@@ -1,0 +1,54 @@
+<!--pages/grouplist/FixedGroupMemberUI2.wxml-->
+<view>
+  <block>
+    <view>
+      <image class="seminarImg" src="../images/users.png" />
+
+      <!--讨论课和固定分组要加一个seminarView容器来固定位置-->
+      <view class = "seminarView">
+      <text class="seminarText">{{seminarName}}</text>
+      <span class="seminarText">固定分组</span>
+      </view>
+    </view>
+  </block>
+
+  <block>
+    <view>
+      <span class="WhiteText">队伍信息:</span>
+    </view>
+  </block>
+  <view>
+  <!--每个白色的块要用WhiteBackSquare固定位置-->
+      <view class="WhiteBackSquare">
+      <image class="userAvatar" src="../images/user.png"></image>
+      <!--姓名和学号的上下位置要用studentView固定-->
+      <view class = "studentView">
+      <span class="groupInfoText">{{leaderName}}</span>
+      <span class="groupInfoText">{{leaderId}}</span>
+      </view>
+      <!--队长两个字的位置要用leaderTextView固定-->
+      <view class="leaderTextView">
+        <span class="groupInfoText">队长</span>
+      </view>
+      </view>
+  </view>
+  <view wx:for="{{groupMembers}}" wx:for-item="stu">
+  <!--每个白色的块要用WhiteBackSquare固定位置-->
+      <view class="WhiteBackSquare">
+      <image class="userAvatar" src="../images/user.png"></image>
+      <!--姓名和学号的上下位置要用studentView固定-->
+      <view class = "studentView">
+      <span class="groupInfoText">{{stu.sname}}</span>
+      <span class="groupInfoText">{{stu.sid}}</span>
+      </view>
+      </view>
+  </view>
+
+
+  <!-- 选题 -->
+  <block>
+    <view>
+      <span class="WhiteText">选题:</span>
+    </view>
+  </block>
+</view>
