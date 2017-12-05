@@ -1,7 +1,7 @@
 <page>
   <!--设置左上角的usersIcon-->
   <view class="blueUsersView">
-    <image src="../images/users.png" class='blueUsersIcon' />
+    <image src="../image/users.png" class='blueUsersIcon' />
     <strong>队伍信息</strong>
   </view>
 
@@ -23,17 +23,26 @@
     </view>
     <view wx:if="{{groupInfo.id ==group.id && display }}" class="studentView">
       <view class='studentBlock'>
-        <image src="../images/user.png" class='userIcon' />
+        <image src="../image/user.png" class='userIcon' />
         <span class="studentName">{{groupInfo.leader.name}}</span>
       </view>
       <view wx:for="{{groupInfo.members}}" wx:for-item="member">
         <view class='studentBlock'>
-          <image src="../images/user.png" class='userIcon' />
+          <image src="../image/user.png" class='userIcon' />
           <span class="studentName">{{member.name}}</span>
         </view>
       </view>
+
+      <!--迟到学生-->
+      <view wx:for="{{lateOn}}" wx:for-item="member" wx:if="{{member.group == group.id}}">
+        <view class='studentBlock' >
+          <image src="../image/user.png" class='userIcon' />
+          <span class="studentName">{{member.name}}</span>
+          <image src="../image/cancel.png" class='redCancelIcon' bindtap='cancelLateStudent' id = "{{member.id}}"/>
+        </view>
+      </view>
       <view class='studentBlock'>
-        <image src="../images/add.png" class='addIcon' bindtap="showmodalimg"/>
+        <image src="../image/plus.png" class='addIcon' bindtap="showmodalimg" />
       </view>
 
 
@@ -43,9 +52,9 @@
     未签到学生
   </view>
 
-  <view wx:for="{{lateList}}" class="studentView">
-    <view class='studentBlock'>
-      <image src="../images/user.png" class='userIcon' />
+  <view wx:for="{{absent}}" class="studentView">
+    <view class='studentBlock' id="{{item.id}}">
+      <image src="../image/user.png" class='userIcon' />
       <span class="studentName">{{item.name}}</span>
     </view>
   </view>
@@ -58,24 +67,10 @@
     <view class="modal-title">添加学生</view>
     <view class="modal-content">
       <scroll-view scroll-y style="height: 100px;" scroll-into-view="red" scroll-top="100">
-        <view class='modal-list' >
-          <span class='input-holder'>邱明</span>
+        <view class='modal-list' wx:for="{{late}}" bindtap="select">
+          <span id="{{item.id}}" class="{{(lateSelectMem == item.id)?'input-holder-select':'input-holder'}}">{{item.name}}</span>
         </view>
-        <view class='modal-list'>
-          <span class='input-holder-select'>邱明</span>
-        </view>
-        <view class='modal-list'>
-          <span class='input-holder'>邱明</span>
-        </view>
-        <view class='modal-list'>
-          <span class='input-holder'>邱明</span>
-        </view>
-        <view class='modal-list'>
-          <span class='input-holder'>邱明</span>
-        </view>
-        <view class='modal-list'>
-          <span class='input-holder'>邱明</span>
-        </view>
+
       </scroll-view>
     </view>
 
