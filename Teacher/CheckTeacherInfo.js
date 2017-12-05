@@ -5,10 +5,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    name: '邱明',
-    id: '666666',
-    phone: '5464564',
-    school: '厦门大学'
+   info:{
+    "id": 3486,
+    "type": "student",
+    "name": "张三",
+    "number": "23320152202333",
+    "phone": "18911114514",
+    "email": "23320152202333@stu.xmu.edu.cn",
+    "gender": "male",
+    "school": {
+      "id": 32,
+      "name": "厦门大学"
+    },
+    "title": "",
+    "avatar": "/avatar/3486.png"
+  }
   },
   /*模态弹窗（解绑） */
   modalcnt: function () {
@@ -81,5 +92,24 @@ Page({
    */
   onShareAppMessage: function () {
   
-  }
+  },
+  changeAvatar: function () {
+    var that = this;
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有 
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        var a = 'info.avatar'
+        var tempFilePaths = res.tempFiles[0].path;
+        console.log(that.data.info.avatar);
+        that.setData({
+          [a]: tempFilePaths,
+        });
+        console.log(that.data.info.avatar);
+      },
+    })
+  },
+
 })
