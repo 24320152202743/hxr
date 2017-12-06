@@ -45,6 +45,6 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    IPPort: "http://120.77.173.98:8111"
   }
 })
