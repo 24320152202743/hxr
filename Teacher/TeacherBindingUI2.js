@@ -5,9 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    teacherID:'',
-    teacherName:'',
-  school:'厦门大学'
+    info:{
+      Nnumber: '',
+      name: '',
+      school: {
+        id:"",
+        name:""
+      }
+    }
   },
   ChooseSchool: function () {
     var teacherID = this.data.teacherID;
@@ -17,13 +22,25 @@ Page({
     })
   },
   Teacher_MainUI: function () {
+    var IPPort = getApp().globalData.IPPort;
+    var message = "";
+    wx.request({
+      url: IPPort + '/seminar/1',
+      method: 'GET',
+      // data:this.data.info,
+      success: function (data) {
+        console.log(data);
+      }
+    })
+    console.log(message);
     wx.reLaunch({
       url: './TeacherMainUI',
     })
   },
   IDInput: function (e) {
+    var Number = "info.Number";
     this.setData({
-      teacherID: e.detail.value
+      [Number]: e.detail.value
     }) 
   },
 
@@ -43,12 +60,19 @@ Page({
     })
   },
   onLoad: function (options) {
-    console.log(options),
+    console.log(options);
+    var schoolname = "info.school.name";
+    var schoolid = "info.school.id";
+    var Number = "info.Number";
+    var name = "info.name";
+    //console.log(this.data.info.name);
     this.setData({
-      school: options.name,
-      teacherID: options.teacherID,
-      teacherName: options.teacherName
+      [schoolname]: options.name,
+      [Number]: options.teacherID,
+      [name]: options.teacherName,
+      [schoolid]:options.id
     })
+    //console.log(this.data.info.name);
   
   },
 

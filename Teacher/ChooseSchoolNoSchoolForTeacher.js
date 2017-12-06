@@ -96,8 +96,9 @@ Page({
     var city = this.data.city;
     var teacherID = this.data.teacherID;
     var teacherName = this.data.teacherName;
+    var id = e.currentTarget.dataset.schoolObj.id;
     wx.redirectTo({ 
-      url: './TeacherBindingUI2?name= ' + name + '&province=' + province + '&city=' + city + '&teacherID=' + teacherID + '&teacherName=' + teacherName
+      url: './TeacherBindingUI2?name= ' + name + '&province=' + province + '&city=' + city + '&teacherID=' + teacherID + '&teacherName=' + teacherName + '&id=' + id
     })
   },
   CreateSchool:function(e){

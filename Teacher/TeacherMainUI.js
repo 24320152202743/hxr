@@ -11,7 +11,14 @@ Page({
       "type": "teacher", 
       "name": "邱明", 
       "number": "24321432534",
-      "avatar": "../images/人物头像.png" 
+      "avatar": "../images/人物头像.png" ,
+      "phone":"",
+      "email":"",
+      "title":"",
+      "school":{
+        "id":"",
+        "name":""
+      }
       },
     course: [
       {
