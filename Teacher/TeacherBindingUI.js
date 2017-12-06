@@ -23,6 +23,9 @@ Page({
   },
   /*注册 */
   register: function () {
+    var requestheader = getApp().globalData.requestHeader;
+    console.log(requestheader);
+    console.log("hello");
     wx.request({
       url: '',
     })
