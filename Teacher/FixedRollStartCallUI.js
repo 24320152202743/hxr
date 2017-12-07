@@ -64,13 +64,17 @@ Page({
   
   FixedRollCallUI: function () {
     wx.setStorageSync("classInfo", this.data.classInfo);
+    var IPPort = getApp().globalData.IPPort;
+    var message = "";
+    var that = this;
     wx.redirectTo({
       url: './FixedRollCallUI',
       success: function () {
+        
         wx.request({
           url: IPPort + '/class/' + that.data.classInfo.id,
           method: 'PUT',
-          data: { "calling": this.data.seminarId },
+          data: { "calling": that.data.seminarId },
           success: function (data) {
           }
         });
