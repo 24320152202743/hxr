@@ -64,24 +64,27 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      seminarId: options.seminarId,
-      classId: options.classId,
+      seminarId: wx.getStorageSync("seminarId"),
+      classInfo: wx.getStorageSync("classInfo"),
     })
     var IPPort = getApp().globalData.IPPort;
     var message = "";
     var that = this;
+    var k = '/seminar/' + that.data.seminarId + '/group?classId=' + that.data.classInfo.id;
+    console.log(k)
     wx.request({
-      url: IPPort + '/seminar/' + this.data.seminarId + '/group?classId=' + this.data.classId,
+      url: IPPort + '/seminar/' + that.data.seminarId + '/group?classId=' + that.data.classInfo.id,
       method: 'GET',
       //data:this.data.info,
       success: function (data) {
+        console.log(data);
+
         that.setData({
           classGroup: data.data,
         })
       }
     })
-    console.log(this.data);
-
+    
     ;
 
 
@@ -173,6 +176,9 @@ Page({
     
   
     }
+
+    console.log(that.data.class);
+
   }
 
 })

@@ -15,23 +15,27 @@ Page({
     }
     
   },
-  onLoad: function () {
+  onLoad: function (options) {
     // 页面渲染后 执行
-    var that = this//不要漏了这句，很重要
+     var IPPort = getApp().globalData.IPPort;
+    var message = "";
+    var that = this;
+    
     that.setData({
       classInfo: wx.getStorageSync("classInfo"),
+      seminarId:wx.getStorageSync("seminarId"),
       //res代表success函数的事件对，data是固定的，stories是是上面json数据中stories
-
     })
     wx.request({
-      url: "RollCallListUI",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      success: function (res) {
-        //将获取到的json数据，存在名字叫zhihu的这个数组中
-        
+      url: IPPort + '/class/'+that.data.classInfo.id+'/attendance?showPresent=true',
+      method: 'GET',
+      //data:this.data.info,
+      success: function (data) {
+        that.setData({
+          studentList: data.data,
+        })
+       
       }
-    })
+    });
   }
 })

@@ -38,5 +38,22 @@ Page({
       //res代表success函数的事件对，data是固定的，stories是是上面json数据中stories
 
     })
+    
+    var IPPort = getApp().globalData.IPPort;
+    var message = "";
+    var that = this;
+    wx.request({
+      url: IPPort + "/class/"+that.data.classInfo.id+"/attendance?showPresent=true&showLate=true&showAbsent=true",
+      method: 'GET',
+      //data:this.data.info,
+      success: function (data) {
+        that.setData({
+          studentList: data.data,
+        })
+
+      }
+    });
+
+
   }
 })

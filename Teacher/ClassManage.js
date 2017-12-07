@@ -1,4 +1,4 @@
-Page({
+﻿Page({
   data: { // 参与页面渲染的数据
     Classmanage: {
       "id": 29,

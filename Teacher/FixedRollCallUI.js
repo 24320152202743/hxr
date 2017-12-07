@@ -33,7 +33,8 @@ Page({
         else{
           console.log("asd");
         }
-      }})},
+      }})
+      },
 
       FixedGroupInfoUI: function () {
         wx.navigateTo({

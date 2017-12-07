@@ -16,16 +16,55 @@ Page({
         "a": 20
       }
     },
-    seminarId:1,
+    seminarId: 1,
+    callingStatus: "",
   },
-  onLoad: function () {
+  onLoad: function (options) {
     var that = this;
     wx.setStorageSync("nextUrl", './RandomRollStartCallUI?ClassId=')
     // 页面渲染后 执行
     wx.setStorageSync("classInfo", that.data.classInfo);
     // 页面渲染后 执行
+    var that = this;
+    // 页面渲染后 执行
+    that.setData({
+      ["classInfo.id"]: options.ClassId,
+      seminarId: options.seminarId,
+    })
+    wx.setStorageSync("seminarId", this.data.seminarId);
+    console.log(this.data);
+    var IPPort = getApp().globalData.IPPort;
+    var message = "";
+    var that = this;
+    wx.request({
+      url: IPPort + '/class/' + options.ClassId,
+      method: 'GET',
+      //data:this.data.info,
+      success: function (data) {
+        that.setData({
+          classInfo: data.data,
+        })
+
+      }
+    });
+    var k = '/seminar/' + that.data.seminarId + '/class/' + that.data.classInfo.id + '/attendance';
+    wx.request({
+      url: IPPort + k,
+      method: 'GET',
+      //data:this.data.info,
+      success: function (data) {
+        that.setData({
+          callingStatus: data.data,
+        })
+
+      }
+    }),
+
+      console.log(message);
+
   },
   RandomRollCallUI: function () {
+    wx.setStorageSync("classInfo", this.data.classInfo);
     wx.redirectTo({
       url: './RandomRollCallUI',
       success: function (res) {

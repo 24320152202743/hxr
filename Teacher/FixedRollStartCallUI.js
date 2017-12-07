@@ -27,6 +27,7 @@ Page({
       ["classInfo.id"]: options.ClassId,
       seminarId: options.seminarId,
     })
+    wx.setStorageSync("seminarId", this.data.seminarId);
     console.log(this.data);
     var IPPort = getApp().globalData.IPPort;
     var message = "";
@@ -62,10 +63,11 @@ Page({
 
   
   FixedRollCallUI: function () {
-    wx.setStorageSync("classInfo", this.data);
+    wx.setStorageSync("classInfo", this.data.classInfo);
     wx.redirectTo({
       url: './FixedRollCallUI',
       success: function () {
+        
       },
       fail: function () {
         // fail
@@ -76,7 +78,13 @@ Page({
     })
   },
 
+
+
+
+
+
   FixedGroupInfoUI: function () {
+    wx.setStorageSync("classInfo", this.data.classInfo);
     wx.navigateTo({
       url: './FixedGroupInfoUI?seminarId=' + this.data.seminarId + '&classId=' + this.data.classInfo.id,
       success: function () {
