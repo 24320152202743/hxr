@@ -28,21 +28,16 @@
   </view>
 
 
-  <!--签到成功
-  <view class="successCall">
+  <!-- <view class="successCall" wx:if="{{islata==false}}">
         <image src="../image/clock.png" class='courseInfoIcon'/>
         <strong>签到成功</strong>
-   </view>   
-  -->
-
-  <!--迟到签到成功
-  <view class="lateCall">
+   </view>
+   <view class="lateCall" wx:if="{{islata==true}}">
         <image src="../image/clock.png" class='courseInfoIcon'/>
         <strong>迟到签到成功</strong>
-   </view>   
-  -->
+   </view>     -->
+  
 
-  <!--签到按钮-->
   <view>
     <button type="button" class="blueBigBtn" bindtap='CallInRoll'>
       签到

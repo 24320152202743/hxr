@@ -7,104 +7,14 @@
 
 <view wx:for="{{groupNum}}" class="middlediv scoremargin" bindtap="myStarChoose"  wx:for-item="i" data-groupNum-obj="{{i}}">
 
-    <text>{{i.GroupName}}</text>
+    <text>{{i.name}}</text>
     <block wx:for="{{starMap}}">
       <text wx:if="{{i.star>=index+1}}" style="padding-right: .5em"  data-star="{{index+1}}">★</text>
       <text wx:if="{{i.star<index+1}}" style="padding-right: .5em"  data-star="{{index+1}}">☆</text>
     </block>
    
 </view>
-<!-- <view class="middlediv scoremargin">
-  <view  bindtap="myStarChoose">
-    <text>{{groupNum1}}</text>
-    <block wx:for="{{starMap}}">
-      <text wx:if="{{star>=index+1}}" style="padding-right: .5em"  data-star="{{index+1}}">★</text>
-      <text wx:if="{{star<index+1}}" style="padding-right: .5em"  data-star="{{index+1}}">☆</text>
-    </block>
-  </view>
-  
-</view>
-<view class="middlediv scoremargin">
-  <view  bindtap="myStarChoose">
-    <text>{{groupNum2}}</text>
-    <block wx:for="{{starMap}}">
-      <text wx:if="{{star>=index+1}}" style="padding-right: .5em"  data-star="{{index+1}}">★</text>
-      <text wx:if="{{star<index+1}}" style="padding-right: .5em"  data-star="{{index+1}}">☆</text>
-    </block>
-  </view>
-  
-</view>
-<view class="middlediv scoremargin">
-  <view  bindtap="myStarChoose">
-    <text>{{groupNum3}}</text>
-    <block wx:for="{{starMap}}">
-      <text wx:if="{{star>=index+1}}" style="padding-right: .5em"  data-star="{{index+1}}">★</text>
-      <text wx:if="{{star<index+1}}" style="padding-right: .5em"  data-star="{{index+1}}">☆</text>
-    </block>
-  </view>
-  
-</view>
-<view class="middlediv scoremargin">
-  <view  bindtap="myStarChoose">
-    <text>{{groupNum4}}</text>
-    <block wx:for="{{starMap}}">
-      <text wx:if="{{star>=index+1}}" style="padding-right: .5em"  data-star="{{index+1}}">★</text>
-      <text wx:if="{{star<index+1}}" style="padding-right: .5em"  data-star="{{index+1}}">☆</text>
-    </block>
-  </view>
-  
-</view>
-<view class="middlediv scoremargin">
-  <view  bindtap="myStarChoose">
-    <text>{{groupNum5}}</text>
-    <block wx:for="{{starMap}}">
-      <text wx:if="{{star>=index+1}}" style="padding-right: .5em"  data-star="{{index+1}}">★</text>
-      <text wx:if="{{star<index+1}}" style="padding-right: .5em"  data-star="{{index+1}}">☆</text>
-    </block>
-  </view>
-  
-</view> -->
-<!-- 
-<view>
-      <text>1-A-1</text>
-      <image src="../../heart_chosen.png" />
-      <image src="../../heart_chosen.png" />
-      <image src="../../heart_chosen.png" />
-      <image src="../../heart_chosen.png" />
-      <image src="../../heart_chosen.png" />     
-</view>
-<view>
-  <text >1-A-2</text>
-  <image src="../../heart_chosen.png" />
-    <image src="../../heart_chosen.png" />
-    <image src="../../heart_empty.png" />
-    <image src="../../heart_empty.png" />
-    <image src="../../heart_empty.png" />     
-</view>
-<view>
-  <text>2-A-1</text>
-  <image src="../../heart_chosen.png" />
-    <image src="../../heart_chosen.png" />
-    <image src="../../heart_chosen.png" />
-    <image src="../../heart_empty.png" />
-    <image src="../../heart_empty.png" />     
-</view>     
-<view>
-  <text>2-B-2</text>
-  <image src="../../heart_empty.png" />
-    <image src="../../heart_empty.png" />
-    <image src="../../heart_empty.png" />
-    <image src="../../heart_empty.png" />
-    <image src="../../heart_empty.png" />     
-</view>
-<view>
-  <text>1-C-1</text>
-  <image src="../../heart_empty.png" />
-    <image src="../../heart_empty.png" />
-    <image src="../../heart_empty.png" />
-    <image src="../../heart_empty.png" />
-    <image src="../../heart_empty.png" />     
-</view> -->
+
  <view class="middlediv scoremargin">
 <button class="btnsubmit" bindtap="GradePresentationEndUI">提交</button>
  </view>
