@@ -67,7 +67,13 @@ Page({
     wx.redirectTo({
       url: './FixedRollCallUI',
       success: function () {
-        
+        wx.request({
+          url: IPPort + '/class/' + that.data.classInfo.id,
+          method: 'PUT',
+          data: { "calling": this.data.seminarId },
+          success: function (data) {
+          }
+        });
       },
       fail: function () {
         // fail

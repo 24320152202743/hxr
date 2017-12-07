@@ -20,7 +20,16 @@ Page({
           wx.redirectTo({
             url: './FixedEndRollCallUI?presentNum=' + that.data.presentNum,
             success: function () {
-              // success
+              var IPPort = getApp().globalData.IPPort;
+              var message = "";
+              var that = this;
+              wx.request({
+                url: IPPort + '/class/' + that.data.classInfo.id,
+                method: 'PUT',
+                data: { "calling": -1 },
+                success: function (data) {
+                }
+              });
             },
             fail: function () {
               // fail
@@ -30,41 +39,42 @@ Page({
             }
           })
         }
-        else{
+        else {
           console.log("asd");
         }
-      }})
-      },
-
-      FixedGroupInfoUI: function () {
-        wx.navigateTo({
-          url: './FixedGroupInfoUI',
-          success: function (res) {
-            // success
-          },
-          fail: function () {
-            // fail
-          },
-          complete: function () {
-            // complete
-          }
-        })
-      },
-
-      RollCallListUI: function () {
-        wx.navigateTo({
-          url: './RollCallListUI',
-          success: function () {
-            // success
-          },
-          fail: function () {
-            // fail
-          },
-          complete: function () {
-            // complete
-          }
-        })
-      },
-
-
+      }
     })
+  },
+
+  FixedGroupInfoUI: function () {
+    wx.navigateTo({
+      url: './FixedGroupInfoUI',
+      success: function (res) {
+        // success
+      },
+      fail: function () {
+        // fail
+      },
+      complete: function () {
+        // complete
+      }
+    })
+  },
+
+  RollCallListUI: function () {
+    wx.navigateTo({
+      url: './RollCallListUI',
+      success: function () {
+        // success
+      },
+      fail: function () {
+        // fail
+      },
+      complete: function () {
+        // complete
+      }
+    })
+  },
+
+
+})

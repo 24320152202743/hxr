@@ -33,7 +33,16 @@ Page({
           wx.redirectTo({
             url: './RandomEndRollCallUI?presentNum=' + that.data.presentNum,
             success: function () {
-              // success
+              var IPPort = getApp().globalData.IPPort;
+              var message = "";
+              var that = this;
+              wx.request({
+                url: IPPort + '/class/' + that.data.classInfo.id,
+                method: 'PUT',
+                data: { "calling": -1 },
+                success: function (data) {
+                }
+              });
             },
             fail: function () {
               // fail

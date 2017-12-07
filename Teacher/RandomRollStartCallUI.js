@@ -68,7 +68,16 @@ Page({
     wx.redirectTo({
       url: './RandomRollCallUI',
       success: function (res) {
-        // success
+        var IPPort = getApp().globalData.IPPort;
+        var message = "";
+        var that = this;
+        wx.request({
+          url: IPPort + '/class/' + that.data.classInfo.id,
+          method: 'PUT',
+          data: { "calling": this.data.seminarId},
+          success: function (data) {
+          }
+        });
       },
       fail: function () {
         // fail
