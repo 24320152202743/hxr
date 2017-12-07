@@ -3,7 +3,7 @@ Page({
     Classmanage: {
       "id": 29,
       "name": "界面原型设计",
-      "seminar":'讨论课1',
+      "seminar": '讨论课1',
       "courseName": "OOAD",
       "groupingMethod": "fixed",
       "startTime": "2017-09-25",
@@ -18,50 +18,55 @@ Page({
           "name": "周三34"
         }
       ]
-    }
-
-
+    },
+    courseId: 29,
+    nextUrl:'',
+    first:true,
   },
-  onLoad: function () {
-    console.log('onLoad')
+  onLoad: function (options) {
+    console.log(options)
+    this.setData({
+      courseId:options.classId
+    })
+    var IPPort = getApp().globalData.IPPort;
+    var message = "";
     var that = this;
-   /* wx.request({
-      url: '',
-      header: {
-        'content-type': 'application/json'
-      },
-      //请求后台数据成功  
-      success: function (res) {
-        console.log('返回的code' + res.data.code)
-        console.log('返回的id' + res.data.message)
+    wx.request({
+      url: IPPort + '/course/' + this.data.courseId + '/seminar/current',
+      method: 'GET',
+      //data:this.data.info,
+      success: function (data) {
+        console.log(data);
         that.setData({
-          name:res.data.name
+          first:true,
+          Classmanage: data.data,
         })
       }
     })
-*/
+    console.log(message);
+    if (this.data.Classmanage.groupingMethod == 'fixed')
+    {
+      that.setData({
+        nextUrl : './FixedRollStartCallUI?ClassId='
+      })
+    }
+    else{
+      that.setData({
+        nextUrl: './RandomRollStartCallUI?ClassId='
+      })
+    }
   },
 
- 
-  RollStartCallUI:function(){
-    if (this.data.Classmanage.groupingMethod=='fixed'){
-    wx.navigateTo({
-    url: './FixedRollStartCallUI',
-   success: function(res){
-     // success
-   },
-   fail: function() {
-     // fail
-   },
-   complete: function() {
-     // complete
-   }
- })}
- else{
+
+  RollStartCallUI: function (event) {
+    var that = this;
       wx.navigateTo({
-        url: './RandomRollStartCallUI',
+        url: that.data.nextUrl + event.target.id + '&seminarId=' + that.data.Classmanage.id,
         success: function (res) {
-          // success
+          that.setData({
+            first: false,
+          })
+
         },
         fail: function () {
           // fail
@@ -70,8 +75,17 @@ Page({
           // complete
         }
       })
- }
-  }
-  
-  
+   
+  },
+
+onShow:function(options){
+  console.log("onShow")
+  if(this.data.first==false)
+  this.setData({
+    nextUrl: wx.getStorageSync("nextUrl"),
+  })
+
+}
+
+
 })

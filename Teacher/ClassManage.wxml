@@ -13,14 +13,14 @@
   </view>
 
   <view class="clockAndGroupView">
-    <image src="../images/clip.png"  mode='widthFix' class="clockAndGroupIcon" />
+    <image src="../images/clip.png"   mode='widthFix' class="clockAndGroupIcon" />
     <text class='clockAndGroupText'>{{Classmanage.groupingMethod}}</text>
   </view>
   </view>
 
   <!--讨论课的班级，要增加新班级就复制一个view，然后修改班级名称-->
   <view class="classView" wx:for="{{Classmanage.classes}}" wx:key="name">
-    <image src="../images/ClassManage.png" class="classIcon" bindtap="RollStartCallUI" />
+    <image src="../images/ClassManage.png" class="classIcon" bindtap="RollStartCallUI" id = "{{item.id}}"/>
     <p class="className" >{{item.name}}</p>
     <view class="studentView">
 

@@ -15,10 +15,12 @@ Page({
         "b": 60,
         "a": 20
       }
-    }
+    },
+    seminarId:1,
   },
   onLoad: function () {
     var that = this;
+    wx.setStorageSync("nextUrl", './RandomRollStartCallUI?ClassId=')
     // 页面渲染后 执行
     wx.setStorageSync("classInfo", that.data.classInfo);
     // 页面渲染后 执行
@@ -37,4 +39,5 @@ Page({
       }
     })
   },
+
 })

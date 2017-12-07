@@ -15,19 +15,54 @@ Page({
       "b": 60,
       "a": 20
     }
-  }
   },
-  onLoad: function () {
+   seminarId: 1,
+   callingStatus:"",
+  },
+  onLoad: function (options) {
+    wx.setStorageSync("nextUrl", './FixedRollStartCallUI?ClassId=')
     var that = this;
     // 页面渲染后 执行
-    wx.setStorageSync("classInfo", that.data.classInfo);
     that.setData({
-      
+      ["classInfo.id"]: options.ClassId,
+      seminarId: options.seminarId,
     })
+    console.log(this.data);
+    var IPPort = getApp().globalData.IPPort;
+    var message = "";
+    var that = this;
+    wx.request({
+      url: IPPort + '/class/' + options.ClassId,
+      method: 'GET',
+      //data:this.data.info,
+      success: function (data) {
+        that.setData({
+          classInfo: data.data,
+        })
+       
+      }
+    });
+    var k = '/seminar/' + that.data.seminarId + '/class/' + that.data.classInfo.id + '/attendance';
+      wx.request({
+      url: IPPort + k,
+        method: 'GET',
+        //data:this.data.info,
+        success: function (data) {
+          that.setData({
+            callingStatus: data.data,
+          })
+
+        }
+      }),
+    
+    console.log(message);
+
+
   },
 
   
   FixedRollCallUI: function () {
+    wx.setStorageSync("classInfo", this.data);
     wx.redirectTo({
       url: './FixedRollCallUI',
       success: function () {
@@ -43,7 +78,7 @@ Page({
 
   FixedGroupInfoUI: function () {
     wx.navigateTo({
-      url: './FixedGroupInfoUI',
+      url: './FixedGroupInfoUI?seminarId=' + this.data.seminarId + '&classId=' + this.data.classInfo.id,
       success: function () {
       },
       fail: function () {
@@ -53,6 +88,9 @@ Page({
         // complete
       }
     })
-  }
+  },
+  
+
+
 
 })

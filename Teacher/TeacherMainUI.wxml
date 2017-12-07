@@ -7,11 +7,14 @@
 
     <view class="FONT4 number">教工号：{{info.number}}</view>
   </view>
-
-<view wx:for="{{course}}" wx:if="{{date>item.endTime||date<item.startTime}}" class="box4" bindtap="ClassManage" data-course-obj="{{item}}">
+<!--
+<view wx:for="{{course}}" class="box4" bindtap="ClassManage" data-course-obj="{{item}}">
     <text class="FONT1"> {{item.name}}</text>
-</view>
-<view wx:for="{{course}}" wx:if="{{date<item.endTime&&date>item.startTime}}" class="box3" bindtap="ClassManage" data-course-obj="{{item}}">
+</view>-->
+
+<view wx:for="{{course}}"  class="box3" bindtap="ClassManage" data-course-obj="{{item}}" id="{{item.id}}">
     <text class="FONT1"> {{item.name}}</text>
 </view>
 </page>
+<!--wx:if="{{date<item.endTime&&date>item.startTime}}"
+wx:if="{{date>item.endTime||date<item.startTime}}" -->

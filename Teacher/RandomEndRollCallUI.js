@@ -3,6 +3,7 @@ Page({
     presentNum:'',
   },
   onLoad: function (option) {
+    wx.setStorageSync("nextUrl", './RandomEndRollCallUI?ClassId=')
     // 页面渲染后 执行
     this.setData({
       classInfo: wx.getStorageSync("classInfo"),

@@ -22,7 +22,7 @@
   <!--已签到的学生以及那个icon,当签到开始及结束时，这个部分在中央。当签到开始后结束前，这部分在左边，见.studentNum2。-->
    <view class="studentNum">
     <image src="../images/users.png" class="usersIcon"/>
-    已签到学生: 0/{{classInfo.numStudent}}
+    已签到学生: {{callingStatus.numPresent}}/{{classInfo.numStudent}}
   </view>
 
 

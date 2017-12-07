@@ -11,7 +11,7 @@ Page({
       "type": "teacher", 
       "name": "邱明", 
       "number": "24321432534",
-      "avatar": "../images/人物头像.png" ,
+      "avatar": "../images/UserIcon.png" ,
       "phone":"",
       "email":"",
       "title":"",
@@ -20,26 +20,10 @@ Page({
         "name":""
       }
       },
-    course: [
-      {
-        "id": 1,
-        "name": "OOAD",
-        "teacherName": "邱明",
-        "numClass": 3,
-        "numStudent": 60,
-        "startTime": "2017-9-1",
-        "endTime": "2018-1-1"
-      },
-      {
-        id: 2,
-        "name": "J2EE",
-        "teacherName": "吴清强",
-        "numClass": 1,
-        "numStudent": 60,
-        "startTime": "2017-9-1",
-        "endTime": "2017-11-1"
-      }
-    ]
+    course: [{ "id": 1, "name": "J2EE" },
+    { "id": 2, "name": "OOAD" },
+    { "id": 3, "name": "操作系统" },
+    { "id": 4, "name": "数据仓库" }]
   },
 
 
@@ -64,10 +48,10 @@ Page({
 
 
   ClassManage: function (e) {
-    console.log(e);
-    console.log(e.currentTarget.dataset.courseObj.id);
+    
     console.log(this.data.date);
     var id = e.currentTarget.dataset.courseObj.id;
+    console.log(id);
       wx.navigateTo({
         url: './ClassManage?classId='+id,
         success: function (res) {
@@ -91,6 +75,31 @@ Page({
   onLoad: function (options) {
       this.setData({
         date: new Date().toLocaleDateString()
+      })
+      var IPPort = getApp().globalData.IPPort;
+      var message = "";
+      var that = this;
+      wx.request({
+        url: IPPort + '/me',
+        method: 'GET',
+        //data:this.data.info,
+        success: function (data) {
+          console.log(data);
+          that.setData({
+            info: data.data,
+          })
+        }
+      });
+      wx.request({
+        url: IPPort + '/course',
+        method: 'GET',
+        //data:this.data.info,
+        success: function (data) {
+          console.log(data);
+          that.setData({
+            course: data.data,
+          })
+        }
       })
   },
 

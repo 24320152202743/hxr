@@ -3,6 +3,7 @@ Page({
     presentNum: 37,
   },
   onLoad: function () {
+    wx.setStorageSync("nextUrl", './RandomRollCallUI?ClassId=')
     this.setData({
       classInfo: wx.getStorageSync("classInfo"),
     })

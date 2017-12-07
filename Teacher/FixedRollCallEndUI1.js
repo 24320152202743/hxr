@@ -32,6 +32,7 @@ Page({
   },
   onLoad: function () {
     // 页面渲染后 执行
+    
     this.setData({
       classInfo: wx.getStorageSync("classInfo"),
       //res代表success函数的事件对，data是固定的，stories是是上面json数据中stories

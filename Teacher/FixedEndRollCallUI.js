@@ -3,6 +3,7 @@ Page({
     presentNum:0,
   },
   onLoad: function (option) {
+    wx.setStorageSync("nextUrl", './FixedEndRollCallUI?ClassId=')
     this.setData({
       classInfo: wx.getStorageSync("classInfo"),
       presentNum: option.presentNum,
