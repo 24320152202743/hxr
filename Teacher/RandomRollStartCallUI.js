@@ -74,7 +74,7 @@ Page({
         wx.request({
           url: IPPort + '/class/' + that.data.classInfo.id,
           method: 'PUT',
-          data: { "calling": this.data.seminarId},
+          data: { "calling": that.data.seminarId},
           success: function (data) {
           }
         });
