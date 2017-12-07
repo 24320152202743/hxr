@@ -14,19 +14,27 @@ Page({
       "teacherName": "邱明",
       "teacherEmail": "mingqiu@xmu.edu.cn"
     },
-    site: {
-      "longitude": 118.089425,
-      "latitude": 24.479834,
-      "elevation": 0
-    },
-    isLate: true,
+    message: "",
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
+    var IPPort = getApp().globalData.IPPort;
+    var seminarid = options.seminarid;
+    var that = this;
+    wx.request({
+     url: IPPort+'/seminar/'+ seminarid+'/detail',
+     method:'GET',
+     success: function (data) {
+       wx.setStorageSync("seminarDetail", that.data.seminarDetail);
+       console.log(data.data);
+       that.setData({
+         seminarDetail:data.data
+       })
+     }
+   })
   },
 
   /**
@@ -79,39 +87,44 @@ Page({
   },
 
   CallInRoll: function () {
-    var site = this.data.site;
-    var that =  this;
+    wx.setStorageSync("iscall", true);
+    var latitude;
+    var longitude;
+    var elevation;
     wx.getLocation({
       type: 'wgs84',
       success: function (res) {
-        var latitude = res.latitude;
-        var longitude = res.longitude;
-        var elevation = res.altitude;
-        console.log(latitude);
-        console.log(longitude);
-        console.log(elevation);
-        if (that.Distance(latitude, longitude, elevation, site.latitude, site.longitude, site.elevation) < 0.5) {
-          if (!that.data.isLate)
-            that.RollCallEndUI();
-          else
-            that.RollCallLateUI();
-        }
-        else
-        { 
-          wx.showModal({
-            title: '注意',
-            content: '签到失败，不在正确地点，请在规定范围内重新签到',
-            confirmText:"关闭",
-            showCancel:false,
-            
-          })  
-
-
-
-        }
+        latitude = res.latitude;
+        longitude = res.longitude;
+        elevation = res.altitude;
       }
     })
 
+    var IPPort = getApp().globalData.IPPort;
+    var classid = getApp().globalData.classid;
+    var studentid = getApp().globalData.studentid;
+    var that = this;
+    wx.request({
+      url: IPPort + '/seminar/'+this.data.seminarDetail.id+'/class/'+classid+'/attendance/'+studentid,
+      method:'PUT',
+      data:{
+        longtitde:longitude,
+        latitude:latitude,
+        elevation:elevation
+      },
+      success: function (res) { 
+        if(res.statusCode==200){
+          that.setData({
+            message:res.data
+          })
+          wx.setStorageSync("islate", res.data);
+        }
+      }
+    
+    })
+    wx.redirectTo({
+      url: './RollCallEndUI',
+    })
   },
 
 

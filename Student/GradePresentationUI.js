@@ -6,32 +6,29 @@ Page({
    */
   data: {
     groupNum:[
+  {
+    "star":0,
+    "id": 28,
+    "name": "1A1",
+    "topics": [
       {
-        "id":1,
-        "GroupName":"1-A-1",
-        "star":0
-      },
+        "id": 257,
+        "name": "领域模型与模块"
+      }
+    ]
+  },
+  {
+    "star":0,
+    "id": 29,
+    "name": "1A2",
+    "topics": [
       {
-        "id": 2,
-        "GroupName": "1-A-2",
-        "star": 0
-      },
-      {
-        "id": 3,
-        "GroupName": "1-B-1",
-        "star": 0
-      },
-      {
-        "id": 4,
-        "GroupName": "2-B-1",
-        "star": 0
-      },
-      {
-        "id": 5,
-        "GroupName": "1-C-1",
-        "star": 0
-      },
-    ],
+        "id": 257,
+        "name": "领域模型与模块"
+      }
+    ]
+  }
+],
     
     starMap: [
       '非常差',

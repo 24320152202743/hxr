@@ -6,9 +6,17 @@ Page({
    */
   data: {
   coursename:'OOAD',
-  seminarname:'讨论课4'
-
+  seminarname:'讨论课4',
+  seminarid:'1',
+  other:{
+    iscall:false,
+    issendgrade:false,
+    isendchoosetopic:false,
+    iscaptain:false,
+  }
   },
+
+
   FixedGroupNoLeaderUI: function () {
     wx.navigateTo({
       url: './FixedGroupNoLeaderUI',
@@ -20,9 +28,15 @@ Page({
     })
   },
   RollCallUI: function () {
+    if(!wx.getStorageSync("iscall")){
     wx.navigateTo({
-      url: './RollCallUI',
+      url: './RollCallUI?seminarid='+this.data.seminarid,
     })
+    }else{
+      wx.navigateTo({
+        url: './RollCallEndUI'
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面加载
