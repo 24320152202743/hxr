@@ -6,7 +6,7 @@ Page({
    */
   data: {
     info:{
-      Nnumber: '',
+      Number: '',
       name: '',
       school: {
         id:"",
@@ -25,9 +25,9 @@ Page({
     var IPPort = getApp().globalData.IPPort;
     var message = "";
     wx.request({
-      url: IPPort + '/seminar/1',
-      method: 'GET',
-      // data:this.data.info,
+      url: IPPort + '/me',
+      method: 'PUT',
+      data:this.data.info,
       success: function (data) {
         console.log(data);
       }
@@ -52,15 +52,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  ChooseSchool: function () {
-    var teacherID = this.data.teacherID;
-    var teacherName = this.data.teacherName;
-    wx.navigateTo({
-      url: './ChooseSchool2?teacherID=' + teacherID + '&teacherName=' + teacherName
-    })
-  },
+  
   onLoad: function (options) {
-    console.log(options);
     var schoolname = "info.school.name";
     var schoolid = "info.school.id";
     var Number = "info.Number";

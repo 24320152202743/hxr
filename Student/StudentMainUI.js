@@ -22,22 +22,22 @@ Page({
     },
     course: [
       {
-        "id": 1,
-        "name": "OOAD",
-        "teacherName": "邱明",
-        "numClass": 3,
+        "id": 23,
+        "name": "周三1-2节",
         "numStudent": 60,
-        "startTime": "2017-9-1",
-        "endTime": "2018-1-1"
+        "time": "周三1-2、周五1-2",
+        "site": "公寓405",
+        "courseName": "OOAD",
+        "courseTeacher": "邱明"
       },
       {
-        id: 2,
-        "name": "J2EE",
-        "teacherName": "吴清强",
-        "numClass": 1,
+        "id": 23,
+        "name": "周三1-2节",
         "numStudent": 60,
-        "startTime": "2017-9-1",
-        "endTime": "2018-1-1"
+        "time": "周三1-2、周五1-2",
+        "site": "公寓405",
+        "courseName": "OOAD",
+        "courseTeacher": "邱明"
       }
     ]
   },
@@ -53,6 +53,7 @@ Page({
   CourseUI: function (e) {
     console.log(e.currentTarget.dataset.courseObj.id);
     var id = e.currentTarget.dataset.courseObj.id;
+    var name = e.currentTarget.dataset.courseObj.courseName;
       wx.navigateTo({
         url: '../Student/CourseUI?courseId=' + id + '&studentId=' + this.data.info.id
       })
@@ -61,6 +62,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var IPPort = getApp().globalData.IPPort;
+    var that = this;
+    wx.request({
+      url: IPPort + '/class',
+      method: 'GET',
+      success: function (data) {
+        console.log(data);
+        that.setData({
+          course: data.data
+        })
+
+      }
+    })
 
   },
 

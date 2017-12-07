@@ -1,9 +1,11 @@
 // pages/index/CourseUI.js
 Page({
-  date:"null",
-  courseId:"null",
-  studentId:"null",
+  
   data: {
+    date: "null",
+    courseId: "null",
+    courseName: "null",
+    studentId: "null",
     seminar: [
       {
         "id": 29,
@@ -15,13 +17,13 @@ Page({
         "grade":5
       },
       {
-        "id": 32,
-        "name": "概要设计",
-        "description": "模型层与数据库设计",
-        "groupingMethod": "fixed",
+        "id": 29,
+        "name": "界面原型设计",
+        "description": "界面原型设计",
+        "groupingMethod": "random",
         "startTime": "2017-9-1",
-        "endTime": "2017-11-1",
-        "grade":0
+        "endTime": "2018-1-1",
+        "grade": 5
       }
     ]
   },
@@ -34,8 +36,10 @@ Page({
 
   Seminar: function (e) {
     var id = e.currentTarget.dataset.seminarObj.id;
+    var seminarName = e.currentTarget.dataset.seminarObj.name;
+    var courseName = this.data.courseName;
     wx.navigateTo({
-      url: './Seminar?seminarId=' + id
+      url: './Seminar?seminarId=' + id +'&courseName=' + courseName +'&seminarName=' +seminarName
     })
   },
   /**
@@ -45,7 +49,21 @@ Page({
     this.setData({
       date: new Date().toLocaleDateString(),
       courseId:options.courseId,
+      courseName:options.courseName,
       studentId:options.studentId
+    });
+    var IPPort = getApp().globalData.IPPort;
+    var that = this;
+    wx.request({
+      url: IPPort + '/course/' + options.courseId+'/seminar?embedGrade=true',
+      method: 'GET',
+      success: function (data) {
+        console.log(data);
+        that.setData({
+          seminar: data.data
+        })
+
+      }
     })
   },
 

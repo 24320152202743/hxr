@@ -5,27 +5,38 @@ Page({
    * 页面的初始数据
    */
   data: {
-    province:'null',
-    city: [
+    school: [
       {
         "id": 1,
-        "name": "城市1"
+        "name": "厦门大学",
+        "province": "福建",
+        "city": "厦门"
       },
       {
         "id": 2,
-        "name": "城市2"
+        "name": "厦门理工大学",
+        "province": "福建",
+        "city": "厦门"
       },
       {
         "id": 3,
-        "name": "城市3"
+        "name": "华侨大学",
+        "province": "福建",
+        "city": "厦门"
       },
       {
         "id": 4,
-        "name": "城市4"
+        "name": "集美大学",
+        "province": "福建",
+        "city": "厦门"
       }
     ],
-    StudentID: '',
-    StudentName: ''
+    info: {
+      Number: '',
+      name: '',
+      province: ''
+    },
+
 
   },
 
@@ -33,13 +44,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+    var Number = "info.Number";
+    var name = "info.name";
+    var province = "info.province";
     this.setData({
-      province:options.name,
-      StudentID: options.StudentID,
-      StudentName: options.StudentName
+      [Number]: options.Number,
+      [name]: options.name,
+      [province]: options.province
     })
-
 
   },
 
@@ -92,13 +104,13 @@ Page({
 
   },
   ChooseSchool5: function (e) {
-    console.log(e.currentTarget.dataset.cityObj.name);
-    var name = e.currentTarget.dataset.cityObj.name;
-    var province = this.data.province;
-    var StudentID = this.data.StudentID;
-    var StudentName = this.data.StudentName;
+    console.log(this.data.info.Number);
+    var city = e.currentTarget.dataset.schoolObj.city;
+    var province = this.data.info.province;
+    var Number = this.data.info.Number;
+    var name = this.data.info.name;
     wx.redirectTo({
-      url: './ChooseSchool5?name= ' + name + '&province=' + province + '&StudentID=' + StudentID + '&StudentName=' + StudentName
+      url: './ChooseSchool5?city= ' + city + '&province=' + province + '&Number=' + Number + '&name=' + name
     })
   }
 })

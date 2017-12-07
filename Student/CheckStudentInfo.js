@@ -8,14 +8,14 @@ Page({
     info: {
       "id": 3486,
       "type": "student",
-      "name": "张三",
-      "number": "23320152202333",
-      "phone": "18911114514",
-      "email": "23320152202333@stu.xmu.edu.cn",
-      "gender": "male",
+      "name": "",
+      "number": "",
+      "phone": "",
+      "email": "",
+      "gender": "",
       "school": {
-        "id": 32,
-        "name": "厦门大学"
+        "id": "",
+        "name": ""
       },
       "title": "",
       "avatar": "/avatar/3486.png"
@@ -43,6 +43,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var IPPort = getApp().globalData.IPPort;
+    var that = this;
+    wx.request({
+      url: IPPort + '/me',
+      method: 'GET',
+      success: function (data) {
+        console.log(data);
+        that.setData({
+          info: data.data
+        })
+
+      }
+    })
   
   },
 

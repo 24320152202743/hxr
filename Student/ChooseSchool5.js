@@ -5,28 +5,38 @@ Page({
    * 页面的初始数据
    */
   data: {
-    province:'null',
-    city:'null',
     school: [
       {
         "id": 1,
-        "name": "学校1"
+        "name": "厦门大学",
+        "province": "福建",
+        "city": "厦门"
       },
       {
         "id": 2,
-        "name": "学校2"
+        "name": "厦门理工大学",
+        "province": "福建",
+        "city": "厦门"
       },
       {
         "id": 3,
-        "name": "学校3"
+        "name": "华侨大学",
+        "province": "福建",
+        "city": "厦门"
       },
       {
         "id": 4,
-        "name": "学校4"
+        "name": "集美大学",
+        "province": "福建",
+        "city": "厦门"
       }
     ],
-    StudentID: '',
-    StudentName: ''
+    info: {
+      Number: '',
+      name: '',
+      province: '',
+      city: ''
+    },
 
   },
 
@@ -34,13 +44,31 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var Number = "info.Number";
+    var name = "info.name";
+    var province = "info.province";
+    var city = "info.city"
     this.setData({
-      city:options.name,
-      province: options.province,
-      StudentID: options.StudentID,
-      StudentName: options.StudentName
+      [Number]: options.Number,
+      [name]: options.name,
+      [province]: options.province,
+      [city]: options.city
     })
-
+    
+    var IPPort = getApp().globalData.IPPort;
+    var that = this;
+    wx.request({
+      url: IPPort + '/school?city='+this.data.info.city,
+      method: 'GET',
+      success: function (data) {
+        console.log(data);
+        that.setData({
+        school : data.data
+        })
+        
+      }
+    })
+    
   },
 
   /**
@@ -92,16 +120,26 @@ Page({
 
   },
   StudentBindingUI: function (e) {
-    console.log(e);
-    console.log(e.currentTarget.dataset.schoolObj.name);
-    var name = e.currentTarget.dataset.schoolObj.name;
-    var province = this.data.province;
-    var city = this.data.city;
-    var StudentID = this.data.StudentID;
-    var StudentName = this.data.StudentName;
+    var IPPort = getApp().globalData.IPPort;
+    var message = '"school":'+e.currentTarget.dataset.schoolObj;
+    wx.request({
+      url: IPPort + '/me',
+      method: 'PUT',
+      data: message,
+      success: function (data) {
+        
+      }
+    })
+    console.log(message);
+    var Sname = e.currentTarget.dataset.schoolObj.name;
+    var id = e.currentTarget.dataset.schoolObj.id;
+    var province = this.data.info.province;
+    var city = this.data.info.city;
+    var Number = this.data.info.Number;
+    var name = this.data.info.name;
     wx.redirectTo({
-      url: './StudentBindingUI2?name= ' + name + '&province=' + province + '&city=' + city + '&StudentID=' + StudentID + '&StudentName=' + StudentName
+      url: './StudentBindingUI2?Sname= ' + Sname + '&province=' + province + '&city=' + city + '&Number=' + Number + '&name=' + name + '&id=' +id
     })
   }
-  
+
 })

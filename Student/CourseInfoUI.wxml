@@ -2,25 +2,25 @@
 
   <!--上方蓝色块-->
   <view class="head20">
-    <text class="FONT1"> {{Title}}</text>
+    <text class="FONT1"> {{info.name}}</text>
   </view>
 
   <!--老师-->
   <view class='infoView'>
     <image class="imgView" src="../images/teacher.png" />
-    <text class="textView">老师：{{Teacher}}</text>
+    <text class="textView">老师：{{info.teacherName}}</text>
   </view>
 
   <!--老师邮箱-->
   <view class='infoView'>
     <image class="imgView" src="../images/mail.png" />
-    <text class="textView">邮箱：{{Email}}</text>
+    <text class="textView">邮箱：{{info.teacherEmail}}</text>
   </view>
 
   <!--课程简介-->
   <view class='infoView'>
     <image class="imgView" src="../images/fileIcon.png" />
-    <text class="textView">简介：{{Introduce}}</text>
+    <text class="textView">简介：{{info.description}}</text>
   </view>
 
 </page>

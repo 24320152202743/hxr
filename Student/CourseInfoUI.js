@@ -4,17 +4,35 @@ Page({
    * 页面的初始数据
    */
   data: {
-    Title:'OOAD',
-    Teacher:'邱明',
-    Email:'qiuming@qq.com',
-    Introduce:'a very good course, students can learn more than what is in books'
+    info:{
+      
+    "id": "",
+    "name": "",
+    "description": "",
+    "teacherName": "",
+    "teacherEmail": ""
+     }
+    
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-     
+    var courseId = options.courseId;
+    var IPPort = getApp().globalData.IPPort;
+    var that = this;
+    wx.request({
+      url: IPPort + '/course/'+courseId,
+      method: 'GET',
+      success: function (data) {
+        console.log(data);
+        that.setData({
+          info: data.data
+        })
+
+      }
+    })
      
   },
 
