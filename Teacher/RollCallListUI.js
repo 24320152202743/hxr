@@ -21,8 +21,9 @@ Page({
     var message = "";
     var that = this;
     
-    that.setData({
-      classInfo: wx.getStorageSync("classInfo"),
+    var k = options.classId;
+    this.setData({
+      classInfo: wx.getStorageSync("classInfo" + k),
       seminarId:wx.getStorageSync("seminarId"),
       //res代表success函数的事件对，data是固定的，stories是是上面json数据中stories
     })
