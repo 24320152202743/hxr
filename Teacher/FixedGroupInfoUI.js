@@ -63,22 +63,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var k = options.classId;
     this.setData({
+      classInfo: wx.getStorageSync("classInfo" + k),
       seminarId: wx.getStorageSync("seminarId"),
-      classInfo: wx.getStorageSync("classInfo"),
     })
     var IPPort = getApp().globalData.IPPort;
     var message = "";
     var that = this;
-    var k = '/seminar/' + that.data.seminarId + '/group?classId=' + that.data.classInfo.id;
-    console.log(k)
     wx.request({
       url: IPPort + '/seminar/' + that.data.seminarId + '/group?classId=' + that.data.classInfo.id,
       method: 'GET',
       //data:this.data.info,
       success: function (data) {
-        console.log(data);
-
         that.setData({
           classGroup: data.data,
         })
@@ -163,22 +160,15 @@ Page({
       method: 'GET',
       //data:this.data.info,
       success: function (data) {
-        
+        console.log(data)
         that.setData({
           groupInfo: data.data,
           display_group: event.currentTarget.id,
           display: true,
         });
-        console.log(that.data.groupInfo);
-        
       }
     })
-    
-  
     }
-
-    console.log(that.data.class);
-
   }
 
 })

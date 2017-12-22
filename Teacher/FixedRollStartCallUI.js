@@ -20,20 +20,19 @@ Page({
    callingStatus:"",
   },
   onLoad: function (options) {
-    wx.setStorageSync("nextUrl", './FixedRollStartCallUI?ClassId=')
+    
     var that = this;
     // 页面渲染后 执行
     that.setData({
-      ["classInfo.id"]: options.ClassId,
+      ["classInfo.id"]: options.classId,
       seminarId: options.seminarId,
     })
     wx.setStorageSync("seminarId", this.data.seminarId);
-    console.log(this.data);
     var IPPort = getApp().globalData.IPPort;
     var message = "";
     var that = this;
     wx.request({
-      url: IPPort + '/class/' + options.ClassId,
+      url: IPPort + '/class/' + options.classId,
       method: 'GET',
       //data:this.data.info,
       success: function (data) {
@@ -55,20 +54,19 @@ Page({
 
         }
       }),
-    
-    console.log(message);
-
-
+        wx.setStorageSync("nextUrl", './FixedRollStartCallUI?classId=' + this.data.classInfo.id);
+      wx.setStorageSync("id", this.data.classInfo.id);
   },
 
   
   FixedRollCallUI: function () {
-    wx.setStorageSync("classInfo", this.data.classInfo);
+    console.log("classInfo" + this.data.classInfo.id),
+    wx.setStorageSync("classInfo"+this.data.classInfo.id, this.data.classInfo);
     var IPPort = getApp().globalData.IPPort;
     var message = "";
     var that = this;
     wx.redirectTo({
-      url: './FixedRollCallUI',
+      url: './FixedRollCallUI?classId='+that.data.classInfo.id,
       success: function () {
         
         wx.request({
@@ -94,7 +92,7 @@ Page({
 
 
   FixedGroupInfoUI: function () {
-    wx.setStorageSync("classInfo", this.data.classInfo);
+    wx.setStorageSync("classInfo" + this.data.classInfo.id, this.data.classInfo);
     wx.navigateTo({
       url: './FixedGroupInfoUI?seminarId=' + this.data.seminarId + '&classId=' + this.data.classInfo.id,
       success: function () {
