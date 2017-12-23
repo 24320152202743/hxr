@@ -5,40 +5,52 @@ Page({
    * 页面的初始数据
    */
   data: {
-    seminarName: "讨论课4",
-    topic: "",
-    leaderName: "世界巅峰",
-    leaderId: "24320152202745",
-    groupMethod:'固定分组',
-    groupMembers: [
-      {
-        sname: "绝尘世",
-        sid: "24320152202745"
+    groupMethod: '固定分组',
+    info: {
+      "id": 28,
+      "name": 28,
+      "leader": {
+        "id": 8888,
+        "name": "张三"
       },
-      {
-        sname: "绝尘界",
-        sid: "24320152202743"
-      }
-      ,
-      {
-        sname: "绝尘巅",
-        sid: "24320152202744"
-      },
-      {
-        sname: "绝尘峰",
-        sid: "24320152202741"
-      }
-    ]
+      "members": [
+        {
+          "id": 5324,
+          "name": "李四"
+        },
+        {
+          "id": 5678,
+          "name": "王五"
+        }
+      ],
+      "topics": [
+        {
+          "id": 257,
+          "name": "领域模型与模块"
+        }
+      ]
+    }
+
   },
-  
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      topic : options.topic
+    var seminarId = options.seminarId;
+    var IPPort = getApp().globalData.IPPort;
+    var that = this;
+    wx.request({
+      url: IPPort + '/seminar/' + seminarId + '/group/my',
+      method: 'GET',
+      success: function (data) {
+        console.log(data);
+        that.setData({
+          info: data.data
+        })
+
+      }
     })
-  
+
   },
 
   /**
@@ -91,6 +103,15 @@ Page({
   },
 
   Leave: function () {
+    var groupId = this.data.info.id;
+    var IPPort = getApp().globalData.IPPort;
+    var that = this;
+    wx.request({
+      url: IPPort + '/group/' + groupId + '/resign',
+      method: 'PUT',
+      success: function (data) {
+      }
+    })
     wx.redirectTo({
       url: './FixedGroupNoLeaderUI',
     })

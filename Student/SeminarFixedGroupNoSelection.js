@@ -5,18 +5,51 @@ Page({
    * 页面的初始数据
    */
   data: {
-    coursename: 'OOAD',
-    seminarname: '讨论课4'
+    courseName: 'OOAD',
+    seminarName: '讨论课4',
+    seminarId:1 ,
+    info: {
+      "id": 32,
+      "name": "概要设计",
+      "groupingMethod": "random",
+      "courseName": "OOAD",
+      "startTime": "2017-10-11",
+      "endTime": "2017-10-24",
+      "classCalling": 23,
+      "isLeader": true,
+      "areTopicsSeletced": true}
+    
   },
-  RandomGroupNoLeaderUI: function () {
-    wx.navigateTo({
-      url: 'RandomGroupNoLeaderUI',
+  FixedGroupNoLeaderUI: function () {
+    var seminarId = this.data.seminarId;
+     wx.navigateTo({
+      url: 'FixedGroupNoLeaderUI?seminarId='+seminarId ,
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      courseName: options.courseName,
+      seminarName: options.seminarName,
+      seminarId:options.seminarId,
+    });
+    var seminarId = this.data.seminarId;
+    var IPPort = getApp().globalData.IPPort;
+    var that = this;
+
+    wx.request({
+      url: IPPort + '/seminar/' + seminarId + '/my',
+      method: 'GET',
+      success: function (data) {
+        console.log(data);
+        that.setData({
+          info: data.data
+        })
+
+      }
+    })
   
   },
 

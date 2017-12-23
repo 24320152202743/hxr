@@ -2,33 +2,40 @@
 Page({
 
   data: {
+    groupId:1 ,
     topic: [
       {
         "flag":0,
         "order":"null",
         "id": 257,
+        "serial": "A",
         "name": "领域模型与模块",
-        "description": "lalalala",
+        "description": "Domain model与模块划分",
         "groupLimit": 5,
+        "groupMemberLimit": 6,
         "groupLeft": 2
       },
       {
         "flag":0,
         "order": "null",
-        "id": 258,
-        "name": "包划分",
-        "description": "xixixixi",
+        "id": 257,
+        "serial": "A",
+        "name": "领域模型与模块",
+        "description": "Domain model与模块划分",
         "groupLimit": 5,
-        "groupLeft": 1
+        "groupMemberLimit": 6,
+        "groupLeft": 2
       },
       {
         "flag":0,
         "order": "null",
-        "id": 259,
-        "name": "model",
-        "description": "eheheheh",
+        "id": 257,
+        "serial": "A",
+        "name": "领域模型与模块",
+        "description": "Domain model与模块划分",
         "groupLimit": 5,
-        "groupLeft": 0
+        "groupMemberLimit": 6,
+        "groupLeft": 2
       }
     ]
   },
@@ -37,6 +44,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      groupId: options.groupId
+    });
+    var seminarId = options.seminarId;
+    var IPPort = getApp().globalData.IPPort;
+    var that = this;
+    wx.request({
+      url: IPPort + '/seminar/' + seminarId + '/topic',
+      method: 'GET',
+      success: function (data) {
+        console.log(data);
+        that.setData({
+          topic: data.data
+        })
+
+      }
+    })
     var char = 1;
     console.log(char);
     for(var i=0;i<this.data.topic.length;i++)
@@ -63,6 +87,17 @@ Page({
   },
 
   chooseTopic: function (e) {
+    var groupId = this.data.groupId;
+    var IPPort = getApp().globalData.IPPort;
+    var message = '{"id":'+e.currentTarget.dataset.topicObj.id+'}';
+    var that = this;
+    wx.request({
+      url: IPPort + '/group/' + groupId + '/topic',
+      method: 'POST',
+      data:message,
+      success: function (data) {
+        }
+    })
     console.log(e) 
     var topic = e.currentTarget.dataset.topicObj.name;
     wx.showModal({

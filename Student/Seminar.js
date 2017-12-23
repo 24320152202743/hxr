@@ -5,9 +5,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-  coursename:'OOAD',
-  seminarname:'讨论课4',
-  seminarid:'1',
+    courseName: 'OOAD',
+    seminarName: '讨论课4',
+    seminarId: 1,
+    info: {
+      "id": 32,
+      "name": "概要设计",
+      "groupingMethod": "random",
+      "courseName": "OOAD",
+      "startTime": "2017-10-11",
+      "endTime": "2017-10-24",
+      "classCalling": 23,
+      "isLeader": true,
+      "areTopicsSeletced": true
+    },
   other:{
     iscall:false,
     issendgrade:false,
@@ -19,18 +30,18 @@ Page({
 
   FixedGroupNoLeaderUI: function () {
     wx.navigateTo({
-      url: './FixedGroupNoLeaderUI',
+      url: './FixedGroupNoLeaderUI?seminarId=' + this.data.seminarId,
     })
   },
   GradePresentationUI: function () {
     wx.navigateTo({
-      url: './GradePresentationUI',
+      url: './GradePresentationUI?seminarId='+this.data.seminarId,
     })
   },
   RollCallUI: function () {
     if(!wx.getStorageSync("iscall")){
     wx.navigateTo({
-      url: './RollCallUI?seminarid='+this.data.seminarid,
+      url: './RollCallUI?seminarId='+this.data.seminarId,
     })
     }else{
       wx.navigateTo({

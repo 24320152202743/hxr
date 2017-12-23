@@ -5,46 +5,57 @@ Page({
    * 页面的初始数据
    */
   data: {
-  seminarname: "讨论课4",
-  topic: "",
+    seminarId:1,
   groupMethod:'固定分组',
-  groupMembers: [
-    {
-      sname: "绝尘世",
-      sid: "24320152202745"
+  info:{
+    "id": 28,
+    "name": 28,
+    "leader": {
+      "id": 8888,
+      "name": "张三"
     },
-    {
-      sname: "绝尘界",
-      sid: "24320152202743"
-    }
-    ,
-    {
-      sname: "绝尘巅",
-      sid: "24320152202744"
-    },
-    {
-      sname: "绝尘峰",
-      sid: "24320152202741"
-    },
-    {
-      sname: "世界巅峰",
-      sid: "24320152202745"
-    }
-  ]
+    "members": [
+      {
+        "id": 5324,
+        "name": "李四"
+      },
+      {
+        "id": 5678,
+        "name": "王五"
+      }
+    ],
+    "topics": [
+      {
+        "id": 257,
+        "name": "领域模型与模块"
+      }
+    ]
+  }
+  
   },
-  beLeader: function(){
+  beLeader: function () {
+    var seminarId = this.data.seminarId;
+    var groupId = this.data.info.id;
+    var IPPort = getApp().globalData.IPPort;
+    var that = this;
+    wx.request({
+      url: IPPort + '/group/' + groupId + '/assign',
+      method: 'PUT',
+      success: function (data) {
+        }
+    })
     console.log(this.data.topic);
     if(this.data.topic!="")
     {
       var topic = this.data.topic;
       wx.redirectTo({
-        url: './FixedGroupLeaderUI?topic=' + topic,
+        url: './FixedGroupLeaderUI?topic=' + topic +'&seminarId=' +seminarId,
       })
     }
     else{
       
     wx.redirectTo({
-      url: './FixedGroupLeaderUI2',
+      url: './FixedGroupLeaderUI2?seminarId='+seminarId,
       })
     }
   },
@@ -53,8 +64,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.setData({
+      seminarId: options.seminarId
+    });
+    var seminarId = this.data.seminarId;
+    var IPPort = getApp().globalData.IPPort;
+    var that = this;
+    wx.request({
+      url: IPPort + '/seminar/' + seminarId + '/group/my',
+      method: 'GET',
+      success: function (data) {
+        console.log(data);
+        that.setData({
+          info: data.data
+        })
+
+      }
+    })
+      
   },
+  
+  
 
   /**
    * 生命周期函数--监听页面初次渲染完成

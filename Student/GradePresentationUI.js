@@ -1,51 +1,96 @@
-// score.js
+var app = getApp();// pages/Student/Seminar/Scoring/Score.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    groupNum:[
-  {
-    "star":0,
-    "id": 28,
-    "name": "1A1",
-    "topics": [
-      {
-        "id": 257,
-        "name": "领域模型与模块"
-      }
-    ]
+    studentId: 1,
+    seminarId: "",
+    group: [],
+    groupId: 1,
+    presentationGrade: [],
+
+    flag: true               //是否显示提交button
   },
-  {
-    "star":0,
-    "id": 29,
-    "name": "1A2",
-    "topics": [
-      {
-        "id": 257,
-        "name": "领域模型与模块"
+
+  score: function (e) {
+
+    var temp = e.target.dataset
+    for (var i = 0; i < this.data.presentationGrade.length; ++i)
+      if (this.data.presentationGrade[i].id == temp.group) {
+        this.data.presentationGrade[i].grade = temp.score
       }
-    ]
-  }
-],
-    
-    starMap: [
-      '非常差',
-      '差',
-      '一般',
-      '好',
-      '非常好',
-    ],
-    
-},
-  
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
+    var t = this.data.presentationGrade
+
+    this.setData({
+      presentationGrade: t
+    })
+  },
+
   onLoad: function (options) {
+    this.setData({
+      seminarId: options.seminarId,
+    })
 
+    var self = this
+    wx.request({                    //请求小组
+      url: app.globalData.IPPort + '/seminar/' + this.data.seminarId + '/group?gradeable=true',
+      method: 'GET',
+      success: function (res) {
+        self.setData({
+          group: res.data
+        })
+        for (var i = 0; i < self.data.group.length; ++i) {
+          self.data.presentationGrade.push({ "id": self.data.group[i].id, 'name': self.data.group[i].name, "grade": 0 })
+        }
+        var temp = self.data.presentationGrade
+        self.setData({
+          presentationGrade: temp
+        })
+        console.log(self.data.presentationGrade)
+      },
+      fail: function () {
+        wx.showToast({
+          title: '页面加载失败',
+          icon: 'fail',
+          duration: 1000,
+          mask: true
+        })
+      }
+    })
+
+  },
+
+  //提交
+  submit: function () {
+    var self = this
+    wx.request({
+      url: app.globalData.IPPort + '/group/' + this.data.groupID + '/grade/presentation/' + this.data.studentID,
+      method: 'put',
+      data: { 'presentationGrade': this.data.presentationGrade },
+      success: function (res) {
+        wx.showToast({
+          title: '提交成功',
+          icon: 'success',
+          duration: 1000,
+          mask: true
+        })
+        self.setData({
+          flag: false
+        })
+
+      },
+      fail: function () {
+        wx.showToast({
+          title: '提交失败',
+          icon: 'fail',
+          duration: 1000,
+          mask: true
+        })
+      }
+    })
   },
 
   /**
@@ -95,24 +140,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  GradePresentationEndUI: function () {
-    wx.redirectTo({
-      url: './GradePresentationEndUI?groupNum=' + JSON.stringify(this.data.groupNum),
-      success: function (res) { },
-      fail: function () { },
-      complete: function () { }
-    })
-  },
-
-  myStarChoose(e) {
-    console.log(e);
-    let star = parseInt(e.target.dataset.star) || 0;
-    var index =parseInt(e.currentTarget.dataset.groupnumObj.id)-1;
-    console.log(index);
-    var up = "groupNum[" + index + "].star";
-    this.setData({
-      [up]: star
-    });
   }
 })

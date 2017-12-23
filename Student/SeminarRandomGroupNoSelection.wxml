@@ -9,7 +9,7 @@
     <span class="ButtonTextLeft">签到</span>
   </view>
 	<view class="GroupBoxGrey" style="float: ">
-	  <text class="ButtonTextLeft">组队和选题</text>
+	  <text class="ButtonTextLeft" bindtap='FixedGroupNoLeaderUI'>组队和选题</text>
   </view>
    <text class="noGroup">讨论课还未开始，请讨论课开始后进行操作。</text>
    <!--space='emsp'设置读取空格-->

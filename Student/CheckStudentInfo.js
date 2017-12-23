@@ -29,6 +29,16 @@ Page({
       content: '确定要解绑吗？',
       success: function (res) {
         if (res.confirm) {
+          var IPPort = getApp().globalData.IPPort;
+          var message = "";
+          wx.request({
+            url: IPPort + '/me',
+            method: 'PUT',
+            data: { "unionID": "" },
+            success: function (data) {
+              console.log(data);
+            }
+          })
           wx.navigateTo({
             url: '../common/ChooseCharacter',
           })

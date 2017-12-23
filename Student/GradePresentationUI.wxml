@@ -2,19 +2,32 @@
 
 <view class="seminarblock">	
   <span class="column0"><image class="seminarimg" src="../images/users.png" /></span>
-  <text class="greyword" >请为别的小组展示打分</text>
+  <block wx:if="{{flag}}">
+  <label class='greyword'>请为别的小组展示打分</label>
+  </block>
+  <block wx:if="{{!flag}}">
+  <label class='greyword'>您的打分结果</label>
+  </block>
 </view>
 
-<view wx:for="{{groupNum}}" class="middlediv scoremargin" bindtap="myStarChoose"  wx:for-item="i" data-groupNum-obj="{{i}}">
+<!--打分表单-->
+<view class="middlediv scoremargin">
+<block wx:for="{{presentationGrade}}" wx:for-item="i">
+  <view>
+      <label class='text'>{{i.name}}</label>
+      <block wx:for="{{[1,2,3,4,5]}}">
+        <block wx:if="{{item<=i.grade}}">
+          <image src="../images/heart_chosen.png" data-group="{{i.id}}" data-score="{{item}}" bindtap="score" class='heart'/>
+        </block>
+        <block wx:if="{{item>i.grade}}">
+          <image src="../images/heart_empty.png" data-group="{{i.id}}" data-score="{{item}}" bindtap="score" class='heart'/>
+        </block>
+      </block>
+  </view>
+</block>
 
-    <text>{{i.name}}</text>
-    <block wx:for="{{starMap}}">
-      <text wx:if="{{i.star>=index+1}}" style="padding-right: .5em"  data-star="{{index+1}}">★</text>
-      <text wx:if="{{i.star<index+1}}" style="padding-right: .5em"  data-star="{{index+1}}">☆</text>
-    </block>
-   
-</view>
+<block wx:if="{{flag}}">
 
- <view class="middlediv scoremargin">
-<button class="btnsubmit" bindtap="GradePresentationEndUI">提交</button>
+<button class="btnsubmit" bindtap="submit">提交</button>
+</block>
  </view>

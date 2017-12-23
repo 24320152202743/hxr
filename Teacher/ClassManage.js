@@ -1,11 +1,11 @@
-﻿Page({
+Page({
   data: { // 参与页面渲染的数据
     Classmanage: {
       "id": 29,
       "name": "界面原型设计",
       "seminar": '讨论课1',
       "courseName": "OOAD",
-      "groupingMethod": "fixed",
+      "groupingMethod": "random",
       "startTime": "2017-09-25",
       "endTime": "2017-10-09",
       "classes": [
