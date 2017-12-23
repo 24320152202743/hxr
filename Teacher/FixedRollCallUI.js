@@ -1,15 +1,19 @@
 Page({
   data: { // 参与页面渲染的数据
     presentNum: 37,
+    classInfo:"",
   },
-  onLoad: function () {
-    wx.setStorageSync("nextUrl", './FixedRollCallUI?ClassId=')
+  onLoad: function (options) {
+    var k = options.classId;
     this.setData({
-      classInfo: wx.getStorageSync("classInfo"),
+      classInfo: wx.getStorageSync("classInfo" + k),
       //res代表success函数的事件对，data是固定的，stories是是上面json数据中stories
-
     })
+    wx.setStorageSync("nextUrl", './FixedRollCallUI?classId=' + this.data.classInfo.id);
+    wx.setStorageSync("id", this.data.classInfo.id);
   },
+
+
   FixedEndRollCallUI: function () {
     var that = this;
     wx.showModal({
@@ -18,11 +22,10 @@ Page({
       success: function (res) {
         if (res.confirm) {
           wx.redirectTo({
-            url: './FixedEndRollCallUI?presentNum=' + that.data.presentNum,
+            url: './FixedEndRollCallUI?presentNum=' + that.data.presentNum +"&classId="+that.data.classInfo.id,
             success: function () {
               var IPPort = getApp().globalData.IPPort;
               var message = "";
-              var that = this;
               wx.request({
                 url: IPPort + '/class/' + that.data.classInfo.id,
                 method: 'PUT',
@@ -48,7 +51,7 @@ Page({
 
   FixedGroupInfoUI: function () {
     wx.navigateTo({
-      url: './FixedGroupInfoUI',
+      url: './FixedGroupInfoUI?classId='+this.data.classInfo.id,
       success: function (res) {
         // success
       },
@@ -63,7 +66,7 @@ Page({
 
   RollCallListUI: function () {
     wx.navigateTo({
-      url: './RollCallListUI',
+      url: './RollCallListUI?classId=' + this.data.classInfo.id,
       success: function () {
         // success
       },

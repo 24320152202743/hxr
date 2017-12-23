@@ -10,7 +10,7 @@ Page({
       "endTime": "2017-10-09",
       "classes": [
         {
-          "id": 53,
+          "id": 23,
           "name": "周三12"
         },
         {
@@ -20,14 +20,14 @@ Page({
       ]
     },
     courseId: 29,
-    nextUrl:'',
     first:true,
   },
   onLoad: function (options) {
-    console.log(options)
+    //console.log(options)
     this.setData({
       courseId:options.classId
     })
+    
     var IPPort = getApp().globalData.IPPort;
     var message = "";
     var that = this;
@@ -43,26 +43,45 @@ Page({
         })
       }
     })
-    console.log(message);
+    
+    //console.log(message);
     if (this.data.Classmanage.groupingMethod == 'fixed')
     {
-      that.setData({
-        nextUrl : './FixedRollStartCallUI?ClassId='
-      })
+      for (k = 0; k < this.data.Classmanage.classes.length; ++k) {
+        var urls = "Classmanage.classes[" + k + "].nexturl";
+        var id = this.data.Classmanage.classes[k].id
+        this.setData({
+          [urls]: './FixedRollStartCallUI?classId='+id
+        })
+      }
     }
     else{
-      that.setData({
-        nextUrl: './RandomRollStartCallUI?ClassId='
-      })
+      for (var k = 0; k < this.data.Classmanage.classes.length; ++k) {
+        var urls = "Classmanage.classes[" + k + "].nexturl";
+        var id = this.data.Classmanage.classes[k].id
+        that.setData({
+          [urls]: './RandomRollStartCallUI?classId='+id
+        })
+      }
+      
     }
+    console.log(this.data.Classmanage.classes);
   },
 
 
   RollStartCallUI: function (event) {
     var that = this;
+    console.log(event);
+    var next;
+    for (var k = 0; k < that.data.Classmanage.classes.length;++k){
+      if (that.data.Classmanage.classes[k].id == event.target.id)
+        next = that.data.Classmanage.classes[k].nexturl + '&seminarId=' + that.data.Classmanage.id;
+    }
+    console.log(next);
       wx.navigateTo({
-        url: that.data.nextUrl + event.target.id + '&seminarId=' + that.data.Classmanage.id,
+        url: next,
         success: function (res) {
+          console.log("ok")
           that.setData({
             first: false,
           })
@@ -80,10 +99,23 @@ Page({
 
 onShow:function(options){
   console.log("onShow")
-  if(this.data.first==false)
+  
+  if(this.data.first==false){
+    var url = wx.getStorageSync("nextUrl");
+    var id = wx.getStorageSync("id");
+    console.log(id)
+    var i = 0;
+    for (i = 0; i < this.data.Classmanage.classes.length; ++i) {
+      if (this.data.Classmanage.classes[i].id == id)
+        break;
+    }
+    console.log(this.data.Classmanage.classes[i].id)
+    var nexturl = "Classmanage.classes[" + i + "].nexturl"
   this.setData({
-    nextUrl: wx.getStorageSync("nextUrl"),
+    [nexturl]: wx.getStorageSync("nextUrl"),
   })
+  console.log(this.data.Classmanage.classes[i])
+  }
 
 }
 

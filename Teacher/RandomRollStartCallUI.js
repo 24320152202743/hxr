@@ -21,23 +21,19 @@ Page({
   },
   onLoad: function (options) {
     var that = this;
-    wx.setStorageSync("nextUrl", './RandomRollStartCallUI?ClassId=')
-    // 页面渲染后 执行
-    wx.setStorageSync("classInfo", that.data.classInfo);
-    // 页面渲染后 执行
-    var that = this;
-    // 页面渲染后 执行
     that.setData({
-      ["classInfo.id"]: options.ClassId,
+      ["classInfo.id"]: options.classId,
       seminarId: options.seminarId,
     })
+    // 页面渲染后 执行
+    wx.setStorageSync("classInfo" + this.data.classInfo.id, this.data.classInfo);
     wx.setStorageSync("seminarId", this.data.seminarId);
     console.log(this.data);
     var IPPort = getApp().globalData.IPPort;
     var message = "";
     var that = this;
     wx.request({
-      url: IPPort + '/class/' + options.ClassId,
+      url: IPPort + '/class/' + options.classId,
       method: 'GET',
       //data:this.data.info,
       success: function (data) {
@@ -61,15 +57,19 @@ Page({
     }),
 
       console.log(message);
-
+    wx.setStorageSync("nextUrl", './RandomRollStartCallUI?classId=' + this.data.classInfo.id);
+    wx.setStorageSync("id", this.data.classInfo.id);
   },
+
+
+
   RandomRollCallUI: function () {
-    wx.setStorageSync("classInfo", this.data.classInfo);
+    wx.setStorageSync("classInfo" + this.data.classInfo.id, this.data.classInfo);
     var IPPort = getApp().globalData.IPPort;
     var message = "";
     var that = this;
     wx.redirectTo({
-      url: './RandomRollCallUI',
+      url: './RandomRollCallUI?classId=' + this.data.classInfo.id,
       success: function (res) {
         wx.request({
           url: IPPort + '/class/' + that.data.classInfo.id,
