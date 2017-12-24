@@ -24,14 +24,20 @@ Page({
     issendgrade:false,
     isendchoosetopic:false,
     iscaptain:false,
+    isStart:false
   }
   },
 
 
   FixedGroupNoLeaderUI: function () {
-    
+    var k = this.data.info.groupingMethod;
+    if(k == "random")
+      k = "随机分组"
+    else
+      k = "固定分组"
+
     wx.navigateTo({
-      url: './FixedGroupNoLeaderUI?seminarId=' + this.data.seminarId,
+      url: './FixedGroupNoLeaderUI?seminarId=' + this.data.seminarId + "&groupMethod=" + k,
     })
   },
   GradePresentationUI: function () {
@@ -47,11 +53,8 @@ Page({
         wx.navigateTo({
           url: './RollCallUI?seminarId=' + this.data.seminarId,
         })
-      } else {
-        wx.navigateTo({
-          url: './RollCallEndUI'
-        })
-      }}
+      } 
+      }
     
   },
   /**
@@ -93,7 +96,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+   
   },
 
   /**

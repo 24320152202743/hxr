@@ -28,17 +28,20 @@
   </view>
 
 
-  <!-- <view class="successCall" wx:if="{{islata==false}}">
-        <image src="../image/clock.png" class='courseInfoIcon'/>
+
+  <view class="lateCall" wx:if="{{isLate && hasCalled}}">
+        <image src="../images/clock.png" class='courseInfoIcon'/>
+        <strong>迟到签到成功</strong>
+   </view>  
+
+  <view class="successCall" wx:if="{{!isLate && hasCalled}}">
+        <image src="../images/clock.png" class='courseInfoIcon'/>
         <strong>签到成功</strong>
    </view>
-   <view class="lateCall" wx:if="{{islata==true}}">
-        <image src="../image/clock.png" class='courseInfoIcon'/>
-        <strong>迟到签到成功</strong>
-   </view>     -->
+    
   
 
-  <view>
+  <view wx:if="{{!hasCalled}}">
     <button type="button" class="blueBigBtn" bindtap='CallInRoll'>
       签到
     </button>

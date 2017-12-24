@@ -16,6 +16,8 @@ Page({
     },
     message: "",
     classid:"",
+    hasCalled:false,
+    isLate : false,
   },
 
   /**
@@ -25,9 +27,13 @@ Page({
     var IPPort = getApp().globalData.IPPort;
     var seminarid = options.seminarId;
     this.setData({
+      hasCalled:false,
       classid: options.classId,
+      isLate:false,
     })
-   
+    
+
+
     var that = this;
     wx.request({
      url: IPPort+'/seminar/'+ seminarid+'/detail',
@@ -40,6 +46,19 @@ Page({
        })
      }
    })
+    try {
+      var isLate = wx.getStorageSync("isLate" + that.data.seminarDetail.id);
+      var hasCalled = wx.getStorageSync("hasCalled" + that.data.seminarDetail.id);
+      if (isLate != "" && hasCalled!="")
+      {
+        that.setData({
+          hasCalled: hasCalled,
+          isLate: isLate,
+        })
+      }
+      
+    }
+    catch (e) { }
   },
 
   /**
@@ -67,7 +86,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    wx.setStorageSync("isLate" + this.data.seminarDetail.id, this.data.isLate);
+    wx.setStorageSync("hasCalled" + this.data.seminarDetail.id, this.data.hasCalled);
   },
 
   /**
@@ -92,7 +112,7 @@ Page({
   },
 
   CallInRoll: function () {
-    wx.setStorageSync("iscall", true);
+   // wx.setStorageSync("iscall", true);
     var latitude;
     var longitude;
     var elevation;
@@ -118,92 +138,30 @@ Page({
         elevation:elevation
       },
       success: function (res) { 
-        if(res.statusCode==200){
+        console.log(res);
+        if(res.statusCode == 200){
+        if(res.data.status=="late"){
           that.setData({
-            message:res.data
+            isLate:true,
+            hasCalled:true,
           })
-          wx.setStorageSync("islate", res.data);
+    //      wx.setStorageSync("islate", res.data);
+        }
+        else if (res.data.status == "ontime"){
+          that.setData({
+            isLate: false,
+            hasCalled: true,
+          })
         }
       }
-    
-    })
-    wx.redirectTo({
-      url: './RollCallEndUI',
-    })
-  },
-
-
-
-  RollCallEndUI: function () {
-    console.log(this.data.seminarDetail);
-    wx.setStorageSync("seminarDetail", this.data.seminarDetail);
-    wx.redirectTo({
-      url: './RollCallEndUI',
-      success: function (res) {
-        // success
-      },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
+      else{
+          wx.showToast({
+            title: '签到失败',
+            icon: 'loading',
+            duration: 1500
+          })
+      }
       }
     })
   },
-
-  RollCallLateUI: function () {
-    wx.setStorageSync("seminarDetail", this.data.seminarDetail);
-    wx.redirectTo({
-      url: './RollCallLateUI',
-      success: function (res) {
-        // success
-      },
-      fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
-      }
-    })
-  },
-
-
-  ConvertDegreesToRadians:function(degrees) {
-    return degrees * Math.PI / 180;
-  },
-
-  ConvertRadiansToDegrees:function(radian)
-  {
-    return radian * 180.0 / Math.PI;
-  },
-
-  HaverSin(theta) {
-    var v = Math.sin(theta / 2);
-    return v * v;
-  },
-
-  Distance: function (lat1, lon1, ele1, lat2, lon2, ele2) {
-    //用haversine公式计算球面两点间的距离。
-    //经纬度转换成弧度
-    lat1 = this.ConvertDegreesToRadians(lat1);
-    lon1 = this.ConvertDegreesToRadians(lon1);
-    lat2 = this.ConvertDegreesToRadians(lat2);
-    lon2 = this.ConvertDegreesToRadians(lon2);
-
-    //差值
-    var vLon = Math.abs(lon1 - lon2);
-    var vLat = Math.abs(lat1 - lat2);
-
-    //h is the great circle distance in radians, great circle就是一个球体上的切面，它的圆心即是球心的一个周长最大的圆。
-    var h = this.HaverSin(vLat) + Math.cos(lat1) * Math.cos(lat2) * this.HaverSin(vLon);
-    var EARTH_RADIUS = 6378.137;
-    var distance = 2 * EARTH_RADIUS * Math.asin(Math.sqrt(h));
-    distance = Math.sqrt(Math.pow(distance, 2) + Math.pow(ele2 - ele1, 2))
-    return distance;
-  }
-
-
-
-
-
 })
