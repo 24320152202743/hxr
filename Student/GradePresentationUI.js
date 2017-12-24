@@ -7,15 +7,36 @@ Page({
   data: {
     studentId: 1,
     seminarId: "",
-    group: [],
+    group: [
+      {
+        "id": 28,
+        "name": "1A1",
+        "topics": [
+          {
+            "id": 257,
+            "name": "领域模型与模块"
+          }
+        ]
+      },
+      {
+        "id": 29,
+        "name": "1A2",
+        "topics": [
+          {
+            "id": 257,
+            "name": "领域模型与模块"
+          }
+        ]
+      }
+    ],
     groupId: 1,
     presentationGrade: [],
 
-    flag: true               //是否显示提交button
+    flag: false               //是否提交了button
   },
 
   score: function (e) {
-
+  if(this.data.flag == false){
     var temp = e.target.dataset
     for (var i = 0; i < this.data.presentationGrade.length; ++i)
       if (this.data.presentationGrade[i].id == temp.group) {
@@ -26,12 +47,14 @@ Page({
 
     this.setData({
       presentationGrade: t
-    })
+    })}
   },
 
   onLoad: function (options) {
+
     this.setData({
       seminarId: options.seminarId,
+      studentId: wx.getStorageSync("studentId"),
     })
 
     var self = this
@@ -49,7 +72,28 @@ Page({
         self.setData({
           presentationGrade: temp
         })
-        console.log(self.data.presentationGrade)
+        try{
+        temp =  wx.getStorageSync("grade" + self.data.seminarId)
+        
+        if(temp)
+        {
+          self.setData({
+            presentationGrade: temp
+          })
+        }
+        
+        var isGrade = wx.getStorageSync("isGrade" + self.data.seminarId);
+        console.log(isGrade);
+        if(isGrade)
+        {
+          self.setData({
+            flag: isGrade,
+          })
+        }
+
+
+        }
+        catch(e){}
       },
       fail: function () {
         wx.showToast({
@@ -67,9 +111,9 @@ Page({
   submit: function () {
     var self = this
     wx.request({
-      url: app.globalData.IPPort + '/group/' + this.data.groupID + '/grade/presentation/' + this.data.studentID,
+      url: app.globalData.IPPort + '/group/' + self.data.groupId + '/grade/presentation/' + self.data.studentId,
       method: 'put',
-      data: { 'presentationGrade': this.data.presentationGrade },
+      data: { 'presentationGrade': self.data.presentationGrade },
       success: function (res) {
         wx.showToast({
           title: '提交成功',
@@ -78,10 +122,13 @@ Page({
           mask: true
         })
         self.setData({
-          flag: false
+          flag: true
         })
-
+        wx.setStorageSync("grade" + self.data.seminarId, self.data.presentationGrade);
+        wx.setStorageSync("isGrade" + self.data.seminarId, self.data.flag);
+        console.log(self.data.flag);
       },
+
       fail: function () {
         wx.showToast({
           title: '提交失败',

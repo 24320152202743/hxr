@@ -22,7 +22,7 @@ Page({
    */
   onLoad: function (options) {
     var IPPort = getApp().globalData.IPPort;
-    var seminarid = options.seminarid;
+    var seminarid = options.seminarId;
     var that = this;
     wx.request({
      url: IPPort+'/seminar/'+ seminarid+'/detail',
