@@ -5,7 +5,7 @@ Page({
       "name": "界面原型设计",
       "seminar": '讨论课1',
       "courseName": "OOAD",
-      "groupingMethod": "random",
+      "groupingMethod": "fixed",
       "startTime": "2017-09-25",
       "endTime": "2017-10-09",
       "classes": [
@@ -20,7 +20,6 @@ Page({
       ]
     },
     courseId: 29,
-    first:true,
   },
   onLoad: function (options) {
     //console.log(options)
@@ -38,34 +37,49 @@ Page({
       success: function (data) {
         console.log(data);
         that.setData({
-          first:true,
           Classmanage: data.data,
         })
       }
     })
-    
-    //console.log(message);
-    if (this.data.Classmanage.groupingMethod == 'fixed')
-    {
-      for (k = 0; k < this.data.Classmanage.classes.length; ++k) {
-        var urls = "Classmanage.classes[" + k + "].nexturl";
-        var id = this.data.Classmanage.classes[k].id
-        this.setData({
-          [urls]: './FixedRollStartCallUI?classId='+id
-        })
+    try{
+      var key = "classNextUrl" + this.data.Classmanage.id;
+      console.log(key);
+      var classes = wx.getStorageSync(key);
+      console.log("class"+classes);
+      if (classes)
+        {
+          that.setData({
+            ["Classmanage.classes"]: classes,
+          })
+        }
+        else {
+          if (this.data.Classmanage.groupingMethod == 'fixed') {
+            for (k = 0; k < this.data.Classmanage.classes.length; ++k) {
+              var urls = "Classmanage.classes[" + k + "].nexturl";
+              var id = this.data.Classmanage.classes[k].id
+              this.setData({
+                [urls]: './FixedRollStartCallUI?classId=' + id
+              })
+            }
+          }
+          else {
+            for (var k = 0; k < this.data.Classmanage.classes.length; ++k) {
+              var urls = "Classmanage.classes[" + k + "].nexturl";
+              var id = this.data.Classmanage.classes[k].id
+              that.setData({
+                [urls]: './RandomRollStartCallUI?classId=' + id
+              })
+            }
+          }
+        }
       }
-    }
-    else{
-      for (var k = 0; k < this.data.Classmanage.classes.length; ++k) {
-        var urls = "Classmanage.classes[" + k + "].nexturl";
-        var id = this.data.Classmanage.classes[k].id
-        that.setData({
-          [urls]: './RandomRollStartCallUI?classId='+id
-        })
-      }
+    catch(e){
       
     }
-    console.log(this.data.Classmanage.classes);
+    
+    //console.log(message);
+    
+
   },
 
 
@@ -77,15 +91,9 @@ Page({
       if (that.data.Classmanage.classes[k].id == event.target.id)
         next = that.data.Classmanage.classes[k].nexturl + '&seminarId=' + that.data.Classmanage.id;
     }
-    console.log(next);
       wx.navigateTo({
         url: next,
         success: function (res) {
-          console.log("ok")
-          that.setData({
-            first: false,
-          })
-
         },
         fail: function () {
           // fail
@@ -99,25 +107,28 @@ Page({
 
 onShow:function(options){
   console.log("onShow")
-  
-  if(this.data.first==false){
+  try {
     var url = wx.getStorageSync("nextUrl");
     var id = wx.getStorageSync("id");
-    console.log(id)
+    if(url && id){
     var i = 0;
     for (i = 0; i < this.data.Classmanage.classes.length; ++i) {
       if (this.data.Classmanage.classes[i].id == id)
         break;
     }
-    console.log(this.data.Classmanage.classes[i].id)
     var nexturl = "Classmanage.classes[" + i + "].nexturl"
   this.setData({
     [nexturl]: wx.getStorageSync("nextUrl"),
   })
-  console.log(this.data.Classmanage.classes[i])
+  }}
+  catch(e){
+    console.log("第一次打开");
   }
-
-}
-
+},
+onUnload: function () {
+  console.log("classNextUrl" + this.data.Classmanage.id)
+  wx.setStorageSync("classNextUrl" + this.data.Classmanage.id, this.data.Classmanage.classes);
+  console.log(wx.getStorageSync("classNextUrl" + this.data.Classmanage.id));
+},
 
 })
