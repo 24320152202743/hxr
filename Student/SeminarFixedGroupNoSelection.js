@@ -17,7 +17,7 @@ Page({
       "endTime": "2017-10-24",
       "classCalling": 23,
       "isLeader": true,
-      "areTopicsSeletced": true}
+      "areTopicsSelected": true}
     
   },
   FixedGroupNoLeaderUI: function () {

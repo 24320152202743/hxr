@@ -1,11 +1,13 @@
 {
   "pages":[
+    "Student/StudentMainUI",
+    "common/ChooseCharacter",
     "Student/Seminar",
     "Student/GradePresentationUI",
     "Student/CourseUI",
     
     
-    "common/ChooseCharacter",
+    
     "Student/CheckStudentInfo",
     "Student/ChooseSchool",
     "Student/ChooseSchool3",
@@ -27,7 +29,6 @@
     "Student/SeminarRandomGroupNoSelection",
     "Student/StudentBindingUI",
     "Student/StudentBindingUI2",
-    "Student/StudentMainUI",
     "Teacher/TeacherMainUI",
     "Teacher/TeacherBindingUI",
     "Teacher/ChooseSchool2",

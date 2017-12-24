@@ -19,14 +19,14 @@
     </view>
   </block>
 
-  <view wx:for="{{groupMembers}}" wx:for-item="stu">
+  <view wx:for="{{info.members}}" wx:for-item="stu">
   <!--每个白色的块要用WhiteBackSquare固定位置-->
       <view class="WhiteBackSquare">
       <image class="userAvatar" src="../images/user.png"></image>
       <!--姓名和学号的上下位置要用studentView固定-->
       <view class = "studentView">
-      <span class="groupInfoText">{{stu.sname}}</span>
-      <span class="groupInfoText">{{stu.sid}}</span>
+      <span class="groupInfoText">{{stu.name}}</span>
+      <span class="groupInfoText">{{stu.id}}</span>
       </view>
       </view>
   </view>
@@ -34,10 +34,12 @@
 
   <!-- 选题 -->
   <block>
+  <view wx:for="{{info.topics}}" wx:for-item="topic">
     <view>
       <span class="WhiteText">选题:</span>
-      <text class="WhiteText">{{topic}}</text>
+      <text class="WhiteText">{{topic.id}}{{topic.name}}</text>
     </view>
+  </view>
   </block>
 
   <block>

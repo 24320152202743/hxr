@@ -55,7 +55,7 @@ Page({
     var id = e.currentTarget.dataset.courseObj.id;
     var name = e.currentTarget.dataset.courseObj.courseName;
       wx.navigateTo({
-        url: '../Student/CourseUI?courseId=' + id + '&studentId=' + this.data.info.id
+        url: '../Student/CourseUI?courseId=' + id + '&studentId=' + this.data.info.id +'&courseName='+name
       })
   },
   /**

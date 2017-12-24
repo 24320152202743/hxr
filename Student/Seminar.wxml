@@ -3,9 +3,9 @@
 	<span class="title">{{courseName}}</span>
 		<span class="titleSmall"> {{seminarName}}</span>
 	</view>
-	<view class="ScoreBoxBlue" bindtap='GradePresentationUI'>
+	<view class="{{areTopicsSelected?'ScoreBoxGrey':'ScoreBoxBlue'}}" bindtap='GradePresentationUI'>
     <span class="ButtonTextRight" >打分</span></view>
-  <view class="CallBoxBlue" bindtap='RollCallUI'>
+  <view class="{{areTopicsSelected?'CallBoxGrey':'CallBoxBlue'}}" bindtap='RollCallUI'>
     <span class="ButtonTextLeft" >签到</span>
   </view>
 	<view class="GroupBoxBlue" style="float: " bindtap='FixedGroupNoLeaderUI'>

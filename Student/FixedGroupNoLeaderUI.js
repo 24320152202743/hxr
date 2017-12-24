@@ -6,6 +6,7 @@ Page({
    */
   data: {
     seminarId:1,
+    seminarname:'1-a-1',
   groupMethod:'固定分组',
   info:{
     "id": 28,

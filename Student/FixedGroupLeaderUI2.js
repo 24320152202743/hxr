@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    seminarId :1,
+    seminarId: 1,
+    seminarname: '1-a-1',
     groupMethod: '固定分组',
     info: {
       "id": 28,

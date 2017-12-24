@@ -17,7 +17,7 @@ Page({
       "endTime": "2017-10-24",
       "classCalling": 23,
       "isLeader": true,
-      "areTopicsSeletced": true
+      "areTopicsSelected": true
     },
   other:{
     iscall:false,
@@ -29,31 +29,57 @@ Page({
 
 
   FixedGroupNoLeaderUI: function () {
+    
     wx.navigateTo({
       url: './FixedGroupNoLeaderUI?seminarId=' + this.data.seminarId,
     })
   },
   GradePresentationUI: function () {
-    wx.navigateTo({
-      url: './GradePresentationUI?seminarId='+this.data.seminarId,
-    })
+    if (this.data.info.areTopicsSelected == true) {
+      wx.navigateTo({
+        url: './GradePresentationUI?seminarId=' + this.data.seminarId,
+      })}
+    
   },
   RollCallUI: function () {
-    if(!wx.getStorageSync("iscall")){
-    wx.navigateTo({
-      url: './RollCallUI?seminarId='+this.data.seminarId,
-    })
-    }else{
-      wx.navigateTo({
-        url: './RollCallEndUI'
-      })
-    }
+    if (this.data.info.areTopicsSelected == true) {
+      if (!wx.getStorageSync("iscall")) {
+        wx.navigateTo({
+          url: './RollCallUI?seminarId=' + this.data.seminarId,
+        })
+      } else {
+        wx.navigateTo({
+          url: './RollCallEndUI'
+        })
+      }}
+    
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    
+    this.setData({
+      courseName: options.courseName,
+      seminarName: options.seminarName,
+      seminarId: options.seminarId,
+    });
+    var seminarId = this.data.seminarId;
+    var IPPort = getApp().globalData.IPPort;
+    var that = this;
+
+    wx.request({
+      url: IPPort + '/seminar/' + seminarId + '/my',
+      method: 'GET',
+      success: function (data) {
+        console.log(data);
+        that.setData({
+          info: data.data
+        })
+
+      }
+    })
+
   },
 
   /**
