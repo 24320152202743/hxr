@@ -1,5 +1,4 @@
 <!--pages/grouplist/FixedGroupNoLeaderUI.wxml-->
-
 <view>
   <block>
     <view>
@@ -7,7 +6,7 @@
 
       <!--讨论课和固定分组要加一个seminarView容器来固定位置-->
       <view class = "seminarView">
-      <text class="seminarText">{{seminarname}}</text>
+      <text class="seminarText">{{seminarName}}</text>
       <span class="seminarText">{{groupMethod}}</span>
       </view>
     </view>
@@ -16,8 +15,24 @@
   <block>
     <view>
       <span class="WhiteText">队伍信息:</span>
+      <button wx:if = "{{isLeader}}" class="btnLeave" bindtap="Leave">辞职</button>
     </view>
   </block>
+  <view>
+  <!--每个白色的块要用WhiteBackSquare固定位置-->
+      <view class="WhiteBackSquare">
+      <image class="userAvatar" src="../images/user.png"></image>
+      <!--姓名和学号的上下位置要用studentView固定-->
+      <view wx:if="{{hasLeader}}" class = "studentView">
+      <span class="groupInfoText">{{info.leader.name}}</span>
+      <span class="groupInfoText">{{info.leader.id}}</span>
+      </view>
+      <!--队长两个字的位置要用leaderTextView固定-->
+      <view  wx:if="{{hasLeader}}" class="leaderTextView">
+        <span class="groupInfoText">队长</span>
+      </view>
+      </view>
+  </view>
 
   <view wx:for="{{info.members}}" wx:for-item="stu">
   <!--每个白色的块要用WhiteBackSquare固定位置-->
@@ -32,19 +47,20 @@
   </view>
 
 
-  <!-- 选题 -->
-  <block>
-  <view wx:for="{{info.topics}}" wx:for-item="topic">
-    <view>
-      <span class="WhiteText">选题:</span>
-      <text class="WhiteText">{{topic.id}}{{topic.name}}</text>
-    </view>
-  </view>
-  </block>
 
   <block>
     <view>
-      <button class="btnBeLeader" bindtap="beLeader" >成为队长</button>
+      <span  class="WhiteText">选题:</span>
+      <text  wx:if="{{isSelectedTopic}}" class="WhiteText">{{info.topics[0].name}}</text>
     </view>
   </block>
+
+
+    <!-- 选题 -->
+   <block wx:if="{{!isSelectedTopic}}">
+    <view >
+      <button class="btnBeLeader" bindtap="choose">选题</button>
+    </view>
+  </block>
+
 </view>

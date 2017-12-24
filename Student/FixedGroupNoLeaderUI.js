@@ -6,7 +6,6 @@ Page({
    */
   data: {
     seminarId:1,
-    seminarname:'1-a-1',
   groupMethod:'固定分组',
   info:{
     "id": 28,
@@ -30,7 +29,10 @@ Page({
         "id": 257,
         "name": "领域模型与模块"
       }
-    ]
+    ],
+    hasLeader:false,
+    isLeader:false,
+    isSelectedTopic:false
   }
   
   },
@@ -43,22 +45,24 @@ Page({
       url: IPPort + '/group/' + groupId + '/assign',
       method: 'PUT',
       success: function (data) {
+        if (that.data.info.topics != "") {
+          var topic = that.data.info.topics[0].name;
+          wx.redirectTo({
+            url: './FixedGroupLeaderUI?topic=' + topic + '&seminarId=' + seminarId,
+          })
+        }
+        else {
+
+          wx.redirectTo({
+            url: './FixedGroupLeaderUI2?seminarId=' + seminarId,
+          })
+        }
+
+
         }
     })
-    console.log(this.data.topic);
-    if(this.data.topic!="")
-    {
-      var topic = this.data.topic;
-      wx.redirectTo({
-        url: './FixedGroupLeaderUI?topic=' + topic +'&seminarId=' +seminarId,
-      })
-    }
-    else{
-      
-    wx.redirectTo({
-      url: './FixedGroupLeaderUI2?seminarId='+seminarId,
-      })
-    }
+   // console.log(this.data.topic);
+    
   },
 
   /**
@@ -66,9 +70,10 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      seminarId: options.seminarId
+      seminarId: options.seminarId,
     });
     var seminarId = this.data.seminarId;
+    //wx.setStorageSync("nexturlGroup" + seminarId, "./FixedGroupNoLeaderUI")
     var IPPort = getApp().globalData.IPPort;
     var that = this;
     wx.request({
@@ -77,9 +82,27 @@ Page({
       success: function (data) {
         console.log(data);
         that.setData({
-          info: data.data
+          info: data.data,
+          //["info.topics"]:""
         })
+        if(that.data.info.leader!=""){
+          that.setData({
+            hasLeader: true,
+          })
+          if (that.data.info.leader.id==wx.getStorageSync("studentId"))
+            that.setData({
+              isLeader: true,
+            })
+        }
+        if(that.data.info.topics != "")
+          that.setData({
+            isSelectedTopic: true
+          })
 
+        that.setData({
+          isSelectedTopic: false,
+          ["info.topics"]: "",
+        })
       }
     })
       
@@ -134,5 +157,44 @@ Page({
    */
   onShareAppMessage: function () {
   
-  }
+  },
+
+  Leave: function () {
+    var groupId = this.data.info.id;
+    var IPPort = getApp().globalData.IPPort;
+    var that = this;
+    wx.request({
+      url: IPPort + '/group/' + groupId + '/resign',
+      method: 'PUT',
+      success: function (data) {
+        wx.request({
+          url: IPPort + '/seminar/' + seminarId + '/group/my',
+          method: 'GET',
+          success: function (data) {
+            console.log(that.data.isSelected);
+            that.setData({
+              info: data.data,
+              hasLeader:false,
+              isLeader:false,
+            })
+      }
+        })
+      }
+    })
+  },
+
+  choose: function () {
+    var groupId = this.data.info.id;
+    var seminarId = this.data.seminarId;
+    wx.redirectTo({
+      url: "./GroupChooseTopicUI?seminarId=" + seminarId + '&groupId=' + groupId,
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  },
+
+
+
+
 })
