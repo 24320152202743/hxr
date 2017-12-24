@@ -20,15 +20,15 @@
   </block>
   <view>
   <!--每个白色的块要用WhiteBackSquare固定位置-->
-      <view class="WhiteBackSquare">
+      <view class="WhiteBackSquare" wx:if="{{hasLeader}}">
       <image class="userAvatar" src="../images/user.png"></image>
       <!--姓名和学号的上下位置要用studentView固定-->
-      <view wx:if="{{hasLeader}}" class = "studentView">
+      <view  class = "studentView">
       <span class="groupInfoText">{{info.leader.name}}</span>
       <span class="groupInfoText">{{info.leader.id}}</span>
       </view>
       <!--队长两个字的位置要用leaderTextView固定-->
-      <view  wx:if="{{hasLeader}}" class="leaderTextView">
+      <view  class="leaderTextView">
         <span class="groupInfoText">队长</span>
       </view>
       </view>
@@ -57,10 +57,17 @@
 
 
     <!-- 选题 -->
-   <block wx:if="{{!isSelectedTopic}}">
+   <block wx:if="{{!isSelectedTopic && isLeader}}">
     <view >
       <button class="btnBeLeader" bindtap="choose">选题</button>
     </view>
   </block>
+
+    <block wx:if="{{!hasLeader}}">
+    <view>
+      <button class="btnBeLeader" bindtap="beLeader" >成为队长</button>
+    </view>
+  </block>
+
 
 </view>

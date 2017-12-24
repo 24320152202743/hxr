@@ -37,7 +37,6 @@ Page({
   
   },
   beLeader: function () {
-    var seminarId = this.data.seminarId;
     var groupId = this.data.info.id;
     var IPPort = getApp().globalData.IPPort;
     var that = this;
@@ -45,24 +44,19 @@ Page({
       url: IPPort + '/group/' + groupId + '/assign',
       method: 'PUT',
       success: function (data) {
-        if (that.data.info.topics != "") {
-          var topic = that.data.info.topics[0].name;
-          wx.redirectTo({
-            url: './FixedGroupLeaderUI?topic=' + topic + '&seminarId=' + seminarId,
-          })
+        wx.request({
+          url: IPPort + '/seminar/' + that.data.seminarId + '/group/my',
+          method: 'GET',
+          success: function (data) {
+            that.setData({
+              info: data.data,
+              hasLeader: true,
+              isLeader: true,
+            })
         }
-        else {
-
-          wx.redirectTo({
-            url: './FixedGroupLeaderUI2?seminarId=' + seminarId,
-          })
-        }
-
-
-        }
-    })
+    })}
    // console.log(this.data.topic);
-    
+    })
   },
 
   /**
@@ -80,7 +74,6 @@ Page({
       url: IPPort + '/seminar/' + seminarId + '/group/my',
       method: 'GET',
       success: function (data) {
-        console.log(data);
         that.setData({
           info: data.data,
           //["info.topics"]:""
@@ -99,10 +92,7 @@ Page({
             isSelectedTopic: true
           })
 
-        that.setData({
-          isSelectedTopic: false,
-          ["info.topics"]: "",
-        })
+        
       }
     })
       
@@ -168,10 +158,10 @@ Page({
       method: 'PUT',
       success: function (data) {
         wx.request({
-          url: IPPort + '/seminar/' + seminarId + '/group/my',
+          url: IPPort + '/seminar/' + that.data.seminarId + '/group/my',
           method: 'GET',
           success: function (data) {
-            console.log(that.data.isSelected);
+            console.log(that.data.isSelectedTopic);
             that.setData({
               info: data.data,
               hasLeader:false,
