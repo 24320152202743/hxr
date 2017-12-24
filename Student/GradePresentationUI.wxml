@@ -2,10 +2,10 @@
 
 <view class="seminarblock">	
   <span class="column0"><image class="seminarimg" src="../images/users.png" /></span>
-  <block wx:if="{{flag}}">
+  <block wx:if="{{!flag}}">
   <label class='greyword'>请为别的小组展示打分</label>
   </block>
-  <block wx:if="{{!flag}}">
+  <block wx:if="{{flag}}">
   <label class='greyword'>您的打分结果</label>
   </block>
 </view>
@@ -26,7 +26,7 @@
   </view>
 </block>
 
-<block wx:if="{{flag}}">
+<block wx:if="{{!flag}}">
 
 <button class="btnsubmit" bindtap="submit">提交</button>
 </block>
