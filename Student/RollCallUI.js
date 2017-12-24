@@ -15,6 +15,7 @@ Page({
       "teacherEmail": "mingqiu@xmu.edu.cn"
     },
     message: "",
+    classid:"",
   },
 
   /**
@@ -23,6 +24,10 @@ Page({
   onLoad: function (options) {
     var IPPort = getApp().globalData.IPPort;
     var seminarid = options.seminarId;
+    this.setData({
+      classid: options.classId,
+    })
+   
     var that = this;
     wx.request({
      url: IPPort+'/seminar/'+ seminarid+'/detail',
@@ -101,11 +106,11 @@ Page({
     })
 
     var IPPort = getApp().globalData.IPPort;
-    var classid = getApp().globalData.classid;
-    var studentid = getApp().globalData.studentid;
+    
+    var studentid = wx.getStorageSync("studentId");
     var that = this;
     wx.request({
-      url: IPPort + '/seminar/'+this.data.seminarDetail.id+'/class/'+classid+'/attendance/'+studentid,
+      url: IPPort + '/seminar/'+that.data.seminarDetail.id+'/class/'+that.data.classid+'/attendance/'+studentid,
       method:'PUT',
       data:{
         longtitde:longitude,
