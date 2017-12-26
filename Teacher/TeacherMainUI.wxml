@@ -12,7 +12,11 @@
     <text class="FONT1"> {{item.name}}</text>
 </view>-->
 
-<view wx:for="{{course}}"  class="box3" bindtap="ClassManage" data-course-obj="{{item}}" id="{{item.id}}">
+<view wx:for="{{course}}" data-course-obj="{{item}}" wx:if="{{item.flag}}==true" class="box3" bindtap="ClassManage"  id="{{item.id}}">
+    <text class="FONT1"> {{item.name}}</text>
+</view>
+
+<view wx:for="{{course}}" data-course-obj="{{item}}" wx:if="{{item.flag}}==false" class="box4" bindtap="ClassManage"  id="{{item.id}}">
     <text class="FONT1"> {{item.name}}</text>
 </view>
 </page>
