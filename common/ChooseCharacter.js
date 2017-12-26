@@ -32,6 +32,7 @@ Page({
   bindViewTap2: function () {
     var IPPort = getApp().globalData.IPPort;
     var message = { "type": "student" };
+    getApp().globalData.usertype = 0;
     console.log(message);
     wx.request({
       url: IPPort + '/me',
