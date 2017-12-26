@@ -25,6 +25,14 @@ Page({
       [Number]: options.Number,
       [name]: options.name
     })
+    var province = wx.getStorageSync("province");
+    if(province != "")
+    {
+      this.setData({
+        province:province,
+      })
+    }
+    else{
     var self = this
     var IPPort = getApp().globalData.IPPort
     wx.request({
@@ -34,16 +42,17 @@ Page({
         "key": "RR7BZ-74AEP-JFKDC-LC4EB-ROFYV-TBBBO"
       },
       success: function (res) {
-        console.log(res)
+        
         var list = [];
         for (var i = 0; i < res.data.result[0].length; i++) {
           list[i] = res.data.result[0][i]
         }
+        wx.setStorageSync("province", list);
         self.setData({
           province: list
         })
       }
-    })
+    })}
   },
 
   /**

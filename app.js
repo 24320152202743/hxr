@@ -22,7 +22,8 @@ App({
             },
             success:function(data){
               console.log(data)
-              if(data.data=="")
+              wx.setStorageSync('openid', data.data.openid)
+              if(data.data.jwt=="")
               {
                 wx.reLaunch({
                   url: './ChooseCharacter',
@@ -33,7 +34,7 @@ App({
                 that.globalData.userid = data.data.id;
                 that.globalData.usertype = data.data.type;
                 that.globalData.username = data.data.name;
-                if (that.globalData.usertype == 'teacher')
+                if (that.globalData.usertype ==1)
                 {
                   wx.reLaunch({
                     url: 'Teacher/TeacherMainUI',
@@ -42,7 +43,7 @@ App({
                 else{
                   wx.setStorageSync("studentId", that.globalData.userid);
                   wx.reLaunch({
-                    url: 'Student/StudentMainUI',
+                    url: 'StudentMainUI',
                   })
                 }
               }

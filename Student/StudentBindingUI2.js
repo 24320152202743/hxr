@@ -19,6 +19,28 @@ Page({
     var Number = this.data.info.Number;
     var name = this.data.info.name;
     var message = "";
+    var openid = wx.getStorageInfoSync('openid');
+    var name = this.data.info.name;
+    var Type = getApp().globalData.usertype;
+    var schoolId = this.data.info.school.id;
+    this.setData({
+
+    })
+    //绑定
+    wx.request({
+      url: IPPort + '/register',
+      method: 'POST',
+      data: {
+        openid:openid,
+        name:name,
+        Type:Type,
+        schoolId:schoolId
+      },
+      success: function (data) {
+        console.log(data);
+      }
+    })
+
     wx.request({
       url: IPPort + '/me',
       method: 'PUT',

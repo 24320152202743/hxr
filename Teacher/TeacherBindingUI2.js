@@ -22,7 +22,16 @@ Page({
     })
   },
   Teacher_MainUI: function () {
+    console.log(this.data);
     var IPPort = getApp().globalData.IPPort;
+    if (this.data.info.name == '' || this.data.info.Number == '') {
+      wx.showToast({
+        title: '填写不能为空',
+        icon: 'loading',
+        duration: 1500,
+      });
+    }
+    else{
     getApp().globalData.userid = this.data.info.Number;
     getApp().globalData.usertype = 'teacher';
     getApp().globalData.username = this.data.info.name;
@@ -39,6 +48,7 @@ Page({
     wx.reLaunch({
       url: './TeacherMainUI',
     })
+  }
   },
   IDInput: function (e) {
     var Number = "info.Number";
@@ -49,7 +59,8 @@ Page({
 
   NameInput: function (e) {
     this.setData({
-      teacherName: e.detail.value
+      teacherName: e.detail.value,
+      ["info.name"]:e.detail.value,
     })
   },
   /**
@@ -67,7 +78,16 @@ Page({
       [Number]: options.teacherID,
       [name]: options.teacherName,
       [schoolid]:options.id
-    })
+    });
+    console.log(this.data)
+    if (this.data.info.name == "undefined")
+      this.setData({
+        ["info.name"]:"",
+      });
+    if (this.data.info.Number == "undefined")
+      this.setData({
+        ["info.Number"]: "",
+      });
     //console.log(this.data.info.name);
   
   },
