@@ -5,27 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    province:'null',
-    city: [
-      {
-        "id": 1,
-        "name": "城市1"
-      },
-      {
-        "id": 2,
-        "name": "城市2"
-      },
-      {
-        "id": 3,
-        "name": "城市3"
-      },
-      {
-        "id": 4,
-        "name": "城市4"
-      }
-    ],
-    teacherID: '',
-    teacherName: ''
+
+    city: [],
+    info: {
+      Number: '',
+      name: '',
+      province: ''
+    },
+
 
   },
 
@@ -33,10 +20,33 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var self = this
+    var IPPort = getApp().globalData.IPPort
+    var Number = "info.Number";
+    var name = "info.name";
+    var province = "info.province";
     this.setData({
-      province:options.name,
-      teacherID: options.teacherID,
-      teacherName: options.teacherName
+      [Number]: options.Number,
+      [name]: options.name,
+      [province]: options.province,
+    })
+    wx.request({
+      url: 'http://apis.map.qq.com/ws/district/v1/getchildren',
+      data: {
+        id: options.id,
+        key: 'RR7BZ-74AEP-JFKDC-LC4EB-ROFYV-TBBBO'
+      },
+      method: 'GET',
+      success: function (res) {
+        console.log(res.data)
+        var list = [];
+        for (var i = 0; i < res.data.result[0].length; i++) {
+          list[i] = res.data.result[0][i]
+        }
+        self.setData({
+          city: list
+        })
+      }
     })
 
 
@@ -90,15 +100,13 @@ Page({
   onShareAppMessage: function () {
 
   },
-  ChooseSchoolNoSchoolForTeacher: function (e) {
-    console.log(e);
-    console.log(e.currentTarget.dataset.cityObj.name);
-    var name = e.currentTarget.dataset.cityObj.name;
-    var province = this.data.province;
-    var teacherID = this.data.teacherID;
-    var teacherName = this.data.teacherName;
+  ChooseSchool5: function (e) {
+    var city = e.currentTarget.dataset.cityObj.name;
+    var province = this.data.info.province;
+    var Number = this.data.info.Number;
+    var name = this.data.info.name;
     wx.redirectTo({
-      url: './ChooseSchoolNoSchoolForTeacher?name= ' + name + '&province=' + province + '&teacherID=' + teacherID + '&teacherName=' + teacherName
+      url: './ChooseSchoolNoSchoolForTeacher?city= ' + city + '&province=' + province + '&Number=' + Number + '&name=' + name
     })
   }
 })

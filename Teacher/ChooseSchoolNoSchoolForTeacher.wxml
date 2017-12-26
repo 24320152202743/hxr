@@ -7,21 +7,18 @@
 	</view>
 
   <view class="box6" style="background-color: =#66CCFF;">
-	<button class="button1" >{{province}}</button>
-	<button class="button1" >{{city}}</button>
+	<button class="button1" >{{info.province}}</button>
+	<button class="button1" >{{info.city}}</button>
 	<button class="button1" >学校<view class="hrView"/></button>
 	</view>
 
 	<view class="box7" >
   <scroll-view scroll-y="true" style="height:330px;">
-    <view wx:for="{{school}}" class="box8" bindtap="ChooseSchoolNoSchoolForTeacher" data-school-obj="{{item}}">
+    <view wx:for="{{school}}" class="box8" bindtap="StudentBindingUI" data-school-obj="{{item}}">
     <button class="button2" >{{item.name}}</button>
     </view>
     <view class="box8"><button class="button2" bindtap="CreateSchool">无学校?选择创建</button></view>
   </scroll-view>
 	</view>
 </page>
-	
-		 
-  
 	

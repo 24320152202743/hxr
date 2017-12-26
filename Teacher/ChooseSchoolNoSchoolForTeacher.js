@@ -5,28 +5,38 @@ Page({
    * 页面的初始数据
    */
   data: {
-    province: 'null',
-    city: 'null',
     school: [
       {
         "id": 1,
-        "name": "学校1"
+        "name": "厦门大学",
+        "province": "福建",
+        "city": "厦门"
       },
       {
         "id": 2,
-        "name": "学校2"
+        "name": "厦门理工大学",
+        "province": "福建",
+        "city": "厦门"
       },
       {
         "id": 3,
-        "name": "学校3"
+        "name": "华侨大学",
+        "province": "福建",
+        "city": "厦门"
       },
       {
         "id": 4,
-        "name": "学校4"
+        "name": "集美大学",
+        "province": "福建",
+        "city": "厦门"
       }
     ],
-    teacherID: '',
-    teacherName: ''
+    info: {
+      Number: '',
+      name: '',
+      province: '',
+      city: ''
+    },
 
   },
 
@@ -34,14 +44,33 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var Number = "info.Number";
+    var name = "info.name";
+    var province = "info.province";
+    var city = "info.city"
     this.setData({
-      city: options.name,
-      province: options.province,
-      teacherID: options.teacherID,
-      teacherName: options.teacherName
+      [Number]: options.Number,
+      [name]: options.name,
+      [province]: options.province,
+      [city]: options.city
+    })
+
+    var IPPort = getApp().globalData.IPPort;
+    var that = this;
+    wx.request({
+      url: IPPort + '/school?city=' + this.data.info.city,
+      method: 'GET',
+      success: function (data) {
+        console.log(data);
+        that.setData({
+          school: data.data
+        })
+
+      }
     })
 
   },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -92,21 +121,23 @@ Page({
   },
   ChooseSchoolNoSchoolForTeacher: function (e) {
     var name = e.currentTarget.dataset.schoolObj.name;
-    var province = this.data.province;
-    var city = this.data.city;
-    var teacherID = this.data.teacherID;
-    var teacherName = this.data.teacherName;
-    wx.redirectTo({ 
+    var province = this.data.info.province;
+    var city = this.data.info.city;
+    var teacherID = this.data.info.Number;
+    var teacherName = this.data.info.name;
+    wx.redirectTo({
       url: './TeacherBindingUI2?name= ' + name + '&province=' + province + '&city=' + city + '&teacherID=' + teacherID + '&teacherName=' + teacherName
     })
   },
-  CreateSchool:function(e){
-    var province = this.data.province;
-    var city = this.data.city;
-    var teacherID = this.data.teacherID;
-    var teacherName = this.data.teacherName;
+  CreateSchool: function (e) {
+    var province = this.data.info.province;
+    var city = this.data.info.city;
+    var teacherID = this.data.info.Number;
+    var teacherName = this.data.info.name;
     wx.redirectTo({
       url: '../common/CreateSchoolUI?province=' + province + '&city=' + city + '&teacherID=' + teacherID + '&teacherName=' + teacherName
     })
   }
+
+
 })
