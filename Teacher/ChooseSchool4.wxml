@@ -3,11 +3,11 @@
 	<view class="box5" style="position:relative;"><!-- 背景图的view -->
 		<image class="img7" src="../images/bulb (2).png" />  
 		<image class="img8" src="../images/background.jpg" />  
-		　　<view class="FONT41">请选择您的学校</view> 
+		　　<view class="FONT41">请选择您的州市</view> 
 	</view>
 
   <view class="box6" style="background-color: =#66CCFF;">
-	<button class="button1" >{{info.province}}</button>
+	<button bindtap='ChooseSchool2' class="button1" >{{info.province}}</button>
 	<button class="button1" >州市<view class="hrView"/></button>
 	<button class="button1" >学校</button>
 	</view>
@@ -17,7 +17,7 @@
     <!-- <view wx:for="{{school}}" class="box8" bindtap="ChooseSchool5" data-school-obj="{{item}}">
     <button class="button2" >{{item.city}}</button>
   </view> -->
-   <view wx:for="{{city}}" class="box8" bindtap="ChooseSchool5" data-city-obj="{{item}}">
+   <view wx:for="{{city}}" class="box8" bindtap="ChooseSchoolNoSchoolForTeacher" data-city-obj="{{item}}">
         <button class="button2">{{item.name}}</button>
    </view>
    

@@ -98,7 +98,7 @@ Page({
   },
 
 
-  ChooseSchool3: function (e) {
+  ChooseSchool4: function (e) {
     var province = e.currentTarget.dataset.provinceObj.name;
     var id = e.currentTarget.dataset.provinceObj.id;
     var Number = this.data.info.Number;
