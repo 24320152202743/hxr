@@ -1,6 +1,6 @@
 // pages/index/StudentMainUI.js
 Page({
-
+  
   /**
    * 页面的初始数据
    */
@@ -77,10 +77,12 @@ Page({
         date: new Date().toLocaleDateString()
       })
       var IPPort = getApp().globalData.IPPort;
+      var userid = getApp().globalData.userid;
       var message = "";
       var that = this;
+      console.log(userid);
       wx.request({
-        url: IPPort + '/me',
+        url: IPPort + '/me/userId='+userid,
         method: 'GET',
         //data:this.data.info,
         success: function (data) {

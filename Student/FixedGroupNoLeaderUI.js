@@ -64,6 +64,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
+      groupMethod: options.groupingMethod,
       seminarId: options.seminarId,
     });
     var seminarId = this.data.seminarId;
@@ -91,8 +92,6 @@ Page({
           that.setData({
             isSelectedTopic: true
           })
-
-        
       }
     })
       
@@ -176,8 +175,9 @@ Page({
   choose: function () {
     var groupId = this.data.info.id;
     var seminarId = this.data.seminarId;
+    var groupMethod = this.data.groupMethod;
     wx.redirectTo({
-      url: "./GroupChooseTopicUI?seminarId=" + seminarId + '&groupId=' + groupId,
+      url: "./GroupChooseTopicUI?seminarId=" + seminarId + '&groupId=' + groupId + "&groupMethod=" + groupMethod,
       success: function (res) { },
       fail: function (res) { },
       complete: function (res) { },

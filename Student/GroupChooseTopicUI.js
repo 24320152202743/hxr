@@ -45,7 +45,9 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      groupId: options.groupId
+      groupMethod : options.groupMethod,
+      groupId: options.groupId,
+      seminarId: options.seminarId
     });
     var seminarId = options.seminarId;
     var IPPort = getApp().globalData.IPPort;
@@ -96,24 +98,28 @@ Page({
       method: 'POST',
       data:message,
       success: function (data) {
+        var topic = e.currentTarget.dataset.topicObj.name;
+        wx.showModal({
+          title: '提示',
+          content: '确定选择此话题吗(一旦选定不能修改)',
+          success: function (res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+              wx.redirectTo({
+                url: './FixedGroupNoLeaderUI?seminarId=' + that.data.seminarId+"&groupMethod=" + that.data.groupMethod,
+              })
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+
+
+
         }
     })
     console.log(e) 
-    var topic = e.currentTarget.dataset.topicObj.name;
-    wx.showModal({
-      title: '提示',
-      content: '确定选择此话题吗(一旦选定不能修改)',
-      success: function (res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-          wx.redirectTo({
-            url: './FixedGroupLeaderUI?topic=' + topic
-          })
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
+    
   },
 
   /**

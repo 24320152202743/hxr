@@ -23,6 +23,9 @@ Page({
   },
   Teacher_MainUI: function () {
     var IPPort = getApp().globalData.IPPort;
+    getApp().globalData.userid = this.data.info.Number;
+    getApp().globalData.usertype = 'teacher';
+    getApp().globalData.username = this.data.info.name;
     var message = "";
     wx.request({
       url: IPPort + '/me',
