@@ -32,7 +32,6 @@ Page({
       })
     }
     else {
-      
     var self = this
     var IPPort = getApp().globalData.IPPort
     wx.request({
@@ -50,7 +49,6 @@ Page({
             "name": res.data.result[0][i].name,
         }
         wx.setStorageSync("province", list);
-        console.log(list)
         self.setData({
           province: list
         })

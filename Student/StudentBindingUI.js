@@ -6,15 +6,25 @@ Page({
    */
   data: {
     info: {
-      Number: "23320152202333",
-      name: "张三",
+      Number: "",
+      name: "",
       school: {
-        id: 32,
-        name: "厦门大学"
+        id: '',
+        name: ""
       }
     }
 
   },
+
+  ButtonClick:function(e){
+      wx.showToast({
+        title: '填写不能为空',
+        icon: 'loading',
+        duration: 1500,
+      });
+    
+  },
+
   ChooseSchool: function (e) {
     var Number = this.data.info.Number;
     var name = this.data.info.name;

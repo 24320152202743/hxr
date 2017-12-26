@@ -45,7 +45,10 @@ Page({
         
         var list = [];
         for (var i = 0; i < res.data.result[0].length; i++) {
-          list[i] = res.data.result[0][i]
+          list[i] = {
+            "id": res.data.result[0][i].id,
+            "name": res.data.result[0][i].name,
+          }
         }
         wx.setStorageSync("province", list);
         self.setData({

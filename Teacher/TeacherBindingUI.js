@@ -24,13 +24,12 @@ Page({
   },
   /*注册 */
   register: function () {
-    if (this.data.teacherID == '' || this.data.teacherName == '') {
       wx.showToast({
         title: '填写不能为空',
         icon: 'loading',
         duration: 1500,
       });
-    }
+    
   },
   ChooseSchool: function () {
     var teacherID = this.data.teacherID;

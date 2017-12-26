@@ -15,7 +15,7 @@
   <input class='inputID' bindinput ="IDInput"></input>
   <input class='inputSchool' disabled="disabled"></input>
   <input class='inputName'bindinput ="NameInput"></input> 
-  <button class='confirmButton'>绑定</button>
+  <button bindtap='ButtonClick' class='confirmButton'>绑定</button>
   <image src='../images/ninedot.png' class='selectSchoolIcon' bindtap='ChooseSchool'></image>
  </view>
 </page>
