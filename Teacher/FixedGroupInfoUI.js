@@ -6,27 +6,7 @@ Page({
    */
   data: {
     classGroup: [
-      {
-        "id": 27,
-        "name": "1A1",
-        "topics": [
-          {
-            "id": 257,
-            "name": "领域模型与模块"
-          }
-        ]
-      },
-
-      {
-        "id": 29,
-        "name": "1A2",
-        "topics": [
-          {
-            "id": 257,
-            "name": "领域模型与模块"
-          }
-        ]
-      }
+     
     ],
 
     groupInfo: {
