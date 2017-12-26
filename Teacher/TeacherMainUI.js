@@ -105,7 +105,6 @@ Page({
           });
           for (var i = 0; i < that.data.course.length(); i++) {
             var courseid = that.data.course[i].id;
-            console.log(courseid);
             var time = new Date().toLocaleDateString();
             wx.request({
               url: IPPort + '/course/' + courseid + '/seminar/current',

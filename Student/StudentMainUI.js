@@ -62,6 +62,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var id = "info.number";
+    var name = "info.name";
+    this.setData({
+      [id]: options.Number,
+      [name]: options.name
+    })
+    
     var IPPort = getApp().globalData.IPPort;
     var that = this;
     wx.request({

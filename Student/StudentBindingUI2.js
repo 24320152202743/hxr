@@ -16,6 +16,8 @@ Page({
   },
   Student_MainUI: function () {
     var IPPort = getApp().globalData.IPPort;
+    var Number = this.data.info.Number;
+    var name = this.data.info.name;
     var message = "";
     wx.request({
       url: IPPort + '/me',
@@ -27,7 +29,7 @@ Page({
     })
     console.log(message);
     wx.reLaunch({
-      url: './StudentMainUI',
+      url: './StudentMainUI?Number='+Number+'&name='+name,
     })
   },
   ChooseSchool: function (e) {
