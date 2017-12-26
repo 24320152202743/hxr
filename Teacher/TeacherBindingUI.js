@@ -11,31 +11,32 @@ Page({
   },
   /*获取输入 */
   IDInput: function (e) {
+    var Number = "teacherID";
     this.setData({
-      teacherID: e.detail.value
+      [Number]: e.detail.value
     })
   },
 
   NameInput: function (e) {
     this.setData({
-      teacherName: e.detail.value
+      teacherName: e.detail.value,
     })
   },
   /*注册 */
   register: function () {
-    var requestheader = getApp().globalData.requestHeader;
-    console.log(requestheader);
-    console.log("hello");
-    wx.request({
-      url: '',
-    })
-
+    if (this.data.teacherID == '' || this.data.teacherName == '') {
+      wx.showToast({
+        title: '填写不能为空',
+        icon: 'loading',
+        duration: 1500,
+      });
+    }
   },
   ChooseSchool: function () {
     var teacherID = this.data.teacherID;
     var teacherName = this.data.teacherName;
     wx.navigateTo({
-      url: './ChooseSchool2?teacherID=' + teacherID + '&teacherName=' + teacherName
+      url: './ChooseSchool2?Number=' + teacherID + '&name=' + teacherName
     })
   },
   /**

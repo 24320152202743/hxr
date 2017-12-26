@@ -55,7 +55,6 @@ Page({
       [city]: options.city,
       provinceId: options.provinceId,
     })
-
     var IPPort = getApp().globalData.IPPort;
     var that = this;
     wx.request({
@@ -126,7 +125,6 @@ Page({
     var city = this.data.info.city;
     var teacherID = this.data.info.Number;
     var teacherName = this.data.info.name;
-    console.log("dddd")
     wx.redirectTo({
       url: './TeacherBindingUI2?name= ' + name + '&province=' + province + '&city=' + city + '&teacherID=' + teacherID + '&teacherName=' + teacherName
     })
