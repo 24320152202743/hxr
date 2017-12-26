@@ -108,5 +108,14 @@ Page({
     wx.redirectTo({
       url: './ChooseSchool5?city= ' + city + '&province=' + province + '&Number=' + Number + '&name=' + name
     })
+  },
+
+  ChooseSchool: function () {
+    var Number = this.data.info.Number;
+    var name = this.data.info.name;
+    console.log("die");
+    wx.redirectTo({
+      url: './ChooseSchool?Number=' + Number + '&name=' + name 
+    })
   }
 })

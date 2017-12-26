@@ -7,7 +7,7 @@
 	</view>
 
   <view class="box6" style="background-color: =#66CCFF;">
-	<button class="button1" >{{info.province}}</button>
+	<button bindtap="ChooseSchool"  class="button1" >{{info.province}}</button>
 	<button class="button1" >州市<view class="hrView"/></button>
 	<button class="button1" >学校</button>
 	</view>

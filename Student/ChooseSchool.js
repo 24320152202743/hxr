@@ -106,6 +106,5 @@ Page({
     wx.redirectTo({
       url: './ChooseSchool3?province=' + province + '&Number=' + Number + '&name=' + name +'&id=' +id
     })
-    
   }
 })

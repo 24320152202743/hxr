@@ -2,6 +2,7 @@
 App({
   onLaunch: function () {
     // 展示本地存储能力
+  var that=this;
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
@@ -9,18 +10,48 @@ App({
     // 登录
     wx.login({
       success: function (res) {
+
+        console.log(res.code);
         if (res.code) {
           //发起网络请求
           wx.request({
-            url: 'https://test.com/onLogin',
+            url: 'http://localhost:8080/signin',
+            method:"GET",
             data: {
               code: res.code
+            },
+            success:function(data){
+              console.log(data)
+              if(data.data=="")
+              {
+                wx.reLaunch({
+                  url: './ChooseCharacter',
+                })
+              }
+              else{
+                wx.setStorageSync("jwt", data.data)
+                that.globalData.userid = data.data.id;
+                that.globalData.usertype = data.data.type;
+                that.globalData.username = data.data.name;
+                if (that.globalData.usertype == 'teacher')
+                {
+                  wx.reLaunch({
+                    url: 'Teacher/TeacherMainUI',
+                  })
+                }
+                else{
+                  wx.setStorageSync("studentId", that.globalData.userid);
+                  wx.reLaunch({
+                    url: 'Student/StudentMainUI',
+                  })
+                }
+              }
             }
           })
-  } else {
-    console.log('获取用户登录态失败！' + res.errMsg)
-  }
-}
+        } else {
+          console.log('获取用户登录态失败！' + res.errMsg)
+        }
+      }
     });
 
     // 获取用户信息
@@ -45,6 +76,10 @@ App({
     })
   },
   globalData: {
-    IPPort: "http://120.77.173.98:8111"
+    //IPPort: "http://localhost:8080",
+    IPPort: "http://120.77.173.98:8111",
+    userid:"",
+    usertype:"",
+    username:""
   }
 })
