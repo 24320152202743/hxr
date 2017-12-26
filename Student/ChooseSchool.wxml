@@ -16,8 +16,12 @@
 	<view class="box7" >
   <scroll-view scroll-y="true" style="height:330px;">
 
-  <view wx:for="{{school}}" class="box8" bindtap="ChooseSchool3" data-school-obj="{{item}}">
+  <!-- <view wx:for="{{school}}" class="box8" bindtap="ChooseSchool3" data-school-obj="{{item}}">
     <button class="button2" >{{item.province}}</button>
+  </view> -->
+
+  <view wx:for="{{province}}" class="box8" bindtap="ChooseSchool3" data-province-obj="{{item}}">
+        <button class="button2">{{item.name}}</button>
   </view>
   
   </scroll-view>

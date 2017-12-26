@@ -5,32 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    school: [
-      {
-        "id": 1,
-        "name": "厦门大学",
-        "province": "福建",
-        "city": "厦门"
-      },
-      {
-        "id": 2,
-        "name": "厦门理工大学",
-        "province": "福建",
-        "city": "厦门"
-      },
-      {
-        "id": 3,
-        "name": "华侨大学",
-        "province": "福建",
-        "city": "厦门"
-      },
-      {
-        "id": 4,
-        "name": "集美大学",
-        "province": "福建",
-        "city": "厦门"
-      }
-    ],
+    
+    province:[],
     info: {
       Number: '',
       name: ''
@@ -45,10 +21,28 @@ Page({
   onLoad: function (options) {
     var Number = "info.Number";
     var name = "info.name";
-
     this.setData({
       [Number]: options.Number,
       [name]: options.name
+    })
+    var self = this
+    var IPPort = getApp().globalData.IPPort
+    wx.request({
+      url: 'http://apis.map.qq.com/ws/district/v1/list',
+      method: 'GET',
+      data: {
+        "key": "RR7BZ-74AEP-JFKDC-LC4EB-ROFYV-TBBBO"
+      },
+      success: function (res) {
+        console.log(res)
+        var list = [];
+        for (var i = 0; i < res.data.result[0].length; i++) {
+          list[i] = res.data.result[0][i]
+        }
+        self.setData({
+          province: list
+        })
+      }
     })
   },
 
@@ -105,12 +99,13 @@ Page({
 
 
   ChooseSchool3: function (e) {
-    console.log( this.data.info.Number);
-    var province = e.currentTarget.dataset.schoolObj.province;
+    var province = e.currentTarget.dataset.provinceObj.name;
+    var id = e.currentTarget.dataset.provinceObj.id;
     var Number = this.data.info.Number;
     var name = this.data.info.name;
     wx.redirectTo({
-      url: './ChooseSchool3?province=' + province + '&Number=' + Number + '&name=' + name 
+      url: './ChooseSchool3?province=' + province + '&Number=' + Number + '&name=' + name +'&id=' +id
     })
+    
   }
 })

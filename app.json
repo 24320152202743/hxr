@@ -1,32 +1,22 @@
 {
-  "pages":[
+  "pages":["common/ChooseCharacter",
     "Student/StudentMainUI",
-    "common/ChooseCharacter",
+    
     "Student/Seminar",
     "Student/GradePresentationUI",
     "Student/CourseUI",
-    
-    
-    
     "Student/CheckStudentInfo",
     "Student/ChooseSchool",
     "Student/ChooseSchool3",
     "Student/ChooseSchool5",
     "Student/CourseInfoUI",
     
-    "Student/FixedGroupLeaderUI",
-    "Student/FixedGroupLeaderUI2",
-    "Student/FixedGroupMemberUI",
-    "Student/FixedGroupMemberUI2",
     "Student/FixedGroupNoLeaderUI",
     
     "Student/GroupChooseTopicUI",
-    "Student/RollCallEndUI",
-    "Student/RollCallLateUI",
+    
     "Student/RollCallUI",
     
-    "Student/SeminarFixedGroupNoSelection",
-    "Student/SeminarRandomGroupNoSelection",
     "Student/StudentBindingUI",
     "Student/StudentBindingUI2",
     "Teacher/TeacherMainUI",

@@ -49,11 +49,11 @@ Page({
   },
   RollCallUI: function () {
     if (this.data.info.areTopicsSelected == true) {
-      if (!wx.getStorageSync("iscall")) {
+     
         wx.navigateTo({
           url: './RollCallUI?seminarId=' + this.data.seminarId,
         })
-      } 
+      
       }
     
   },

@@ -5,32 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    school: [
-      {
-        "id": 1,
-        "name": "厦门大学",
-        "province": "福建",
-        "city": "厦门"
-      },
-      {
-        "id": 2,
-        "name": "厦门理工大学",
-        "province": "福建",
-        "city": "厦门"
-      },
-      {
-        "id": 3,
-        "name": "华侨大学",
-        "province": "福建",
-        "city": "厦门"
-      },
-      {
-        "id": 4,
-        "name": "集美大学",
-        "province": "福建",
-        "city": "厦门"
-      }
-    ],
+    
+    city:[],
     info: {
       Number: '',
       name: '',
@@ -44,14 +20,35 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var self = this
+    var IPPort = getApp().globalData.IPPort
     var Number = "info.Number";
     var name = "info.name";
     var province = "info.province";
     this.setData({
       [Number]: options.Number,
       [name]: options.name,
-      [province]: options.province
+      [province]:options.province,
     })
+    wx.request({
+      url: 'http://apis.map.qq.com/ws/district/v1/getchildren',
+      data: {
+        id: options.id,
+        key: 'RR7BZ-74AEP-JFKDC-LC4EB-ROFYV-TBBBO'
+      },
+      method: 'GET',
+      success: function (res) {
+        console.log(res.data)
+        var list = [];
+        for (var i = 0; i < res.data.result[0].length; i++) {
+          list[i] = res.data.result[0][i]
+        }
+        self.setData({
+          city: list
+        })
+      }
+    })
+
 
   },
 
@@ -104,8 +101,7 @@ Page({
 
   },
   ChooseSchool5: function (e) {
-    console.log(this.data.info.Number);
-    var city = e.currentTarget.dataset.schoolObj.city;
+    var city = e.currentTarget.dataset.cityObj.name;
     var province = this.data.info.province;
     var Number = this.data.info.Number;
     var name = this.data.info.name;
