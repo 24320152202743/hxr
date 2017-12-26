@@ -126,7 +126,7 @@ Page({
     var teacherID = this.data.info.Number;
     var teacherName = this.data.info.name;
     wx.redirectTo({
-      url: './TeacherBindingUI2?name= ' + name + '&province=' + province + '&city=' + city + '&teacherID=' + teacherID + '&teacherName=' + teacherName
+      url: './TeacherBindingUI2?name=' + name + '&province=' + province + '&city=' + city + '&teacherID=' + teacherID + '&teacherName=' + teacherName
     })
   },
 

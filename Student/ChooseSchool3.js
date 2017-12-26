@@ -108,7 +108,7 @@ Page({
     var Number = this.data.info.Number;
     var name = this.data.info.name;
     wx.redirectTo({
-      url: './ChooseSchool5?city= ' + city + '&province=' + province + '&Number=' + Number + '&name=' + name + '&id=' + provinceId,
+      url: './ChooseSchool5?city=' + city + '&province=' + province + '&Number=' + Number + '&name=' + name + '&id=' + provinceId,
     })
   },
 
