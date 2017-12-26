@@ -73,6 +73,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+      
       this.setData({
         date: new Date().toLocaleDateString()
       })
@@ -100,9 +101,34 @@ Page({
           console.log(data);
           that.setData({
             course: data.data,
-          })
+            
+          });
+          for (var i = 0; i < that.data.course.length(); i++) {
+            var courseid = that.data.course[i].id;
+            console.log(courseid);
+            var time = new Date().toLocaleDateString();
+            wx.request({
+              url: IPPort + '/course/' + courseid + '/seminar/current',
+              method: 'GET',
+              success: function (data) {
+                if (time > data.data.startTime && time < data.data.endTime) {
+                  that.setData({
+                    ['course[i].flag']: true,
+                  })
+                }
+                else {
+                  that.setData({
+                    ['course[i].flag']: false,
+                  })
+                }
+              }
+            })
+
+          }
         }
-      })
+      });
+      
+      
   },
 
   /**

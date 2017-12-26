@@ -12,7 +12,7 @@ Page({
       name: '',
       province: ''
     },
-
+    provinceId: ''
 
   },
 
@@ -29,6 +29,7 @@ Page({
       [Number]: options.Number,
       [name]: options.name,
       [province]: options.province,
+      provinceId: options.id,
     })
     wx.request({
       url: 'http://apis.map.qq.com/ws/district/v1/getchildren',
@@ -100,13 +101,22 @@ Page({
   onShareAppMessage: function () {
 
   },
-  ChooseSchool5: function (e) {
+  ChooseSchoolNoSchoolForTeacher: function (e) {
     var city = e.currentTarget.dataset.cityObj.name;
     var province = this.data.info.province;
     var Number = this.data.info.Number;
     var name = this.data.info.name;
+    var provinceId = this.data.provinceId;
     wx.redirectTo({
-      url: './ChooseSchoolNoSchoolForTeacher?city= ' + city + '&province=' + province + '&Number=' + Number + '&name=' + name
+      url: './ChooseSchoolNoSchoolForTeacher?city= ' + city + '&province=' + province + '&Number=' + Number + '&name=' + name + '&provinceId=' + provinceId,
+    })
+  },
+
+  ChooseSchool2: function () {
+    var Number = this.data.info.Number;
+    var name = this.data.info.name;
+    wx.redirectTo({
+      url: './ChooseSchool2?Number=' + Number + '&name=' + name
     })
   }
 })

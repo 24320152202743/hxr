@@ -37,7 +37,7 @@ Page({
       province: '',
       city: ''
     },
-
+    provinceId:'',
   },
 
   /**
@@ -52,9 +52,9 @@ Page({
       [Number]: options.Number,
       [name]: options.name,
       [province]: options.province,
-      [city]: options.city
+      [city]: options.city,
+      provinceId: options.provinceId,
     })
-
     var IPPort = getApp().globalData.IPPort;
     var that = this;
     wx.request({
@@ -129,15 +129,33 @@ Page({
       url: './TeacherBindingUI2?name= ' + name + '&province=' + province + '&city=' + city + '&teacherID=' + teacherID + '&teacherName=' + teacherName
     })
   },
+
   CreateSchool: function (e) {
     var province = this.data.info.province;
     var city = this.data.info.city;
     var teacherID = this.data.info.Number;
     var teacherName = this.data.info.name;
-    wx.redirectTo({
+    wx.navigateTo({
       url: '../common/CreateSchoolUI?province=' + province + '&city=' + city + '&teacherID=' + teacherID + '&teacherName=' + teacherName
     })
-  }
+  },
 
+  ChooseSchool2: function () {
+    var Number = this.data.info.Number;
+    var name = this.data.info.name;
+    wx.redirectTo({
+      url: './ChooseSchool2?Number=' + Number + '&name=' + name
+    })
+  },
+
+  ChooseSchool4: function () {
+    var Number = this.data.info.Number;
+    var name = this.data.info.name;
+    var provinceId = this.data.provinceId;
+    var province = this.data.info.province;
+    wx.redirectTo({
+      url: './ChooseSchool4?province=' + province + '&Number=' + Number + '&name=' + name + '&id=' + provinceId,
+    })
+  }
 
 })

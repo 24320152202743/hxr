@@ -12,9 +12,9 @@
   <label class='school'>学校</label>
   <image src='../images/warning.png' class='tipIcon'/>
   <text class='tipFont'>提交后不能修改</text>
-  <input class='inputID' value='{{info.Number}}'></input>
-  <input class='inputSchool' value='{{info.school.name}}'></input> 
-  <input class='inputName' value='{{info.name}}'></input>
+  <input bindinput="IDInput" class='inputID' value='{{info.Number}}'></input>
+  <input disabled = '{{true}}' class='inputSchool' value='{{info.school.name}}'></input> 
+  <input bindinput="NameInput"  class='inputName' value='{{info.name}}'></input>
   <button class='confirmButton' bindtap='Teacher_MainUI'>绑定</button>
   <image src='../images/ninedot.png' class='selectSchoolIcon' bindtap='ChooseSchool'></image>
  </view>
