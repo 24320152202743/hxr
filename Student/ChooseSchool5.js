@@ -37,7 +37,7 @@ Page({
       province: '',
       city: ''
     },
-
+    provinceId:''
   },
 
   /**
@@ -52,7 +52,8 @@ Page({
       [Number]: options.Number,
       [name]: options.name,
       [province]: options.province,
-      [city]: options.city
+      [city]: options.city,
+      provinceId: options.id,
     })
     
     var IPPort = getApp().globalData.IPPort;
@@ -139,6 +140,25 @@ Page({
     var name = this.data.info.name;
     wx.redirectTo({
       url: './StudentBindingUI2?Sname= ' + Sname + '&province=' + province + '&city=' + city + '&Number=' + Number + '&name=' + name + '&id=' +id
+    })
+  },
+
+  ChooseSchool: function () {
+    var Number = this.data.info.Number;
+    var name = this.data.info.name;
+    
+    wx.redirectTo({
+      url: './ChooseSchool?Number=' + Number + '&name=' + name
+    })
+  },
+
+  ChooseSchool3: function () {
+    var Number = this.data.info.Number;
+    var name = this.data.info.name;
+    var province = this.data.info.province;
+    var provinceId = this.data.provinceId;
+    wx.redirectTo({
+      url: './ChooseSchool3?Number=' + Number + '&name=' + name + '&province=' + province + '&id=' + provinceId,
     })
   }
 
