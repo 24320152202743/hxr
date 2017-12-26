@@ -71,17 +71,17 @@ Page({
     
     var IPPort = getApp().globalData.IPPort;
     var that = this;
-    wx.request({
-      url: IPPort + '/class',
-      method: 'GET',
-      success: function (data) {
-        console.log(data);
-        that.setData({
-          course: data.data
-        })
+    // wx.request({
+    //   url: IPPort + '/class',
+    //   method: 'GET',
+    //   success: function (data) {
+    //     console.log(data);
+    //     that.setData({
+    //       course: data.data
+    //     })
 
-      }
-    })
+    //   }
+    // })
 
   },
 

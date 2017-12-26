@@ -17,10 +17,11 @@ Page({
   Student_MainUI: function () {
     var IPPort = getApp().globalData.IPPort;
     var message = "";
-    var openid = wx.getStorageInfoSync('openid');
+    var openid = wx.getStorageSync('openid');
     var name = this.data.info.name;
     var Type = getApp().globalData.usertype;
     var schoolId = this.data.info.school.id;
+    // console.log("12312312313"+openid);
     this.setData({
 
     })
@@ -39,14 +40,14 @@ Page({
       }
     })
 
-    wx.request({
-      url: IPPort + '/me',
-      method: 'PUT',
-      data: this.data.info,
-      success: function (data) {
-        console.log(data);
-      }
-    })
+    // wx.request({
+    //   url: IPPort + '/me',
+    //   method: 'PUT',
+    //   data: this.data.info,
+    //   success: function (data) {
+    //     console.log(data);
+    //   }
+    // })
     console.log(message);
     wx.reLaunch({
       url: './StudentMainUI',

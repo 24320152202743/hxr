@@ -22,7 +22,7 @@ App({
             },
             success:function(data){
               console.log(data)
-              wx.setStorageSync('openid', data.data.openid)
+              wx.setStorageSync('openid', data.data.openid);
               if(data.data.jwt==null)
               {
                 wx.reLaunch({
@@ -77,8 +77,8 @@ App({
     })
   },
   globalData: {
-    //IPPort: "http://localhost:8080",
-    IPPort: "http://120.77.173.98:8111",
+    IPPort: "http://localhost:8080",
+    //IPPort: "http://120.77.173.98:8111",
     userid:"",
     usertype:"",
     username:""

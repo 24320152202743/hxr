@@ -59,16 +59,19 @@ Page({
     var IPPort = getApp().globalData.IPPort;
     var that = this;
     console.log(that.data.info.city);
+    var url = IPPort + '/school?city=' + that.data.info.city;
+    console.log(url);
     wx.request({
-      url: IPPort + '/school?city='+that.data.info.city,
+      url:url,
       method: 'GET',
       success: function (data) {
+        console.log("asd");
         console.log(data);
         that.setData({
         school : data.data
         })
-        
-      }
+      },
+
     })
     
   },
@@ -124,15 +127,15 @@ Page({
   StudentBindingUI: function (e) {
     var IPPort = getApp().globalData.IPPort;
     var message = '"school":'+e.currentTarget.dataset.schoolObj;
-    wx.request({
-      url: IPPort + '/me',
-      method: 'PUT',
-      data: message,
-      success: function (data) {
+    // wx.request({
+    //   url: IPPort + '/me',
+    //   method: 'PUT',
+    //   data: message,
+    //   success: function (data) {
         
-      }
-    })
-    console.log(message);
+    //   }
+    // })
+    // console.log(message);
     var Sname = e.currentTarget.dataset.schoolObj.name;
     var id = e.currentTarget.dataset.schoolObj.id;
     var province = this.data.info.province;
