@@ -23,10 +23,10 @@ App({
             success:function(data){
               console.log(data)
               wx.setStorageSync('openid', data.data.openid)
-              if(data.data.jwt=="")
+              if(data.data.jwt==null)
               {
                 wx.reLaunch({
-                  url: './ChooseCharacter',
+                  url: '../common/ChooseCharacter',
                 })
               }
               else{
@@ -43,7 +43,7 @@ App({
                 else{
                   wx.setStorageSync("studentId", that.globalData.userid);
                   wx.reLaunch({
-                    url: 'StudentMainUI',
+                    url: '../Student/StudentMainUI',
                   })
                 }
               }

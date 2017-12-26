@@ -33,15 +33,7 @@ Page({
     var IPPort = getApp().globalData.IPPort;
     var message = { "type": "student" };
     getApp().globalData.usertype = 0;
-    console.log(message);
-    wx.request({
-      url: IPPort + '/me',
-      method: 'PUT',
-      data: message,
-      success: function (data) {
-        console.log(data);
-      }
-    })
+
     try {
       wx.setStorageSync(type, 'student');
     } catch (e) {

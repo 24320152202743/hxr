@@ -58,8 +58,9 @@ Page({
 
     var IPPort = getApp().globalData.IPPort;
     var that = this;
+    console.log(that.data.info.city);
     wx.request({
-      url: IPPort + '/school?city='+this.data.info.city,
+      url: IPPort + '/school?city='+that.data.info.city,
       method: 'GET',
       success: function (data) {
         console.log(data);
