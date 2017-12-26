@@ -55,7 +55,7 @@ Page({
       [city]: options.city,
       provinceId: options.id,
     })
-    
+
     var IPPort = getApp().globalData.IPPort;
     var that = this;
     wx.request({
