@@ -32,7 +32,8 @@ Page({
     ],
     hasLeader:false,
     isLeader:false,
-    isSelectedTopic:false
+    isSelectedTopic:false,
+    time:0
   }
   
   },
@@ -110,14 +111,61 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.setData({
+      time: 0
+    })
+    this.requestData(this);
   },
+
+
+  requestData: function (that) {
+    if (that.data.time <= -1)
+      return
+    setTimeout(function () {
+      that.setData({
+        time: that.data.time + 1,
+      })
+      console.log(that.data.time);
+      var seminarId = that.data.seminarId;
+      //wx.setStorageSync("nexturlGroup" + seminarId, "./FixedGroupNoLeaderUI")
+      var IPPort = getApp().globalData.IPPort;
+      wx.request({
+        url: IPPort + '/seminar/' + seminarId + '/group/my',
+        method: 'GET',
+        success: function (data) {
+          that.setData({
+            info: data.data,
+            //["info.topics"]:""
+          })
+          if (that.data.info.leader != "") {
+            that.setData({
+              hasLeader: true,
+            })
+            if (that.data.info.leader.id == wx.getStorageSync("studentId"))
+              that.setData({
+                isLeader: true,
+              })
+          }
+          if (that.data.info.topics != "")
+            that.setData({
+              isSelectedTopic: true
+            })
+        }
+      })
+      that.requestData(that);
+    }, 1000);
+  },
+
+
+
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    this.setData({
+      time:-2
+    })
   },
 
   /**

@@ -6,7 +6,6 @@ Page({
     var k = options.classId;
     this.setData({
       classInfo: wx.getStorageSync("classInfo" + k),
-      presentNum: options.presentNum,
       //res代表success函数的事件对，data是固定的，stories是是上面json数据中stories
 
     })
@@ -28,4 +27,41 @@ Page({
       }
     })
   },
+
+  onShow: function () {
+    this.setData({
+      time: 0
+    })
+    this.requestData(this)
+  },
+
+  onHide: function () {
+    this.setData({
+      time: -2
+    })
+  },
+
+  requestData: function (that) {
+    if (that.data.time <= -1)
+      return
+    setTimeout(function () {
+      that.setData({
+        time: that.data.time + 1,
+      })
+      var IPPort = getApp().globalData.IPPort;
+      var message = "";
+      wx.request({
+        url: IPPort + "/seminar/" + wx.getStorageSync("seminarId") + "/class/" + that.data.classInfo.id + "/attendance",
+        method: 'GET',
+        success: function (data) {
+          that.setData({
+            presentNum: data.data.numPresent,
+          })
+        }
+      });
+      requestData(that);
+    }, 1000);
+  },
+
+
 })

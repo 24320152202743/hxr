@@ -60,7 +60,6 @@ Page({
 
   
   FixedRollCallUI: function () {
-    console.log("classInfo" + this.data.classInfo.id),
     wx.setStorageSync("classInfo"+this.data.classInfo.id, this.data.classInfo);
     var IPPort = getApp().globalData.IPPort;
     var message = "";

@@ -15,6 +15,14 @@ Page({
     }
   },
   Student_MainUI: function () {
+    if (this.data.info.name == '' || this.data.info.Number == '') {
+      wx.showToast({
+        title: '填写不能为空',
+        icon: 'loading',
+        duration: 1500,
+      });
+    }
+    else {
     var IPPort = getApp().globalData.IPPort;
     var message = "";
     var openid = wx.getStorageSync('openid');
@@ -53,6 +61,7 @@ Page({
     //   }
     // })
     console.log(message);
+
     if (getApp().globalData.usertype == 'student') {
       wx.reLaunch({
         url: './StudentMainUI',
@@ -62,6 +71,7 @@ Page({
         url: './TeacherMainUI',
       })}
   },
+
   ChooseSchool: function (e) {
     var Number = this.data.info.Number;
     var name = this.data.info.name;
