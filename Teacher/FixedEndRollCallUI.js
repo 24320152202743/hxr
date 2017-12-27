@@ -11,6 +11,8 @@ Page({
     wx.setStorageSync("nextUrl", './FixedEndRollCallUI?classId=' + this.data.classInfo.id);
     wx.setStorageSync("id", this.data.classInfo.id);
   },
+
+  
   FixedRollCallEndUI1: function () {
     var that = this;
     wx.navigateTo({

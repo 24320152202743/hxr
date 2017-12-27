@@ -83,7 +83,6 @@ Page({
   },
 
   onShow: function (options) {
-    console.log("onShow")
     try {
       var url = wx.getStorageSync("nextUrl");
       var id = wx.getStorageSync("id");
