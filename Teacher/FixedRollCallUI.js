@@ -2,6 +2,7 @@ Page({
   data: { // 参与页面渲染的数据
     presentNum: 37,
     classInfo:"",
+    time:0
   },
   onLoad: function (options) {
     var k = options.classId;
@@ -14,6 +15,7 @@ Page({
   },
 
 
+
   FixedEndRollCallUI: function () {
     var that = this;
     wx.showModal({
@@ -22,7 +24,7 @@ Page({
       success: function (res) {
         if (res.confirm) {
           wx.redirectTo({
-            url: './FixedEndRollCallUI?presentNum=' + that.data.presentNum +"&classId="+that.data.classInfo.id,
+            url: './FixedEndRollCallUI?&classId='+that.data.classInfo.id,
             success: function () {
               var IPPort = getApp().globalData.IPPort;
               var message = "";
@@ -77,6 +79,42 @@ Page({
         // complete
       }
     })
+  },
+
+
+  onShow: function () {
+    this.setData({
+      time: 0
+    })
+    this.requestData(this)
+  },
+
+  onHide:function(){
+    this.setData({
+      time: -2
+    })
+  },
+
+  requestData: function (that) {
+    if (that.data.time <= -1)
+      return
+    setTimeout(function () {
+      that.setData({
+        time: that.data.time + 1,
+      })
+      var IPPort = getApp().globalData.IPPort;
+      var message = "";
+      wx.request({
+        url: IPPort + "/seminar/" + wx.getStorageSync("seminarId") + "/class/" + that.data.classInfo.id+"/attendance",
+        method: 'GET',
+        success: function (data) {
+          that.setData({
+            presentNum: data.data.numPresent,
+          })
+        }
+      });
+      requestData(that);
+      }, 1000); 
   },
 
 
