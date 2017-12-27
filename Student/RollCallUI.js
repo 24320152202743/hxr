@@ -41,6 +41,13 @@ Page({
      success: function (data) {
        wx.setStorageSync("seminarDetail", that.data.seminarDetail);
        console.log(data.data);
+       var DATE = new Date(data.data.startTime);
+       var date = DATE.toLocaleString();
+       data.data.startTime = date;
+
+       var DATE = new Date(data.data.endTime);
+       var date = DATE.toLocaleString();
+       data.data.endTime = date;
        that.setData({
          seminarDetail:data.data
        })
@@ -116,52 +123,60 @@ Page({
     var latitude;
     var longitude;
     var elevation;
+    var that = this;
     wx.getLocation({
       type: 'wgs84',
       success: function (res) {
+        console.log(res)
         latitude = res.latitude;
         longitude = res.longitude;
         elevation = res.altitude;
+        var IPPort = getApp().globalData.IPPort;
+
+        var studentid = wx.getStorageSync("studentId");
+        
+        console.log();
+        wx.request({
+          url: IPPort + '/seminar/' + that.data.seminarDetail.id + '/class/' + wx.getStorageSync("classId") + '/attendance/' + studentid,
+          method: 'PUT',
+          data: {
+            longitude: longitude,
+            latitude: latitude,
+            elevation: elevation
+          },
+          success: function (res) {
+            console.log(res);
+            if (res.statusCode == 200) {
+              if (res.data.status == "late") {
+                that.setData({
+                  isLate: true,
+                  hasCalled: true,
+                })
+                //      wx.setStorageSync("islate", res.data);
+              }
+              else if (res.data.status == "ontime") {
+                that.setData({
+                  isLate: false,
+                  hasCalled: true,
+                })
+              }
+            }
+            else {
+              wx.showToast({
+                title: '签到失败',
+                icon: 'loading',
+                duration: 1500
+              })
+            }
+          }
+        })
+
+
+
+
       }
     })
 
-    var IPPort = getApp().globalData.IPPort;
     
-    var studentid = wx.getStorageSync("studentId");
-    var that = this;
-    wx.request({
-      url: IPPort + '/seminar/'+that.data.seminarDetail.id+'/class/'+that.data.classid+'/attendance/'+studentid,
-      method:'PUT',
-      data:{
-        longtitde:longitude,
-        latitude:latitude,
-        elevation:elevation
-      },
-      success: function (res) { 
-        console.log(res);
-        if(res.statusCode == 200){
-        if(res.data.status=="late"){
-          that.setData({
-            isLate:true,
-            hasCalled:true,
-          })
-    //      wx.setStorageSync("islate", res.data);
-        }
-        else if (res.data.status == "ontime"){
-          that.setData({
-            isLate: false,
-            hasCalled: true,
-          })
-        }
-      }
-      else{
-          wx.showToast({
-            title: '签到失败',
-            icon: 'loading',
-            duration: 1500
-          })
-      }
-      }
-    })
   },
 })

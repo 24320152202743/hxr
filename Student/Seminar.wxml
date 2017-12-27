@@ -6,10 +6,10 @@
 	<view class="{{info.areTopicsSelected?'ScoreBoxBlue':'ScoreBoxGrey'}}" bindtap='GradePresentationUI'>
     <span class="ButtonTextRight" >打分</span></view>
   <view class="{{info.areTopicsSelected?'CallBoxBlue':'CallBoxGrey'}}" bindtap='RollCallUI'>
-    <span class="ButtonTextLeft" >签到</span>
+    <span class="ButtonTextLeft" bindtap="RollCallUI">签到</span>
   </view>
 	<view class="GroupBoxBlue" style="float: " bindtap='FixedGroupNoLeaderUI'>
-	  <text class="ButtonTextLeft" >组队和选题</text>
+	  <text class="ButtonTextLeft" bindtap='FixedGroupNoLeaderUI'>组队和选题</text>
   </view>
 
 

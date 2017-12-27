@@ -51,26 +51,18 @@ Page({
         getApp().globalData.usertype=data.data.type;
       }
     })
+    console.log(getApp().globalData.usertype);
 
-    // wx.request({
-    //   url: IPPort + '/me',
-    //   method: 'PUT',
-    //   data: this.data.info,
-    //   success: function (data) {
-    //     console.log(data);
-    //   }
-    // })
-    console.log(message);
-
-    if (getApp().globalData.usertype == 'student') {
+    if (getApp().globalData.usertype == 0) {
       wx.reLaunch({
         url: './StudentMainUI',
-      })}
-    else {
+      })
+      } else {
       wx.reLaunch({
-        url: './TeacherMainUI',
-      })}
-  },
+        url: '../Teacher/TeacherMainUI',
+      })
+      }
+    }},
 
   ChooseSchool: function (e) {
     var Number = this.data.info.Number;

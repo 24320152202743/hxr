@@ -54,9 +54,18 @@ Page({
     console.log(e.currentTarget.dataset.courseObj.id);
     var id = e.currentTarget.dataset.courseObj.id;
     var name = e.currentTarget.dataset.courseObj.courseName;
+    console.log(id)
+    var courseId
+    for(var i = 0 ;i <this.data.course.length;++i){
+      if(this.data.course[i].id==id)
+      {
+        courseId = this.data.course[i].courseId
+        break
+      }
+    }
     // console.log("courseid and coursename"+id+"   "+name);
       wx.navigateTo({
-        url: '../Student/CourseUI?courseId=' + id +'&courseName='+name
+        url: '../Student/CourseUI?courseId=' + courseId +'&courseName='+name+'&classId='+id
       })
   },
   /**
@@ -100,6 +109,7 @@ Page({
         that.setData({
           course: data.data
         })
+
 
       }
     })

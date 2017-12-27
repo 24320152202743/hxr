@@ -50,7 +50,9 @@ Page({
       date: new Date().toLocaleDateString(),
       courseId:options.courseId,
       courseName:options.courseName,
+      classId: options.classId
     });
+    wx.setStorageSync("classId", this.data.classId)
     var IPPort = getApp().globalData.IPPort;
     var that = this;
     wx.request({

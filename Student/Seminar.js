@@ -48,8 +48,8 @@ Page({
     
   },
   RollCallUI: function () {
-    if (this.data.info.areTopicsSelected == true) {
-     
+    console.log(this.data);
+    if (this.data.info.areTopicsSelected == "false") {
         wx.navigateTo({
           url: './RollCallUI?seminarId=' + this.data.seminarId,
         })
@@ -73,13 +73,24 @@ Page({
 
     wx.request({
       url: IPPort + '/seminar/' + seminarId + '/my',
+      header: {
+        Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+      },
       method: 'GET',
       success: function (data) {
-        console.log(data);
+        var DATE = new Date(data.data.startTime);
+        var date = DATE.toLocaleString();
+        data.data.startTime = date;
+
+        var DATE = new Date(data.data.endTime);
+        var date = DATE.toLocaleString();
+        data.data.endTime = date;
+
+        // console.log(data);
         that.setData({
           info: data.data
         })
-
+        // console.log(that.data)
       }
     })
 
