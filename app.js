@@ -21,16 +21,17 @@ App({
               code: res.code
             },
             success:function(data){
-              console.log(data)
+              // console.log(data)
               wx.setStorageSync('openid', data.data.openid);
               if(data.data.jwt==null)
               {
                 wx.reLaunch({
                   url: '../common/ChooseCharacter',
                 })
+
               }
               else{
-                wx.setStorageSync("jwt", data.data)
+                wx.setStorageSync("jwt", data.data.jwt)
                 that.globalData.userid = data.data.id;
                 that.globalData.usertype = data.data.type;
                 that.globalData.username = data.data.name;

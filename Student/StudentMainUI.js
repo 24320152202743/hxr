@@ -54,8 +54,9 @@ Page({
     console.log(e.currentTarget.dataset.courseObj.id);
     var id = e.currentTarget.dataset.courseObj.id;
     var name = e.currentTarget.dataset.courseObj.courseName;
+    // console.log("courseid and coursename"+id+"   "+name);
       wx.navigateTo({
-        url: '../Student/CourseUI?courseId=' + id + '&studentId=' + this.data.info.id +'&courseName='+name
+        url: '../Student/CourseUI?courseId=' + id +'&courseName='+name
       })
   },
   /**
@@ -70,18 +71,38 @@ Page({
     })
     
     var IPPort = getApp().globalData.IPPort;
+    var token = wx.getStorageSync('jwt');
     var that = this;
-    // wx.request({
-    //   url: IPPort + '/class',
-    //   method: 'GET',
-    //   success: function (data) {
-    //     console.log(data);
-    //     that.setData({
-    //       course: data.data
-    //     })
+    var name = "info.name";
+    var Number = "info.number";
+     wx.request({
+      url: IPPort + '/me',
+      header: {
+        Authorization: 'Bearer ' + token
+      },
+      method: 'GET',
+      data: this.data.info,
+      success: function (data) {
+        that.setData({
+          [name]:data.data.name,
+          [Number]:data.data.number
+        })
+      }
+    }),
+    wx.request({
+      url: IPPort + '/class?courseName=null&courseTeacher=null',
+      method: 'GET',
+      header: {
+        Authorization: 'Bearer ' + token
+      },
+      success: function (data) {
+        console.log(data);
+        that.setData({
+          course: data.data
+        })
 
-    //   }
-    // })
+      }
+    })
 
   },
 

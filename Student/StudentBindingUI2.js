@@ -19,6 +19,7 @@ Page({
     var message = "";
     var openid = wx.getStorageSync('openid');
     var name = this.data.info.name;
+    var number = this.data.info.Number;
     var Type = getApp().globalData.usertype;
     var schoolId = this.data.info.school.id;
     // console.log("12312312313"+openid);
@@ -33,10 +34,13 @@ Page({
         openid:openid,
         name:name,
         Type:Type,
+        number:number,
         schoolId:schoolId
       },
       success: function (data) {
         console.log(data);
+        wx.setStorageSync("jwt", data.data.jwt);
+        getApp().globalData.usertype=data.data.type;
       }
     })
 
@@ -49,9 +53,14 @@ Page({
     //   }
     // })
     console.log(message);
-    wx.reLaunch({
-      url: './StudentMainUI',
-    })
+    if (getApp().globalData.usertype == 'student') {
+      wx.reLaunch({
+        url: './StudentMainUI',
+      })}
+    else {
+      wx.reLaunch({
+        url: './TeacherMainUI',
+      })}
   },
   ChooseSchool: function (e) {
     var Number = this.data.info.Number;

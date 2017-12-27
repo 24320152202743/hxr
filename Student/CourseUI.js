@@ -50,19 +50,31 @@ Page({
       date: new Date().toLocaleDateString(),
       courseId:options.courseId,
       courseName:options.courseName,
-      studentId:options.studentId
     });
     var IPPort = getApp().globalData.IPPort;
     var that = this;
     wx.request({
       url: IPPort + '/course/' + options.courseId+'/seminar?embedGrade=true',
+      header: {
+        Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+      },
       method: 'GET',
       success: function (data) {
         console.log(data);
+        for(var i=0;i<data.data.length;i++)
+        {
+          var DATE = new Date(data.data[i].startTime);
+          var date = DATE.toLocaleString();
+          data.data[i].startTime = date;
+
+          var DATE = new Date(data.data[i].endTime);
+          var date = DATE.toLocaleString();
+          data.data[i].endTime = date;
+        }
         that.setData({
           seminar: data.data
         })
-
+        console.log(that.data);
       }
     })
   },
