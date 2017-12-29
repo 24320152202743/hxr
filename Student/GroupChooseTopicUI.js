@@ -54,25 +54,29 @@ Page({
     var that = this;
     wx.request({
       url: IPPort + '/seminar/' + seminarId + '/topic',
+      header: {
+        Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+      },
       method: 'GET',
       success: function (data) {
         console.log(data);
         that.setData({
           topic: data.data
         })
+        console.log(that.data.topic)
+        var char = 1;
+        console.log(char);
+        for (var i = 0; i < that.data.topic.length; i++) {
+          var up = "topic[" + i + "].order";
+          that.setData({
+            [up]: char
+          })
+          char++;
+        }
 
       }
     })
-    var char = 1;
-    console.log(char);
-    for(var i=0;i<this.data.topic.length;i++)
-    {
-      var up = "topic["+i+"].order";
-      this.setData({
-        [up]:char
-      })
-      char++;
-    }
+    
   },
 
   detail: function (e) {

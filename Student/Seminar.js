@@ -41,7 +41,7 @@ Page({
     })
   },
   GradePresentationUI: function () {
-    if (this.data.info.areTopicsSelected == true) {
+    if (this.data.info.areTopicsSelected == "true") {
       wx.navigateTo({
         url: './GradePresentationUI?seminarId=' + this.data.seminarId,
       })}
@@ -108,7 +108,35 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-   
+    var seminarId = this.data.seminarId;
+    var IPPort = getApp().globalData.IPPort;
+    var that = this;
+
+    wx.request({
+      url: IPPort + '/seminar/' + seminarId + '/my',
+      header: {
+        Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+      },
+      method: 'GET',
+      success: function (data) {
+        console.log('seminar',data)
+        var DATE = new Date(data.data.startTime);
+        var date = DATE.toLocaleString();
+        data.data.startTime = date;
+
+        var DATE = new Date(data.data.endTime);
+        var date = DATE.toLocaleString();
+        data.data.endTime = date;
+
+        // console.log(data);
+        that.setData({
+          info: data.data
+        })
+        // console.log(that.data)
+      }
+    })
+
+    
   },
 
   /**

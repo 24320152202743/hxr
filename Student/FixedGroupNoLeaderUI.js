@@ -189,6 +189,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
+    //console.log('111111111111111111111')
     this.setData({
       time:-2
     })
@@ -198,7 +199,17 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+    //console.log('2222222222222222')
+    this.setData({
+      time: -2
+    })
+    if (this.data.isSelectedTopic)
+    {
+      wx.setStorageSync("isSelectedTopic" + this.data.seminarId, true)
+    }
+    else if (!this.data.isSelectedTopic) {
+      wx.setStorageSync("isSelectedTopic" + this.data.seminarId, false)
+    }
   },
 
   /**
