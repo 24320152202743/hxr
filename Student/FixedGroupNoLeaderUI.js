@@ -89,7 +89,7 @@ Page({
               isLeader: true,
             })
         }
-        if(that.data.info.topics != "")
+        if(that.data.info.topics != null)
           that.setData({
             isSelectedTopic: true
           })
@@ -146,14 +146,14 @@ Page({
                 isLeader: true,
               })
           }
-          if (that.data.info.topics != "")
+          if (that.data.info.topics != null)
             that.setData({
               isSelectedTopic: true
             })
         }
       })
       that.requestData(that);
-    }, 1000);
+    }, getApp().globalData.time_span_group);
   },
 
 
