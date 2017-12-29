@@ -82,6 +82,11 @@ App({
     //IPPort: "http://120.77.173.98:8111",
     userid:"",
     usertype:"",
-    username:""
+    username:"",
+    time_span_seminar:1000,
+    time_span_group:1000,
+    time_span_topic:1000,
+    time_span_call:1000,
+    time_span_end_call:1000,
   }
 })
