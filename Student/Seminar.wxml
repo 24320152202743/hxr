@@ -8,10 +8,14 @@
   <view class="{{info.areTopicsSelected?'CallBoxBlue':'CallBoxGrey'}}" bindtap='RollCallUI'>
     <span class="ButtonTextLeft" bindtap="RollCallUI">签到</span>
   </view>
-	<view class="GroupBoxBlue" style="float: " bindtap='FixedGroupNoLeaderUI'>
+
+	<view class="GroupBoxBlue" wx:if="{{info.groupingMethod == 'fixed'}}" style="float: " bindtap='FixedGroupNoLeaderUI'>
 	  <text class="ButtonTextLeft" bindtap='FixedGroupNoLeaderUI'>组队和选题</text>
   </view>
 
+<view class="{{isendcall?'GroupBoxBlue':'GroupBoxGrey'}}" wx:if="{{info.groupingMethod == 'random'}}" style="float: " bindtap='FixedGroupNoLeaderUI'>
+	  <text class="ButtonTextLeft" bindtap='FixedGroupNoLeaderUI'>组队和选题</text>
+  </view>
 
   <text wx:if="{{info.groupingMethod == 'fixed' && !isStart}}" class="noGroup">讨论课还未开始，您可以查看固定分组信息。</text>
    <!--space='emsp'设置读取空格-->

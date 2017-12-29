@@ -217,8 +217,6 @@ Page({
     })
     console.log("123:"+this.data.classId);
     console.log("123:" + this.data.seminarId);
-
-
     var IPPort = getApp().globalData.IPPort;
     var message = "";
     var that = this;
@@ -242,14 +240,10 @@ Page({
         })
       }
     });
-
-    
-
     this.setData({
       display_group: this.data.classGroup[0].id,
       lateSelectMem: this.data.late[0].id,
     });
-
     wx.request({
       url: IPPort + "/group/" + that.data.display_group,
       method: 'GET',
@@ -293,7 +287,43 @@ Page({
     })
 
   }
-  }
+  },
+
+  onUnload: function () {
+    //console.log('2222222222222222')
+    this.setData({
+      time: -2
+    })
+  },
+
+  onShow: function () {
+    this.setData({
+      time: 0
+    })
+    this.requestData(this)
+  },
+
+  requestData: function (that) {
+    if (that.data.time <= -1)
+      return
+    setTimeout(function () {
+      that.setData({
+        time: that.data.time + 1,
+      })
+      var IPPort = getApp().globalData.IPPort;
+      var message = "";
+      wx.request({
+        url: IPPort + "/seminar/" + wx.getStorageSync("seminarId") + "/class/" + that.data.classInfo.id + "/attendance",
+        method: 'GET',
+        success: function (data) {
+          that.setData({
+            presentNum: data.data.numPresent,
+          })
+        }
+      });
+      requestData(that);
+    }, getApp().globalData.time_span_end_call);
+  },
 
 
 })
