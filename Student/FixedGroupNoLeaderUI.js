@@ -190,9 +190,7 @@ Page({
    */
   onHide: function () {
     //console.log('111111111111111111111')
-    this.setData({
-      time:-2
-    })
+    
   },
 
   /**
@@ -203,13 +201,6 @@ Page({
     this.setData({
       time: -2
     })
-    if (this.data.isSelectedTopic)
-    {
-      wx.setStorageSync("isSelectedTopic" + this.data.seminarId, true)
-    }
-    else if (!this.data.isSelectedTopic) {
-      wx.setStorageSync("isSelectedTopic" + this.data.seminarId, false)
-    }
   },
 
   /**

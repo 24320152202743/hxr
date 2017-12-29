@@ -49,7 +49,7 @@ Page({
       groupId: options.groupId,
       seminarId: options.seminarId
     });
-    var seminarId = options.seminarId;
+    var seminarId = this.data.seminarId;
     var IPPort = getApp().globalData.IPPort;
     var that = this;
     wx.request({
@@ -130,14 +130,17 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.setData({
+      time: 0
+    })
+    this.requestData(this);
   },
 
   /**
@@ -151,7 +154,10 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+    //console.log('2222222222222222')
+    this.setData({
+      time: -2
+    })
   },
 
   /**
@@ -167,6 +173,42 @@ Page({
   onReachBottom: function () {
   
   },
+
+
+
+  requestData: function (that) {
+    if (that.data.time <= -1)
+      return
+    setTimeout(function () {
+      that.setData({
+        time: that.data.time + 1,
+      })
+      var seminarId = that.data.seminarId;
+      var IPPort = getApp().globalData.IPPort;
+      wx.request({
+        url: IPPort + '/seminar/' + seminarId + '/topic',
+        header: {
+          Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+        },
+        method: 'GET',
+        success: function (data) {
+          that.setData({
+            topic: data.data
+          })
+          var char = 1;
+          for (var i = 0; i < that.data.topic.length; i++) {
+            var up = "topic[" + i + "].order";
+            that.setData({
+              [up]: char
+            })
+            char++;
+          }
+        }
+      })
+      that.requestData(that);
+    }, getApp().globalData.time_span_group);
+  },
+
 
   /**
    * 用户点击右上角分享

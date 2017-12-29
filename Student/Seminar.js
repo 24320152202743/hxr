@@ -21,6 +21,7 @@ Page({
     },
   other:{
     iscall:false,
+    isendcall:false,
     issendgrade:false,
     isendchoosetopic:false,
     iscaptain:false,
@@ -91,6 +92,11 @@ Page({
         that.setData({
           info: data.data
         })
+        if(info.status == 0){
+          that.setData({
+            isendcall:true
+          })
+        }
         // console.log(that.data)
       }
     })
@@ -132,10 +138,18 @@ Page({
         that.setData({
           info: data.data
         })
+        if (info.status == 0) {
+          that.setData({
+            isendcall: true
+          })
+        }
         // console.log(that.data)
       }
     })
-
+    this.setData({
+      time: 0
+    })
+    this.requestData(this);
     
   },
 
@@ -150,7 +164,10 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+    //console.log('2222222222222222')
+    this.setData({
+      time: -2
+    })
   },
 
   /**
@@ -172,5 +189,53 @@ Page({
    */
   onShareAppMessage: function () {
   
-  }
+  },
+
+  requestData: function (that) {
+    if (that.data.time <= -1)
+      return
+    setTimeout(function () {
+      that.setData({
+        time: that.data.time + 1,
+      })
+      var seminarId = that.data.seminarId;
+      var IPPort = getApp().globalData.IPPort;
+      wx.request({
+        url: IPPort + '/seminar/' + seminarId + '/my',
+        header: {
+          Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+        },
+        method: 'GET',
+        success: function (data) {
+          //console.log('seminar',data)
+          var DATE = new Date(data.data.startTime);
+          var date = DATE.toLocaleString();
+          data.data.startTime = date;
+
+          var DATE = new Date(data.data.endTime);
+          var date = DATE.toLocaleString();
+          data.data.endTime = date;
+
+          // console.log(data);
+          that.setData({
+            info: data.data,
+            date: new Date().toLocaleDateString(),
+          })
+          if (info.status == 0) {
+            that.setData({
+              isendcall: true
+            })
+          }
+          if (that.data.date >= data.data.startTime && that.data.date <= data.data.endTime )
+          {
+            that.setData({
+              isStart:true
+            })
+          }
+          // console.log(that.data)
+        }
+      })
+      that.requestData(that);
+    }, getApp().globalData.time_span_seminar);
+  },
 })

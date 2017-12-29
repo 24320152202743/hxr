@@ -89,7 +89,8 @@ Page({
     this.requestData(this)
   },
 
-  onHide:function(){
+  onUnload: function () {
+    //console.log('2222222222222222')
     this.setData({
       time: -2
     })
@@ -114,7 +115,7 @@ Page({
         }
       });
       requestData(that);
-      }, 1000); 
+    }, getApp().globalData.time_span_call); 
   },
 
 

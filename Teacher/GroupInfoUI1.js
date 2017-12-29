@@ -92,10 +92,50 @@ Page({
         duration: 2000
       })
     }
-    else
+    else{
       this.setData({
         showModal: true
       })
+
+      var IPPort = getApp().globalData.IPPort;
+      var message = "";
+      var that = this;
+      wx.request({
+        url: IPPort + "/seminar/" + that.data.seminarId + "/class/" + that.data.classId + "/attendance/late",
+        method: 'GET',
+        //data: { "calling": -1 },
+        success: function (data) {
+          for(var i = 0 ; i < data.data.length;++i)
+          {
+            var flag = true;
+            for(var j = 0 ; j < that.data.late.length;++j){
+              if(that.data.late[j].id == data.data[i].id)
+              {
+                flag = false;
+                break;
+              }
+            }
+            if(flag == true)
+            {
+              for (var j = 0; j < that.data.lateOn.length; ++j) {
+                if (that.data.lateOn[j].id == data.data[i].id) {
+                  flag = false;
+                  break;
+                }
+              }
+            }
+            if(flag == true)
+            {
+              var len = this.data.late.length;
+              var insert = 'late[' + len + ']';
+              that.setData({
+                [insert]:data.data[i]
+              })
+            }
+          }
+        }
+      });
+    }
   },
 
 
@@ -106,7 +146,6 @@ Page({
   },
 
   cancelLateStudent: function (event) {
-    console.log(event);
     var studentID = event.currentTarget.id;
     var k;
     var len = this.data.late.length;
@@ -115,20 +154,16 @@ Page({
       if (studentID == this.data.lateOn[k].id) {
         var student = this.data.lateOn[k];
         this.data.lateOn.splice(k, 1);
-        console.log(student)
         break;
       }
     }
     this.setData({
       [that]: student,
       lateOn: this.data.lateOn,
-
     });
-
     this.setData({
       lateSelectMem: this.data.late[this.data.late.length - 1].id,
     });
-
     var IPPort = getApp().globalData.IPPort;
     var message = "";
     var that = this;
@@ -142,8 +177,6 @@ Page({
         console.log("cancelOk");
       }
     });
-
-    
   },
   /**
      * 弹出框蒙层截断touchmove事件
@@ -215,10 +248,6 @@ Page({
       classId:id,
       seminarId: wx.getStorageSync("seminarId"),
     })
-    console.log("123:"+this.data.classId);
-    console.log("123:" + this.data.seminarId);
-
-
     var IPPort = getApp().globalData.IPPort;
     var message = "";
     var that = this;
@@ -242,14 +271,10 @@ Page({
         })
       }
     });
-
-    
-
     this.setData({
       display_group: this.data.classGroup[0].id,
       lateSelectMem: this.data.late[0].id,
     });
-
     wx.request({
       url: IPPort + "/group/" + that.data.display_group,
       method: 'GET',
@@ -293,7 +318,44 @@ Page({
     })
 
   }
-  }
+  },
+
+  onUnload: function () {
+    //console.log('2222222222222222')
+    this.setData({
+      time: -2
+    })
+  },
+
+  onShow: function () {
+    this.setData({
+      time: 0
+    })
+    this.requestData(this)
+  },
+
+  requestData: function (that) {
+    if (that.data.time <= -1)
+      return
+    setTimeout(function () {
+      that.setData({
+        time: that.data.time + 1,
+      })
+      var IPPort = getApp().globalData.IPPort;
+      var message = "";
+      wx.request({
+        url: IPPort + "/seminar/" + that.data.seminarId + "/class/" + that.data.classId + "/attendance/absent",
+        method: 'GET',
+        //data: { "calling": -1 },
+        success: function (data) {
+          that.setData({
+            absent: data.data,
+          })
+        }
+      });
+      requestData(that);
+    }, getApp().globalData.time_span_end_call);
+  },
 
 
 })
