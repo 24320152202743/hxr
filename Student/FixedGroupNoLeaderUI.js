@@ -43,11 +43,17 @@ Page({
     var that = this;
     wx.request({
       url: IPPort + '/group/' + groupId + '/assign',
+      header: {
+        Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+      },
       method: 'PUT',
       success: function (data) {
         wx.request({
           url: IPPort + '/seminar/' + that.data.seminarId + '/group/my',
           method: 'GET',
+          header: {
+            Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+          },
           success: function (data) {
             that.setData({
               info: data.data,
@@ -74,13 +80,18 @@ Page({
     var that = this;
     wx.request({
       url: IPPort + '/seminar/' + seminarId + '/group/my',
+      header: {
+        Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+      },
       method: 'GET',
       success: function (data) {
+        console.log(data);
         that.setData({
           info: data.data,
           //["info.topics"]:""
         })
-        if(that.data.info.leader!=""){
+        if(that.data.info.leader!=null){
+         
           that.setData({
             hasLeader: true,
           })
@@ -131,20 +142,35 @@ Page({
       var IPPort = getApp().globalData.IPPort;
       wx.request({
         url: IPPort + '/seminar/' + seminarId + '/group/my',
+        header: {
+          Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+        },
         method: 'GET',
         success: function (data) {
           that.setData({
             info: data.data,
             //["info.topics"]:""
           })
-          if (that.data.info.leader != "") {
+          //console.log('1111111111',that.data.info);
+          if (that.data.info.leader != null) {
             that.setData({
               hasLeader: true,
             })
-            if (that.data.info.leader.id == wx.getStorageSync("studentId"))
+          if (that.data.info.leader.id == wx.getStorageSync("studentId")){
               that.setData({
                 isLeader: true,
-              })
+              })          
+          }
+          else {
+            that.setData({
+              isLeader: false,
+            }) }
+          }
+          else{
+            that.setData({
+              hasLeader: false,
+              isLeader: false,
+            })
           }
           if (that.data.info.topics != "")
             that.setData({
@@ -202,10 +228,16 @@ Page({
     var that = this;
     wx.request({
       url: IPPort + '/group/' + groupId + '/resign',
+      header: {
+        Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+      },
       method: 'PUT',
       success: function (data) {
         wx.request({
           url: IPPort + '/seminar/' + that.data.seminarId + '/group/my',
+          header: {
+            Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+          },
           method: 'GET',
           success: function (data) {
             console.log(that.data.isSelectedTopic);

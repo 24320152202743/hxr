@@ -78,6 +78,7 @@ Page({
       },
       method: 'GET',
       success: function (data) {
+        //console.log('seminar',data)
         var DATE = new Date(data.data.startTime);
         var date = DATE.toLocaleString();
         data.data.startTime = date;
