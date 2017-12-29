@@ -59,9 +59,13 @@ Page({
 
     var self = this
     wx.request({                    //请求小组
-      url: app.globalData.IPPort + '/seminar/' + this.data.seminarId + '/group?gradeable=true',
+      url: app.globalData.IPPort + '/seminar/' + this.data.seminarId +'/class/'+wx.getStorageSync('classId')+ '/group',
+      header: {
+        Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+      },
       method: 'GET',
       success: function (res) {
+        console.log('grade       ',res)
         self.setData({
           group: res.data
         })
