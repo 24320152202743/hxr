@@ -27,7 +27,6 @@
 </block>
 
 <block wx:if="{{!flag}}">
-
 <button class="btnsubmit" bindtap="submit">提交</button>
 </block>
  </view>

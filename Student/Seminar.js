@@ -21,7 +21,7 @@ Page({
     },
   other:{
     iscall:false,
-    isendcall:false,
+    isendcall:true,
     issendgrade:false,
     isendchoosetopic:false,
     iscaptain:false,
@@ -73,7 +73,7 @@ Page({
     var that = this;
 
     wx.request({
-      url: IPPort + '/seminar/' + seminarId + '/my',
+      url: IPPort + '/seminar/' + seminarId + '/class/'+wx.getStorageSync('classId')+'/my',
       header: {
         Authorization: 'Bearer ' + wx.getStorageSync('jwt')
       },
@@ -92,7 +92,7 @@ Page({
         that.setData({
           info: data.data
         })
-        if(info.status == 0){
+        if(that.data.info.status == 0){
           that.setData({
             isendcall:true
           })
@@ -119,10 +119,11 @@ Page({
     var that = this;
 
     wx.request({
-      url: IPPort + '/seminar/' + seminarId + '/my',
+      url: IPPort + '/seminar/' + seminarId + '/class/' + wx.getStorageSync("classId")+'/my',
       header: {
         Authorization: 'Bearer ' + wx.getStorageSync('jwt')
       },
+      
       method: 'GET',
       success: function (data) {
         console.log('seminar',data)
@@ -138,7 +139,7 @@ Page({
         that.setData({
           info: data.data
         })
-        if (info.status == 0) {
+        if (that.data.info.status == 0) {
           that.setData({
             isendcall: true
           })
@@ -201,7 +202,7 @@ Page({
       var seminarId = that.data.seminarId;
       var IPPort = getApp().globalData.IPPort;
       wx.request({
-        url: IPPort + '/seminar/' + seminarId + '/my',
+         url: IPPort + '/seminar/' + seminarId + '/class/' + wx.getStorageSync("classId") + '/my',
         header: {
           Authorization: 'Bearer ' + wx.getStorageSync('jwt')
         },
@@ -221,7 +222,7 @@ Page({
             info: data.data,
             date: new Date().toLocaleDateString(),
           })
-          if (info.status == 0) {
+          if (that.data.info.status == 0) {
             that.setData({
               isendcall: true
             })

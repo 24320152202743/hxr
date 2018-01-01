@@ -85,7 +85,7 @@ Page({
             presentationGrade: temp
           })
         }
-        
+        console.log('flag          ',self.data.flag);
         var isGrade = wx.getStorageSync("isGrade" + self.data.seminarId);
         console.log(isGrade);
         if(isGrade)
