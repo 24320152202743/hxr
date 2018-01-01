@@ -33,15 +33,28 @@ Page({
     }
     else{
     getApp().globalData.userid = this.data.info.Number;
-    getApp().globalData.usertype = 'teacher';
+    getApp().globalData.usertype = 1;
     getApp().globalData.username = this.data.info.name;
     var message = "";
+    var schoolId = this.data.info.school.id;
+    var openid = wx.getStorageSync('openid');
+    var number = this.data.info.Number;
+    var Type = getApp().globalData.usertype;
+    var name = this.data.info.name;
     wx.request({
-      url: IPPort + '/me',
-      method: 'PUT',
-      data:this.data.info,
+      url: IPPort + '/register',
+      method: 'POST',
+      data: {
+        openid: openid,
+        name: name,
+        Type: Type,
+        number: number,
+        schoolId: schoolId
+      },
       success: function (data) {
         console.log(data);
+        wx.setStorageSync("jwt", data.data.jwt);
+        getApp().globalData.usertype = data.data.type;
       }
     })
     console.log(message);

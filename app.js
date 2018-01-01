@@ -35,10 +35,11 @@ App({
                 that.globalData.userid = data.data.id;
                 that.globalData.usertype = data.data.type;
                 that.globalData.username = data.data.name;
-                if (that.globalData.usertype ==1)
+                //console.log('usertype', that.globalData.usertype)
+                if (that.globalData.usertype =='teacher')
                 {
                   wx.reLaunch({
-                    url: 'Teacher/TeacherMainUI',
+                    url: '../Teacher/TeacherMainUI',
                   })
                 }
                 else{

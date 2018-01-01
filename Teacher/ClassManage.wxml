@@ -14,7 +14,7 @@
 
   <view class="clockAndGroupView">
     <image src="../images/clip.png"   mode='widthFix' class="clockAndGroupIcon" />
-    <text class='clockAndGroupText'>{{Classmanage.goupingMethond}}</text>
+    <text class='clockAndGroupText'>{{Classmanage.groupingMethod}}</text>
   </view>
   </view>
 

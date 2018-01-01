@@ -81,13 +81,16 @@ Page({
       var userid = getApp().globalData.userid;
       var message = "";
       var that = this;
-      console.log(userid);
+      //console.log(userid);
       wx.request({
-        url: IPPort + '/me/userId='+userid,
+        url: IPPort + '/me',
+        header: {
+          Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+        },
         method: 'GET',
         //data:this.data.info,
         success: function (data) {
-          console.log(data);
+          console.log('me',data);
           that.setData({
             info: data.data,
           })
@@ -95,35 +98,16 @@ Page({
       });
       wx.request({
         url: IPPort + '/course',
+        header: {
+          Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+        },
         method: 'GET',
         //data:this.data.info,
         success: function (data) {
-          console.log(data);
+          console.log('course',data);
           that.setData({
             course: data.data,
-            
           });
-          for (var i = 0; i < that.data.course.length(); i++) {
-            var courseid = that.data.course[i].id;
-            var time = new Date().toLocaleDateString();
-            wx.request({
-              url: IPPort + '/course/' + courseid + '/seminar/current',
-              method: 'GET',
-              success: function (data) {
-                if (time > data.data.startTime && time < data.data.endTime) {
-                  that.setData({
-                    ['course[i].flag']: true,
-                  })
-                }
-                else {
-                  that.setData({
-                    ['course[i].flag']: false,
-                  })
-                }
-              }
-            })
-
-          }
         }
       });
       

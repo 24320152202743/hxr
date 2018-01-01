@@ -120,13 +120,14 @@ Page({
 
   },
   ChooseSchoolNoSchoolForTeacher: function (e) {
+    var id = e.currentTarget.dataset.schoolObj.id;
     var name = e.currentTarget.dataset.schoolObj.name;
     var province = this.data.info.province;
     var city = this.data.info.city;
     var teacherID = this.data.info.Number;
     var teacherName = this.data.info.name;
     wx.redirectTo({
-      url: './TeacherBindingUI2?name=' + name + '&province=' + province + '&city=' + city + '&teacherID=' + teacherID + '&teacherName=' + teacherName
+      url: './TeacherBindingUI2?name=' + name + '&province=' + province + '&city=' + city + '&teacherID=' + teacherID + '&teacherName=' + teacherName + '&id=' + id
     })
   },
 

@@ -17,6 +17,10 @@ Page({
       method: 'GET',
       //data:this.data.info,
       success: function (data) {
+        var DATE = new Date(data.data.startTime);
+        data.data.startTime = DATE.toLocaleString().slice(0,10);
+        var DATE = new Date(data.data.endTime);
+        data.data.endTime = DATE.toLocaleString().slice(0, 10);
         that.setData({
           Classmanage: data.data,
         })
@@ -30,7 +34,7 @@ Page({
             })
           }
           else {
-            if (that.data.Classmanage.goupingMethond == 'fixed') {
+            if (that.data.Classmanage.groupingMethod == 'fixed') {
               console.log("fixed");
               for (k = 0; k < that.data.Classmanage.classes.length; ++k) {
                 var urls = "Classmanage.classes[" + k + "].nexturl";

@@ -9,21 +9,6 @@ Page({
   },
 /*页面跳转 */
   bindViewTap: function () {
-    var IPPort = getApp().globalData.IPPort;
-    var message = { "type": "teacher" };
-    console.log(message);
-    wx.request({
-      url: IPPort + '/me',
-      method: 'PUT',
-      data:message,
-      success: function (data) {
-        console.log(data);
-      }
-    })
-    try {
-      wx.setStorageSync(type, 'teacher');
-    } catch (e) {
-    }
     wx.navigateTo({
       url: '../Teacher/TeacherBindingUI'
     })
