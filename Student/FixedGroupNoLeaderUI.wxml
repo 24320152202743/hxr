@@ -57,7 +57,7 @@
 
 
     <!-- 选题 -->
-   <block wx:if="{{!isSelectedTopic && isLeader}}">
+   <block wx:if="{{isSelectedTopic == false && isLeader}}">
     <view >
       <button class="btnBeLeader" bindtap="choose">选题</button>
     </view>

@@ -15,7 +15,7 @@ App({
         if (res.code) {
           //发起网络请求
           wx.request({
-            url: 'http://localhost:8080/signin',
+            url: 'http://120.77.173.98:8111/signin',
             method:"GET",
             data: {
               code: res.code
@@ -80,7 +80,7 @@ App({
   },
   globalData: {
     IPPort: "http://localhost:8080",
-    //IPPort: "http://120.77.173.98:8111",
+    // IPPort: "http://120.77.173.98:8111",
     userid:"",
     usertype:"",
     username:"",

@@ -55,12 +55,13 @@ Page({
         console.log(data);
         wx.setStorageSync("jwt", data.data.jwt);
         getApp().globalData.usertype = data.data.type;
+        console.log(message);
+        wx.reLaunch({
+          url: './TeacherMainUI',
+        })
       }
     })
-    console.log(message);
-    wx.reLaunch({
-      url: './TeacherMainUI',
-    })
+    
   }
   },
   IDInput: function (e) {

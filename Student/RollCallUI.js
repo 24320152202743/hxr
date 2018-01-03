@@ -38,6 +38,9 @@ Page({
     wx.request({
      url: IPPort+'/seminar/'+ seminarid+'/detail',
      method:'GET',
+     header: {
+       Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+     },
      success: function (data) {
        wx.setStorageSync("seminarDetail", that.data.seminarDetail);
        console.log(data.data);

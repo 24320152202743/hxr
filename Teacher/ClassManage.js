@@ -1,6 +1,7 @@
 Page({
   data: { // 参与页面渲染的数据
     Classmanage: {
+      classes:[]
     },
     courseId: 29,
   },
@@ -17,6 +18,7 @@ Page({
       method: 'GET',
       //data:this.data.info,
       success: function (data) {
+        console.log('11111111',data);
         var DATE = new Date(data.data.startTime);
         data.data.startTime = DATE.toLocaleString().slice(0,10);
         var DATE = new Date(data.data.endTime);
@@ -24,7 +26,12 @@ Page({
         that.setData({
           Classmanage: data.data,
         })
-        console.log(that.data.Classmanage);
+
+        var classes = 'Classmanage.classes';
+        that.setData({
+          [classes]: data.data.classes,
+        })
+        console.log('seminar     ',that.data.Classmanage.classes,'pppp');
         try {
           var key = "classNextUrl" + that.data.Classmanage.id;
           var classes = wx.getStorageSync(key);
@@ -105,7 +112,7 @@ Page({
     catch (e) {
       console.log("第一次打开");
     }
-    console.log(this.data.Classmanage);
+    console.log('22222222',this.data.Classmanage);
   },
 
 

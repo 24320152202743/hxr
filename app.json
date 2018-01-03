@@ -1,5 +1,7 @@
 {
-  "pages":["common/ChooseCharacter",
+  "pages":[
+        "common/index",
+    "common/ChooseCharacter",
     "Student/StudentMainUI",
     
     "Student/Seminar",

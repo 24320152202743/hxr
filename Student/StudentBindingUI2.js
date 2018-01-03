@@ -31,9 +31,6 @@ Page({
     var Type = getApp().globalData.usertype;
     var schoolId = this.data.info.school.id;
     // console.log("12312312313"+openid);
-    this.setData({
-
-    })
     //绑定
     wx.request({
       url: IPPort + '/register',
@@ -49,19 +46,12 @@ Page({
         console.log(data);
         wx.setStorageSync("jwt", data.data.jwt);
         getApp().globalData.usertype=data.data.type;
+          wx.reLaunch({
+            url: './StudentMainUI',
+          })    
       }
     })
-    console.log(getApp().globalData.usertype);
-
-    if (getApp().globalData.usertype == 0) {
-      wx.reLaunch({
-        url: './StudentMainUI',
-      })
-      } else {
-      wx.reLaunch({
-        url: '../Teacher/TeacherMainUI',
-      })
-      }
+   
     }},
 
   ChooseSchool: function (e) {

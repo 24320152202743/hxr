@@ -5,32 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    school: [
-      {
-        "id": 1,
-        "name": "厦门大学",
-        "province": "福建",
-        "city": "厦门"
-      },
-      {
-        "id": 2,
-        "name": "厦门理工大学",
-        "province": "福建",
-        "city": "厦门"
-      },
-      {
-        "id": 3,
-        "name": "华侨大学",
-        "province": "福建",
-        "city": "厦门"
-      },
-      {
-        "id": 4,
-        "name": "集美大学",
-        "province": "福建",
-        "city": "厦门"
-      }
-    ],
+    school: '',
     info: {
       Number: '',
       name: '',

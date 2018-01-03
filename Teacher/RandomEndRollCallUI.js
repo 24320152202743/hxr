@@ -60,7 +60,7 @@ Page({
           })
         }
       });
-      requestData(that);
+      that.requestData(that);
     }, getApp().globalData.time_span_end_call);
   },
 

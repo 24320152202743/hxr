@@ -24,42 +24,66 @@ Page({
     that.setData({
       ["classInfo.id"]: options.classId,
       seminarId: options.seminarId,
-    })
+    });
+    wx.setStorageSync("classInfo" + that.data.classInfo.id, that.data.classInfo);
+    wx.setStorageSync("seminarId", that.data.seminarId);
+    console.log(that.data);
+
+    var latitude;
+    var longitude;
+    var elevation;
+    wx.getLocation({
+      type: 'wgs84',
+      success: function (res) {
+        console.log(res)
+        latitude = res.latitude;
+        longitude = res.longitude;
+        elevation = res.altitude;
+
     // 页面渲染后 执行
-    wx.setStorageSync("classInfo" + this.data.classInfo.id, this.data.classInfo);
-    wx.setStorageSync("seminarId", this.data.seminarId);
-    console.log(this.data);
+    
     var IPPort = getApp().globalData.IPPort;
     var message = "";
-    var that = this;
     wx.request({
       url: IPPort + '/class/' + options.classId,
       method: 'GET',
+      header: {
+        Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+      },
       //data:this.data.info,
       success: function (data) {
         that.setData({
           classInfo: data.data,
-        })
+        });
+        var k = '/seminar/' + that.data.seminarId + '/class/' + that.data.classInfo.id + '/attendance?longitude=' + longitude + '&latitude=' + latitude + '&elevation=' + elevation;
+        wx.request({
+          url: IPPort + k,
+          header: {
+            Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+          },
+          method: 'GET',
+          //data:this.data.info,
+          success: function (data) {
+            console.log(data.data)
+            that.setData({
+              ["classInfo.group"]: data.data.group,
+              ["classInfo.numPresent"]: data.data.numPresent,
+              ["classInfo.numStudent"]: data.data.numStudent,
+              ["classInfo.status"]: data.data.status,
+            })
 
+          }
+        });
       }
     });
-    var k = '/seminar/' + that.data.seminarId + '/class/' + that.data.classInfo.id + '/attendance';
-    wx.request({
-      url: IPPort + k,
-      method: 'GET',
-      //data:this.data.info,
-      success: function (data) {
-        that.setData({
-          callingStatus: data.data,
-        })
-
-      }
-    }),
+   
 
       console.log(message);
-    wx.setStorageSync("nextUrl", './RandomRollStartCallUI?classId=' + this.data.classInfo.id);
-    wx.setStorageSync("id", this.data.classInfo.id);
-  },
+    wx.setStorageSync("nextUrl", './RandomRollStartCallUI?classId=' + that.data.classInfo.id);
+    wx.setStorageSync("id", that.data.classInfo.id);
+      }
+   });
+   },
 
 
 
@@ -72,9 +96,11 @@ Page({
       url: './RandomRollCallUI?classId=' + this.data.classInfo.id,
       success: function (res) {
         wx.request({
-          url: IPPort + '/class/' + that.data.classInfo.id,
+          url: IPPort + '/class/' + that.data.classInfo.id + '/seminar/' + that.data.seminarId + '/location?status=1',
           method: 'PUT',
-          data: { "calling": that.data.seminarId},
+          header: {
+            Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+          },
           success: function (data) {
           }
         });

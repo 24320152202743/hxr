@@ -29,9 +29,9 @@ page {
 
 .classNameView {
   margin-top: 90rpx;
-  width: 400rpx;
+  width: wrap-content;
   height: 100rpx;
-  font-size: 80rpx;
+  font-size: 70rpx;
   float: right;
 }
 

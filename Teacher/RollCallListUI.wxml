@@ -12,7 +12,7 @@
 
   <!--学生总数：40 的字样-->
   <view class='studentSumView'>
-    签到人数：{{studentList.numPresent}}/ {{classInfo.numStudent}}
+    签到人数：{{studentList.length}}/ {{classInfo.numStudent}}
   </view>
 
 
@@ -22,7 +22,7 @@
   </view>
 
   <!--学生块，用整个view包住学生的部分，每次添加新学生能自动排好版，之后在span下面修改学生名字-->
-<view wx:for="{{studentList.present}}" wx:for-item="item"  class = 'studentView'>
+<view wx:for="{{studentList}}" wx:for-item="item"  class = 'studentView'>
   <view class='studentBlock'>
     <image src="../images/user.png" class='userIcon' />
     <span class="studentName">{{item.name}}</span>

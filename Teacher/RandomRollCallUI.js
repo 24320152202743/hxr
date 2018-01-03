@@ -2,12 +2,14 @@ Page({
   data: { // 参与页面渲染的数据
     presentNum: 37,
   },
+
+
   onLoad: function (options) {
     var k = options.classId;
     this.setData({
       classInfo: wx.getStorageSync("classInfo" + k),
     })
-    console.log(this.data.classInfo);
+    //console.log(this.data.classInfo);
     wx.setStorageSync("nextUrl", './RandomRollCallUI?classId=' + this.data.classInfo.id);
     wx.setStorageSync("id", this.data.classInfo.id);
   },
@@ -42,8 +44,11 @@ Page({
               var IPPort = getApp().globalData.IPPort;
               var message = "";
               wx.request({
-                url: IPPort + '/class/' + that.data.classInfo.id,
+                url: IPPort + '/class/' + that.data.classInfo.id + '/seminar/' + wx.getStorageSync('seminarId') + '/location?status=0',
                 method: 'PUT',
+                header: {
+                  Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+                },
                 data: { "calling": -1 },
                 success: function (data) {
                 }
@@ -82,6 +87,9 @@ Page({
       var message = "";
       wx.request({
         url: IPPort + "/seminar/" + wx.getStorageSync("seminarId") + "/class/" + that.data.classInfo.id + "/attendance",
+        header: {
+          Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+        },
         method: 'GET',
         success: function (data) {
           that.setData({
@@ -89,7 +97,7 @@ Page({
           })
         }
       });
-      requestData(that);
+      that.requestData(that);
     }, getApp().globalData.time_span_call);
   },
 

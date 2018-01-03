@@ -71,8 +71,9 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      groupMethod: options.groupingMethod,
+      groupMethod: options.groupMethod,
       seminarId: options.seminarId,
+      isSelectedTopic: false,
     });
     var seminarId = this.data.seminarId;
     //wx.setStorageSync("nexturlGroup" + seminarId, "./FixedGroupNoLeaderUI")
@@ -85,7 +86,7 @@ Page({
       },
       method: 'GET',
       success: function (data) {
-        console.log(data);
+        console.log("groop",data);
         that.setData({
           info: data.data,
           //["info.topics"]:""
@@ -100,7 +101,9 @@ Page({
               isLeader: true,
             })
         }
-        if(that.data.info.topics != null)
+        console.log("to",that.data.info.topics)
+        console.log("io", that.data.isSelectedTopic)
+        if(that.data.info.topics.length != 0)
           that.setData({
             isSelectedTopic: true
           })
@@ -172,7 +175,7 @@ Page({
               isLeader: false,
             })
           }
-          if (that.data.info.topics != null)
+          if (that.data.info.topics.length != 0)
             that.setData({
               isSelectedTopic: true
             })

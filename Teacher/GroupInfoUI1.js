@@ -17,14 +17,6 @@ Page({
     按ID获取讨论课班级迟到签到名单*/
 
     late: [
-      {
-        "id": 3412,
-        "name": "王五"
-      },
-      {
-        "id": 5234,
-        "name": "王七九"
-      }
     ],
 
 
@@ -85,17 +77,7 @@ Page({
   },
 
   showmodalimg: function () {
-    if (this.data.late.length == 0) {
-      wx.showToast({
-        title: '请等待学生签到',
-        icon: 'loading',
-        duration: 2000
-      })
-    }
-    else{
-      this.setData({
-        showModal: true
-      })
+    
 
       var IPPort = getApp().globalData.IPPort;
       var message = "";
@@ -105,6 +87,7 @@ Page({
         method: 'GET',
         //data: { "calling": -1 },
         success: function (data) {
+          console.log("late",data);
           for(var i = 0 ; i < data.data.length;++i)
           {
             var flag = true;
@@ -117,6 +100,7 @@ Page({
             }
             if(flag == true)
             {
+             
               for (var j = 0; j < that.data.lateOn.length; ++j) {
                 if (that.data.lateOn[j].id == data.data[i].id) {
                   flag = false;
@@ -126,23 +110,42 @@ Page({
             }
             if(flag == true)
             {
-              var len = this.data.late.length;
+              
+              var len = that.data.late.length;
+              console.log(len)
               var insert = 'late[' + len + ']';
+              console.log(data.data[i])
               that.setData({
+                
                 [insert]:data.data[i]
               })
+              console.log(that.data.late)
             }
           }
+          if (that.data.length == 0) {
+            wx.showToast({
+              title: '请等待学生签到',
+              icon: 'loading',
+              duration: 2000
+            })
+          }
+          else 
+            that.setData({
+              lateSelectMem: data.data[0].id,
+              showModal: true
+            })
         }
       });
-    }
+    
   },
 
 
   select: function (event) {
+   
     this.setData({
       lateSelectMem: event.target.id,
     })
+    console.log("select",this.data.lateSelectMem)
   },
 
   cancelLateStudent: function (event) {
@@ -201,6 +204,20 @@ Page({
    * 对话框确认按钮点击事件
    */
   onConfirm: function (event) {
+    var IPPort = getApp().globalData.IPPort;
+    var message = "";
+    var that = this;
+    console.log("id", that.data.lateSelectMem)
+    wx.request({
+      url: IPPort + "/group/" + that.data.display_group + "/add",
+      method: 'PUT',
+      data: {
+        "id": that.data.lateSelectMem
+      },
+      success: function (data) {
+        console.log("confirmOk");
+      }
+    });
     this.hideModal();
     var len = this.data.lateOn.length;
     var that = 'lateOn[' + len + ']';
@@ -223,19 +240,7 @@ Page({
       late: this.data.late,
       lateSelectMem: l,
     });
-    var IPPort = getApp().globalData.IPPort;
-    var message = "";
-    var that = this;
-    wx.request({
-      url: IPPort + "/group/" + that.data.display_group+"/add",
-      method: 'PUT',
-      data: {
-        "id": that.data.lateSelectMem
-      },
-      success: function (data) {
-        console.log("confirmOk");
-      }
-    });
+   
     
   },
 
@@ -245,6 +250,7 @@ Page({
   onLoad: function (options) {
     var id = options.classId;
     this.setData({
+      late:[],
       classId:id,
       seminarId: wx.getStorageSync("seminarId"),
     })
@@ -266,25 +272,35 @@ Page({
       method: 'GET',
       //data: { "calling": -1 },
       success: function (data) {
+        console.log('111111111',data)
         that.setData({
           classGroup: data.data,
         })
-      }
-    });
-    this.setData({
-      display_group: this.data.classGroup[0].id,
-      lateSelectMem: this.data.late[0].id,
-    });
-    wx.request({
-      url: IPPort + "/group/" + that.data.display_group,
-      method: 'GET',
-      //data: { "calling": -1 },
-      success: function (data) {
-        that.setData({
-          groupInfo: data.data,
+        if (that.data.late.length == 0)
+          that.setData({
+            display_group: that.data.classGroup[0].id,
+          });
+        else {
+          that.setData({
+            display_group: that.data.classGroup[0].id,
+            lateSelectMem: that.data.late[0].id,
+          });
+        }
+        wx.request({
+          url: IPPort + "/group/" + that.data.display_group,
+          method: 'GET',
+          //data: { "calling": -1 },
+          success: function (data) {
+            console.log('123456465464', data)
+            that.setData({
+              groupInfo: data.data,
+            })
+          }
         })
       }
     });
+    
+    
     
   },
 
@@ -308,7 +324,7 @@ Page({
       method: 'GET',
       //data:this.data.info,
       success: function (data) {
-
+console.log(data)
         that.setData({
           groupInfo: data.data,
           display_group: event.currentTarget.id,
@@ -348,12 +364,13 @@ Page({
         method: 'GET',
         //data: { "calling": -1 },
         success: function (data) {
+          console.log(data)
           that.setData({
             absent: data.data,
           })
         }
       });
-      requestData(that);
+      that.requestData(that);
     }, getApp().globalData.time_span_end_call);
   },
 

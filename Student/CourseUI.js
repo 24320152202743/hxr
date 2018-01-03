@@ -52,6 +52,7 @@ Page({
       courseName:options.courseName,
       classId: options.classId
     });
+    console.log('date',this.data.date);
     wx.setStorageSync("classId", this.data.classId)
     var IPPort = getApp().globalData.IPPort;
     var that = this;
@@ -62,7 +63,7 @@ Page({
       },
       method: 'GET',
       success: function (data) {
-        console.log(data);
+        console.log("1111111111",data);
         for(var i=0;i<data.data.length;i++)
         {
           var DATE = new Date(data.data[i].startTime);
@@ -72,11 +73,12 @@ Page({
           var DATE = new Date(data.data[i].endTime);
           var date = DATE.toLocaleString();
           data.data[i].endTime = date;
+          
         }
         that.setData({
           seminar: data.data
         })
-        console.log(that.data);
+        console.log(data.data)
       }
     })
   },

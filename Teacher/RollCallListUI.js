@@ -28,14 +28,19 @@ Page({
       //res代表success函数的事件对，data是固定的，stories是是上面json数据中stories
     })
     wx.request({
-      url: IPPort + '/class/'+that.data.classInfo.id+'/attendance?showPresent=true',
+      url: IPPort +'/seminar/'+that.data.seminarId+ '/class/'+that.data.classInfo.id+'/attendance/present',
+      header: {
+        Authorization: 'Bearer ' + wx.getStorageSync('jwt')
+      },
       method: 'GET',
+      
       //data:this.data.info,
       success: function (data) {
+        console.log('studentList',data)
         that.setData({
           studentList: data.data,
         })
-       
+       console.log('studentList', that.data.studentList)
       }
     });
   }
