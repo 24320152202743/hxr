@@ -77,75 +77,71 @@ Page({
   },
 
   showmodalimg: function () {
-    
 
-      var IPPort = getApp().globalData.IPPort;
-      var message = "";
-      var that = this;
-      wx.request({
-        url: IPPort + "/seminar/" + that.data.seminarId + "/class/" + that.data.classId + "/attendance/late",
-        method: 'GET',
-        //data: { "calling": -1 },
-        success: function (data) {
-          console.log("late",data);
-          for(var i = 0 ; i < data.data.length;++i)
-          {
-            var flag = true;
-            for(var j = 0 ; j < that.data.late.length;++j){
-              if(that.data.late[j].id == data.data[i].id)
-              {
+
+    var IPPort = getApp().globalData.IPPort;
+    var message = "";
+    var that = this;
+    wx.request({
+      url: IPPort + "/seminar/" + that.data.seminarId + "/class/" + that.data.classId + "/attendance/late",
+      method: 'GET',
+      //data: { "calling": -1 },
+      success: function (data) {
+        console.log("late", data);
+        for (var i = 0; i < data.data.length; ++i) {
+          var flag = true;
+          for (var j = 0; j < that.data.late.length; ++j) {
+            if (that.data.late[j].id == data.data[i].id) {
+              flag = false;
+              break;
+            }
+          }
+          if (flag == true) {
+
+            for (var j = 0; j < that.data.lateOn.length; ++j) {
+              if (that.data.lateOn[j].id == data.data[i].id) {
                 flag = false;
                 break;
               }
             }
-            if(flag == true)
-            {
-             
-              for (var j = 0; j < that.data.lateOn.length; ++j) {
-                if (that.data.lateOn[j].id == data.data[i].id) {
-                  flag = false;
-                  break;
-                }
-              }
-            }
-            if(flag == true)
-            {
-              
-              var len = that.data.late.length;
-              console.log(len)
-              var insert = 'late[' + len + ']';
-              console.log(data.data[i])
-              that.setData({
-                
-                [insert]:data.data[i]
-              })
-              console.log(that.data.late)
-            }
           }
-          if (that.data.length == 0) {
-            wx.showToast({
-              title: '请等待学生签到',
-              icon: 'loading',
-              duration: 2000
-            })
-          }
-          else 
+          if (flag == true) {
+
+            var len = that.data.late.length;
+            console.log(len)
+            var insert = 'late[' + len + ']';
+            console.log(data.data[i])
             that.setData({
-              lateSelectMem: data.data[0].id,
-              showModal: true
+
+              [insert]: data.data[i]
             })
+            console.log(that.data.late)
+          }
         }
-      });
-    
+        if (that.data.length == 0) {
+          wx.showToast({
+            title: '请等待学生签到',
+            icon: 'loading',
+            duration: 2000
+          })
+        }
+        else
+          that.setData({
+            lateSelectMem: data.data[0].id,
+            showModal: true
+          })
+      }
+    });
+
   },
 
 
   select: function (event) {
-   
+
     this.setData({
       lateSelectMem: event.target.id,
     })
-    console.log("select",this.data.lateSelectMem)
+    console.log("select", this.data.lateSelectMem)
   },
 
   cancelLateStudent: function (event) {
@@ -240,8 +236,8 @@ Page({
       late: this.data.late,
       lateSelectMem: l,
     });
-   
-    
+
+
   },
 
   /**
@@ -250,15 +246,15 @@ Page({
   onLoad: function (options) {
     var id = options.classId;
     this.setData({
-      late:[],
-      classId:id,
+      late: [],
+      classId: id,
       seminarId: wx.getStorageSync("seminarId"),
     })
     var IPPort = getApp().globalData.IPPort;
     var message = "";
     var that = this;
     wx.request({
-      url: IPPort + "/seminar/"+that.data.seminarId+"/class/"+that.data.classId+"/attendance/absent",
+      url: IPPort + "/seminar/" + that.data.seminarId + "/class/" + that.data.classId + "/attendance/absent",
       method: 'GET',
       //data: { "calling": -1 },
       success: function (data) {
@@ -268,11 +264,11 @@ Page({
       }
     });
     wx.request({
-      url: IPPort + "/seminar/"+that.data.seminarId+"/group?classId="+that.data.classId,
+      url: IPPort + "/seminar/" + that.data.seminarId + "/group?classId=" + that.data.classId,
       method: 'GET',
       //data: { "calling": -1 },
       success: function (data) {
-        console.log('111111111',data)
+        console.log('111111111', data)
         that.setData({
           classGroup: data.data,
         })
@@ -299,9 +295,9 @@ Page({
         })
       }
     });
-    
-    
-    
+
+
+
   },
 
 
@@ -315,25 +311,39 @@ Page({
       this.setData({
         display: true,
       });
-    else if (this.data.display_group != event.currentTarget.id){
+    else if (this.data.display_group != event.currentTarget.id) {
       var IPPort = getApp().globalData.IPPort;
-    var message = "";
-    var that = this;
-    wx.request({
-      url: IPPort + '/group/' + event.currentTarget.id,
-      method: 'GET',
-      //data:this.data.info,
-      success: function (data) {
-console.log(data)
-        that.setData({
-          groupInfo: data.data,
-          display_group: event.currentTarget.id,
-          display: true,
-        });
-      }
-    })
+      var message = "";
+      var that = this;
+      wx.request({
+        url: IPPort + '/group/' + event.currentTarget.id,
+        method: 'GET',
+        //data:this.data.info,
+        success: function (data) {
+          console.log(data)
+          that.setData({
+            groupInfo: data.data,
+            display_group: event.currentTarget.id,
+            display: true,
+          });
+          var group = that.data.groupInfo;
+          for (var j = 0; j < that.data.lateOn.length; ++j) {
+            for (var i = 0; i < group.length; ++i) {
+              if (group[i].id == that.data.lateOn[j].id) {
+                group.splice(i, 1);
+                break;
+              }
+            }
+          }
+          that.setData({
+            groupInfo:group
+          });
 
-  }
+
+        }
+      })
+
+    }
   },
 
   onUnload: function () {
