@@ -4,39 +4,7 @@ Page({
   data: {
     groupId:1 ,
     topic: [
-      {
-        "flag":0,
-        "order":"null",
-        "id": 257,
-        "serial": "A",
-        "name": "领域模型与模块",
-        "description": "Domain model与模块划分",
-        "groupLimit": 5,
-        "groupMemberLimit": 6,
-        "groupLeft": 2
-      },
-      {
-        "flag":0,
-        "order": "null",
-        "id": 257,
-        "serial": "A",
-        "name": "领域模型与模块",
-        "description": "Domain model与模块划分",
-        "groupLimit": 5,
-        "groupMemberLimit": 6,
-        "groupLeft": 2
-      },
-      {
-        "flag":0,
-        "order": "null",
-        "id": 257,
-        "serial": "A",
-        "name": "领域模型与模块",
-        "description": "Domain model与模块划分",
-        "groupLimit": 5,
-        "groupMemberLimit": 6,
-        "groupLeft": 2
-      }
+      
     ]
   },
 

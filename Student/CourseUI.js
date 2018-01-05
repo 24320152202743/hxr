@@ -7,24 +7,7 @@ Page({
     courseName: "null",
     studentId: "null",
     seminar: [
-      {
-        "id": 29,
-        "name": "界面原型设计",
-        "description": "界面原型设计",
-        "groupingMethod": "random",
-        "startTime": "2017-9-1",
-        "endTime": "2018-1-1",
-        "grade":5
-      },
-      {
-        "id": 29,
-        "name": "界面原型设计",
-        "description": "界面原型设计",
-        "groupingMethod": "random",
-        "startTime": "2017-9-1",
-        "endTime": "2018-1-1",
-        "grade": 5
-      }
+     
     ]
   },
 

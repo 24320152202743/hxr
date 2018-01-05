@@ -11,23 +11,11 @@ Page({
     "id": 28,
     "name": 28,
     "leader": {
-      "id": 8888,
-      "name": "张三"
     },
     "members": [
-      {
-        "id": 5324,
-        "name": "李四"
-      },
-      {
-        "id": 5678,
-        "name": "王五"
-      }
     ],
     "topics": [
       {
-        "id": 257,
-        "name": "领域模型与模块"
       }
     ],
     hasLeader:false,

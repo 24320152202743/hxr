@@ -6,13 +6,6 @@ Page({
    */
   data: {
     seminarDetail: {
-      "id": 32,
-      "name": "概要设计",
-      "startTime": "2017-10-10",
-      "endTime": "2017-10-24",
-      "site": "海韵201",
-      "teacherName": "邱明",
-      "teacherEmail": "mingqiu@xmu.edu.cn"
     },
     message: "",
     classid:"",

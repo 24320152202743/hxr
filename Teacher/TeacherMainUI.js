@@ -7,23 +7,9 @@ Page({
   data: {
     date:"null",
     info: { 
-      "id": 3486, 
-      "type": "teacher", 
-      "name": "邱明", 
-      "number": "24321432534",
-      "avatar": "../images/UserIcon.png" ,
-      "phone":"",
-      "email":"",
-      "title":"",
-      "school":{
-        "id":"",
-        "name":""
-      }
+      
       },
-    course: [{ "id": 1, "name": "J2EE" },
-    { "id": 2, "name": "OOAD" },
-    { "id": 3, "name": "操作系统" },
-    { "id": 4, "name": "数据仓库" }]
+    course: []
   },
 
 

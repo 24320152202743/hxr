@@ -1,17 +1,7 @@
 Page({
   data: { // 参与页面渲染的数据
     studentList: {
-      "numPresent": 4,
-      "present": [
-        {
-          "id": 2357,
-          "name": "张三"
-        },
-        {
-          "id": 8232,
-          "name": "李四"
-        }
-      ]
+     
     }
     
   },

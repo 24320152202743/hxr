@@ -9,15 +9,7 @@ Page({
     seminarName: '讨论课4',
     seminarId: 1,
     info: {
-      "id": 32,
-      "name": "概要设计",
-      "groupingMethod": "random",
-      "courseName": "OOAD",
-      "startTime": "2017-10-11",
-      "endTime": "2017-10-24",
-      "classCalling": 23,
-      "isLeader": true,
-      "areTopicsSelected": true
+     
     },
   other:{
     iscall:false,

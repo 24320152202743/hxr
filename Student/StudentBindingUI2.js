@@ -6,11 +6,9 @@ Page({
    */
   data: {
     info: {
-      Number: "23320152202333",
-      name: "张三",
+      Number: "",
+      name: "",
       school: {
-        id: 32,
-        name: "厦门大学"
       }
     }
   },

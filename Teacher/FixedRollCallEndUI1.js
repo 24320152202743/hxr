@@ -3,30 +3,13 @@ Page({
     studentList: {
       "numPresent": 4,
       "present": [
-        {
-          "id": 2357,
-          "name": "张三"
-        },
-        {
-          "id": 8232,
-          "name": "李四"
-        }
+     
       ],
       "late": [
-        {
-          "id": 3412,
-          "name": "王五"
-        },
-        {
-          "id": 5234,
-          "name": "王七九"
-        }
+       
       ],
       "absent": [
-        {
-          "id": 34,
-          "name": "张六"
-        }
+       
       ]
     }
   },

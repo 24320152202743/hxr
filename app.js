@@ -79,15 +79,15 @@ App({
     })
   },
   globalData: {
-    IPPort: "http://localhost:8080",
-    // IPPort: "http://120.77.173.98:8111",
+    // IPPort: "http://localhost:8080",
+    IPPort: "http://120.77.173.98:8111",
     userid:"",
     usertype:"",
     username:"",
-    time_span_seminar:1000,
-    time_span_group:1000,
-    time_span_topic:1000,
-    time_span_call:1000,
-    time_span_end_call:1000,
+    time_span_seminar:3000,
+    time_span_group:2000,
+    time_span_topic:2000,
+    time_span_call:2000,
+    time_span_end_call:3000,
   }
 })

@@ -6,39 +6,10 @@ Page({
    */
   data: {
     info: {
-      "id": 3486,
-      "type": "student",
-      "name": "张三",
-      "number": "23320152202333",
-      "phone": "18911114514",
-      "email": "23320152202333@stu.xmu.edu.cn",
-      "gender": "male",
-      "school": {
-        "id": 32,
-        "name": "厦门大学"
-      },
-      "title": "",
-      "avatar": "../images/user.png"
+     
     },
     course: [
-      {
-        "id": 23,
-        "name": "周三1-2节",
-        "numStudent": 60,
-        "time": "周三1-2、周五1-2",
-        "site": "公寓405",
-        "courseName": "OOAD",
-        "courseTeacher": "邱明"
-      },
-      {
-        "id": 23,
-        "name": "周三1-2节",
-        "numStudent": 60,
-        "time": "周三1-2、周五1-2",
-        "site": "公寓405",
-        "courseName": "OOAD",
-        "courseTeacher": "邱明"
-      }
+     
     ]
   },
 
